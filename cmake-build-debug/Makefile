@@ -123,32 +123,32 @@ HomeWork/fast:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/build
 .PHONY : HomeWork/fast
 
-hexToInt_Show.o: hexToInt_Show.c.o
+ass2.o: ass2.c.o
 
-.PHONY : hexToInt_Show.o
+.PHONY : ass2.o
 
 # target to build an object file
-hexToInt_Show.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/hexToInt_Show.c.o
-.PHONY : hexToInt_Show.c.o
+ass2.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass2.c.o
+.PHONY : ass2.c.o
 
-hexToInt_Show.i: hexToInt_Show.c.i
+ass2.i: ass2.c.i
 
-.PHONY : hexToInt_Show.i
+.PHONY : ass2.i
 
 # target to preprocess a source file
-hexToInt_Show.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/hexToInt_Show.c.i
-.PHONY : hexToInt_Show.c.i
+ass2.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass2.c.i
+.PHONY : ass2.c.i
 
-hexToInt_Show.s: hexToInt_Show.c.s
+ass2.s: ass2.c.s
 
-.PHONY : hexToInt_Show.s
+.PHONY : ass2.s
 
 # target to generate assembly for a file
-hexToInt_Show.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/hexToInt_Show.c.s
-.PHONY : hexToInt_Show.c.s
+ass2.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass2.c.s
+.PHONY : ass2.c.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HomeWork"
 	@echo "... edit_cache"
-	@echo "... hexToInt_Show.o"
-	@echo "... hexToInt_Show.i"
-	@echo "... hexToInt_Show.s"
+	@echo "... ass2.o"
+	@echo "... ass2.i"
+	@echo "... ass2.s"
 .PHONY : help
 
 

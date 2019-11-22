@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/hexToInt_Show.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/hexToInt_Show.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/ass2.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass2.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

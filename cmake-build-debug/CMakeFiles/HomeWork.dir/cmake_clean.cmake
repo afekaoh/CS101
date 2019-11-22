@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/HomeWork.dir/hexToInt_Show.c.o"
+  "CMakeFiles/HomeWork.dir/ass2.c.o"
   "HomeWork.exe"
   "HomeWork.pdb"
   "libHomeWork.dll.a"

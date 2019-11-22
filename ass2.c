@@ -1,7 +1,7 @@
 /*************
  *Adam Shapira
  *316044809
- *010000
+ *01
  *ass02
  **************/
 #include <stdio.h>
@@ -46,11 +46,11 @@ void draw() {
     }
 }
 void isEvenLength() {
-    // the function gets a string from the user count the number of characters and print if its length is odd or even
+    // the function gets a sequence of characters from the user and print if the length is odd or even
     char evenCheck;
     printf("Enter text: ");
     scanf(" %c",&evenCheck);
-    int counter=1;
+    unsigned int counter=1;
     while(evenCheck!='\n')
     {
         scanf("%c",&evenCheck);
@@ -58,17 +58,14 @@ void isEvenLength() {
     }
     printf("Your text's length is ");
     // checking the oddity of the number with bitwise operator and
-    if(counter&1)
-        printf("even\n");
-        // the number can be even xor odd
-    else
-        printf("odd\n");
+    printf(counter & (unsigned)1 ? "even\n" : "odd\n");
 }
 void identifyText() {
-    // the function gets a string from the user and checking if the string is increasing decreasing mixed or stay constant
+    // the function gets a sequence of letters from the user and checking the relation between the letters.
 
     char firstLetter, secondLetter;
-    enum Boolean isIncrease=FALSE,isDecrease=FALSE,isMixed=FALSE,isValid=TRUE; // declaring some flags
+    //declaring flags to check the differents states of the sequence
+    enum Boolean isIncrease=FALSE,isDecrease=FALSE,isMixed=FALSE,isValid=TRUE;
     printf("Enter text: ");
     // getting the first letter
     scanf(" %c",&firstLetter);
@@ -88,7 +85,7 @@ void identifyText() {
                 isIncrease = TRUE;
             else if (!isMixed&&(secondLetter<firstLetter))
                 isDecrease = TRUE;
-            //if both of the increase and the decrease flags are on the string is mixed
+            //if both of the increase and the decrease flags are on the sequence is mixed
             if (isDecrease && isIncrease)
             {
                 isIncrease = FALSE;
@@ -126,12 +123,12 @@ void hexToDec() {
 
     //const to covert digit to number
     int const DIG_INT='0'-0;
-    //const to covert big latter to number in HEX base
+    //const to covert big letter to number in HEX base
     int const BIG_INT='A'-10;
-    //const to covert small latter to number in HEX base
+    //const to covert small letter to number in HEX base
     int const SML_INT='a'-10;
     enum Boolean toPrint=TRUE;
-    int toInt=1,answer=0,power=1;
+    int toInt,answer=0,power=1;
     char digit;
     printf("Enter a reversed number in base 16: ");
     scanf(" %c",&digit);
@@ -206,12 +203,12 @@ void bitCount() {
         if(numToTest&tester)
             countBit++;
         //shifting to test the next bit
-        tester=tester<<1;
+        tester=tester<<(unsigned)1;
     }
     printf("The bit count of %d is %d\n",numToTest,countBit);
 }
 
-void main() {
+int main() {
     int choice;
     do {
         printf("Choose an option:\n1: Draw\n2: Even or Odd\n3: Text type\n4: Hex to Dec\n5: Base to Dec\n6: Count bits\n0: Exit\n");
@@ -240,5 +237,5 @@ void main() {
                 printf("Wrong option!\n");
         }
     } while (choice != 0);
-
+    return 0;
 }
