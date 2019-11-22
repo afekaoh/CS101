@@ -50,7 +50,7 @@ void isEvenLength() {
     char evenCheck;
     printf("Enter text: ");
     scanf(" %c",&evenCheck);
-    unsigned int counter=1;
+    int counter=1;
     while(evenCheck!='\n')
     {
         scanf("%c",&evenCheck);
@@ -58,7 +58,11 @@ void isEvenLength() {
     }
     printf("Your text's length is ");
     // checking the oddity of the number with bitwise operator and
-    printf(counter & (unsigned)1 ? "even\n" : "odd\n");
+    if (counter & 1) {
+        printf("even\n");
+    } else {
+        printf("odd\n");
+    }
 }
 void identifyText() {
     // the function gets a sequence of letters from the user and checking the relation between the letters.
