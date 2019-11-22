@@ -57,27 +57,27 @@ include CMakeFiles/HomeWork.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/HomeWork.dir/flags.make
 
-CMakeFiles/HomeWork.dir/ass2.c.o: CMakeFiles/HomeWork.dir/flags.make
-CMakeFiles/HomeWork.dir/ass2.c.o: ../ass2.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/HomeWork.dir/ass2.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass2.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/ass2.c"
+CMakeFiles/HomeWork.dir/hexToInt_Show.c.o: CMakeFiles/HomeWork.dir/flags.make
+CMakeFiles/HomeWork.dir/hexToInt_Show.c.o: ../hexToInt_Show.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/HomeWork.dir/hexToInt_Show.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/hexToInt_Show.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/hexToInt_Show.c"
 
-CMakeFiles/HomeWork.dir/ass2.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass2.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/ass2.c" > CMakeFiles/HomeWork.dir/ass2.c.i
+CMakeFiles/HomeWork.dir/hexToInt_Show.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/hexToInt_Show.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/hexToInt_Show.c" > CMakeFiles/HomeWork.dir/hexToInt_Show.c.i
 
-CMakeFiles/HomeWork.dir/ass2.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass2.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/ass2.c" -o CMakeFiles/HomeWork.dir/ass2.c.s
+CMakeFiles/HomeWork.dir/hexToInt_Show.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/hexToInt_Show.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/hexToInt_Show.c" -o CMakeFiles/HomeWork.dir/hexToInt_Show.c.s
 
 # Object files for target HomeWork
 HomeWork_OBJECTS = \
-"CMakeFiles/HomeWork.dir/ass2.c.o"
+"CMakeFiles/HomeWork.dir/hexToInt_Show.c.o"
 
 # External object files for target HomeWork
 HomeWork_EXTERNAL_OBJECTS =
 
-HomeWork.exe: CMakeFiles/HomeWork.dir/ass2.c.o
+HomeWork.exe: CMakeFiles/HomeWork.dir/hexToInt_Show.c.o
 HomeWork.exe: CMakeFiles/HomeWork.dir/build.make
 HomeWork.exe: CMakeFiles/HomeWork.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS Project/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable HomeWork.exe"
