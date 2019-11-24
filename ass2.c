@@ -75,15 +75,16 @@ void identifyText() {
     scanf(" %c",&firstLetter);
     // getting the second letter
     scanf("%c",&secondLetter);
-    //if the user put only 1 valid letter
+    //if the user put only 1 character
     if(secondLetter=='\n')
     {
         printf((firstLetter >= 'a') && (firstLetter <= 'z') ? "your text is constant\n" : "your text is invalid\n");
+        //if second letter is enter then the buffer is empty and i can return to the main
         return;
     }
     while(secondLetter!='\n'){
         //checking the validity of the input
-        if(isValid&&((firstLetter>='a')&&(firstLetter<='z'))&&((secondLetter>='a')&&(secondLetter<='z')))
+        if(isValid&&((secondLetter>='a')&&(secondLetter<='z'))&&((firstLetter>='a')&&(firstLetter<='z')))
         {
             if (!isMixed&&(secondLetter > firstLetter))
                 isIncrease = TRUE;
@@ -106,9 +107,8 @@ void identifyText() {
         scanf("%c",&secondLetter);
 
     }
-
+    printf("your text is ");
     if (isValid) {
-        printf("your text is ");
         if (isIncrease)
             printf("increasing\n");
         else if (isDecrease)
@@ -120,7 +120,7 @@ void identifyText() {
             printf("constant\n");
     }
     else
-        printf("your text is invalid\n");
+        printf("invalid\n");
 }
 void hexToDec() {
     // the function gets a reversed number in base 16 and print its decimal value
