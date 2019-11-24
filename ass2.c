@@ -76,9 +76,9 @@ void identifyText() {
     // getting the second letter
     scanf("%c",&secondLetter);
     //if the user put only 1 valid letter
-    if((firstLetter>='a')&&(firstLetter<='z')&&secondLetter=='\n')
+    if(secondLetter=='\n')
     {
-        printf("your text is constant\n");
+        printf((firstLetter >= 'a') && (firstLetter <= 'z') ? "your text is constant\n" : "your text is invalid\n");
         return;
     }
     while(secondLetter!='\n'){
@@ -138,19 +138,19 @@ void hexToDec() {
     scanf(" %c",&digit);
     while(digit!='\n'){
         //converting the chars to ints
-            if(digit>='0'&&digit<='9')
-                toInt=digit-DIG_INT;
-            else if(digit>='a'&&digit<='f')
-                toInt=digit-SML_INT;
-            else if(digit>='A'&&digit<='F')
-                toInt=digit-BIG_INT;
-            else {
-                printf("Error! %c is not a valid digit in base 16\n",digit);
-                //is there is at least 1 not valid characters the whole number should not be printed
-                    toPrint=FALSE;
-                    scanf("%c",&digit);
-                    continue;
-                }
+        if(digit>='0'&&digit<='9')
+            toInt=digit-DIG_INT;
+        else if(digit>='a'&&digit<='f')
+            toInt=digit-SML_INT;
+        else if(digit>='A'&&digit<='F')
+            toInt=digit-BIG_INT;
+        else {
+            printf("Error! %c is not a valid digit in base 16\n",digit);
+            //is there is at least 1 not valid characters the whole number should not be printed
+            toPrint=FALSE;
+            scanf("%c",&digit);
+            continue;
+        }
 
         // calculating the correct value of the digit base on it's placement in the number
         toInt*=power;
