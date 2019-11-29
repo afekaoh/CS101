@@ -77,6 +77,12 @@
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass3.c">
 			<Option target="HomeWork"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass3.h">
+			<Option target="HomeWork"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/main.c">
+			<Option target="HomeWork"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
