@@ -139,7 +139,7 @@ void sort(int arr[], int size) {
 
 
 int isPermutation(int arr1[], int size1, int arr2[], int size2) {
-    int sortedArr1[size1], sortedArr2[size2],counter=0;
+    int sortedArr1[size1], sortedArr2[size2],isEqule=0;
     if(size1!=size2||size1==0||size2==0)
         return 0;
 
@@ -151,8 +151,8 @@ int isPermutation(int arr1[], int size1, int arr2[], int size2) {
    sort(sortedArr2, size2);
     for (int i = 0; i < size1; i++) {
     if(sortedArr1[i]==sortedArr2[i])
-        counter++;
+        isEqule++;
     }
-    counter = counter == size1 ? 1 : 0;
-return counter;
+    isEqule = isEqule == size1 ? 1 : 0;
+return isEqule;
 }
