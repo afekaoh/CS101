@@ -123,32 +123,32 @@ HomeWork/fast:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/build
 .PHONY : HomeWork/fast
 
-ass2.o: ass2.c.o
+ass3.o: ass3.c.o
 
-.PHONY : ass2.o
+.PHONY : ass3.o
 
 # target to build an object file
-ass2.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass2.c.o
-.PHONY : ass2.c.o
+ass3.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass3.c.o
+.PHONY : ass3.c.o
 
-ass2.i: ass2.c.i
+ass3.i: ass3.c.i
 
-.PHONY : ass2.i
+.PHONY : ass3.i
 
 # target to preprocess a source file
-ass2.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass2.c.i
-.PHONY : ass2.c.i
+ass3.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass3.c.i
+.PHONY : ass3.c.i
 
-ass2.s: ass2.c.s
+ass3.s: ass3.c.s
 
-.PHONY : ass2.s
+.PHONY : ass3.s
 
 # target to generate assembly for a file
-ass2.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass2.c.s
-.PHONY : ass2.c.s
+ass3.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass3.c.s
+.PHONY : ass3.c.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HomeWork"
 	@echo "... edit_cache"
-	@echo "... ass2.o"
-	@echo "... ass2.i"
-	@echo "... ass2.s"
+	@echo "... ass3.o"
+	@echo "... ass3.i"
+	@echo "... ass3.s"
 .PHONY : help
 
 

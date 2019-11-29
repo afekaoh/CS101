@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 int main(){
 char a='a',b='b';
@@ -10,6 +11,7 @@ hexA=a-a-10;
 hexB=b-hexToInt;
 printf("the diff between 'a' to a is: %d\n",hexToInt);
 printf("the value of a in hex is: %d and the value of b is: %d\n",a-(a-10),b-(a-10));
+printf("%f",infinity());
 
     return 0;
 }
