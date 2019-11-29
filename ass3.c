@@ -26,12 +26,12 @@ double iterPow(double base, int power) {
     //edge cases
     if (power == 0)
         return 1;
-    //x^1==x and 0^x=0 (x>0)
-    if (power == 1 || base == 0)
-        return base;
     // 0^-y y>0 is infinity
     if (power < 0 && base == 0)
         return inf;
+    //x^1==x and 0^x=0 (x>0)
+    if (power == 1 || base == 0)
+        return base;
     if (power < 0) {
         power = power * -1;
         isNeg = 1;
@@ -96,7 +96,7 @@ double recEffiPow(double base, int power) {
         return 1;
     if (power < 0 && base == 0)
         return inf;
-    if (power == 1)
+    if (power == 1 || base == 0)
         return base;
     if (power < 0) {
         power *= -1;
