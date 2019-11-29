@@ -1,4 +1,4 @@
-#define MAX 5
+#define MAX 10
 double recEffiPow(double, int);
 double recPow(double, int);
 double iterPow(double, int);

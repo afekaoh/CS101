@@ -84,14 +84,42 @@ double recEffiPow(double base,int power){
 }
 
 
-int isPermutation(int arr1[], int size1, int arr2[], int size2){
+//int isPermutation(int arr1[], int size1, int arr2[], int size2){
+//
+//
+//
+//
+//}
+int maxRow(int arr[], int size) {
+    int max=0;
+    for (int j = 0; j <size ; ++j) {
+        max = max > arr[j] ? max : arr[j];
+    }
 
+    return max;
+}
+void printRow(int arr[], int size,int max) {
 
-
+    //the log will return number of digit -1
+    int setSize=(int)log10(max)+1;
+    for (int i = 0; i <size ; ++i) {
+        printf("%0*d",setSize,arr[i]);
+        if(i!=size-1)
+            printf(", ");
+    }
 
 }
-void printArr2D(int arr[][MAX], int, int){
 
+void printArr2D(int arr[][MAX], int row, int column){
+   int maxInRow[row],max=0;
+    for (int i = 0; i <row ; ++i) {
+        maxInRow[i]= maxRow(arr[i],column);
+    }
+   max=maxRow(maxInRow,row);
 
+    for (int i = 0; i < row ; ++i) {
+        printRow(arr[i],column,max);
+        printf("\n");
+    }
 
 }
