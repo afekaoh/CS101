@@ -36,7 +36,7 @@ double recPow(double base, int power){
     static int countRec=1;
     const double ONE=1;
     int isNeg=0;
-    double result=1;
+    double result;
     if(power==0)
         return 1;
     if(power==1||base==0)
@@ -57,25 +57,25 @@ double recPow(double base, int power){
 
 }
 
-double recEffiPow(double base,int power){
-    static int countRec=1;
-    const double ONE=1;
-    int isNeg=0;
-    double result=1;
-    if(power==0)
-        return 1;
-    if(power==1||base==0)
-        return base;
-    if(power<0&&base==0)
-        return infinity();
-    if (power<0){
-        power*=-1;
-        isNeg=1;
-    }
-    countRec++;
-    
-
-}
+//double recEffiPow(double base,int power){
+//    static int countRec=1;
+//    const double ONE=1;
+//    int isNeg=0;
+//    double result=1;
+//    if(power==0)
+//        return 1;
+//    if(power==1||base==0)
+//        return base;
+//    if(power<0&&base==0)
+//        return infinity();
+//    if (power<0){
+//        power*=-1;
+//        isNeg=1;
+//    }
+//    countRec++;
+//
+//
+//}
 int main(){
     int y;
     double x,result;
