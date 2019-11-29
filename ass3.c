@@ -1,7 +1,10 @@
+/**********
+todo:
+ coding style
+
+********/
 #include <math.h>
 #include <stdio.h>
-#include "ass3.h"
-
 int counter;
 
 double iterPow(double base, int power) {
@@ -15,7 +18,7 @@ double iterPow(double base, int power) {
     if (power == 1)
         return base;
     if(power<0&&base==0)
-        return (double)1/0;
+        return (double)1/0.0;
     //x to the power of negative number y is 1/(x^-y)
     if (power < 0) {
         power = power * -1;
@@ -38,7 +41,7 @@ double recPow(double base, int power) {
     if (power == 0)
         return 1;
    if((power<0) && (base==0))
-       return (double)1/0;
+       return (double)1/0.0;
     if (power == 1)
         return base;
 
@@ -58,11 +61,11 @@ double recEffiPow(double base, int power) {
     const double ONE = 1;
     int isNeg = 0;
     double isOdd = 0;
-    double result = 1;
+    double result;
     if (power == 0)
         return 1;
     if(power<0&&base==0)
-        return (double)1/0;
+        return (double)1/0.0;
     if (power == 1)
         return base;
     if (power < 0) {
@@ -139,7 +142,7 @@ void sort(int arr[], int size) {
 
 
 int isPermutation(int arr1[], int size1, int arr2[], int size2) {
-    int sortedArr1[size1], sortedArr2[size2],isEqule=0;
+    int sortedArr1[size1], sortedArr2[size2],isEqual=0;
     if(size1!=size2||size1==0||size2==0)
         return 0;
 
@@ -151,8 +154,8 @@ int isPermutation(int arr1[], int size1, int arr2[], int size2) {
    sort(sortedArr2, size2);
     for (int i = 0; i < size1; i++) {
     if(sortedArr1[i]==sortedArr2[i])
-        isEqule++;
+        isEqual++;
     }
-    isEqule = isEqule == size1 ? 1 : 0;
-return isEqule;
+    isEqual = isEqual == size1 ? 1 : 0;
+return isEqual;
 }
