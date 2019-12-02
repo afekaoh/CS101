@@ -18,8 +18,6 @@ double iterPow(double base, int power) {
 	* Function Operation: the function gets a base and an exponent and return the value
 	*                     of the base to the power of power in an iterative way
 	*******************************************************************************/
-	//constant that equals to infinity by the definition of IEEE
-	const double INF = 1.00 / 0.00;
 	//is negative to know when the power is negative
 	int isNeg = 0;
 	double result = 1.00;
@@ -28,7 +26,8 @@ double iterPow(double base, int power) {
 		return 1;
 	// 0^-y y>0 is infinity
 	if (power < 0 && base == 0)
-		return INF;
+		// power<0 then x^y is 1/x^-y which is 1/(0^y)
+	    return 1.00/base;
 	//x^1==x and 0^x=0 (x>0)
 	if (power == 1 || base == 0)
 		return base;
@@ -57,13 +56,12 @@ double recPow(double base, int power) {
 	*                     of x^y=x*x^(y-1)
 	*******************************************************************************/
 	counter++;
-	const double INF = 1.00 / 0.00;
 	int isNeg = 0;
 	double result;
 	if (power == 0)
 		return 1;
-	if ((power < 0) && (base == 0))
-		return INF;
+    if (power < 0 && base == 0)
+        return 1.00/base;
 	if (power == 1 || base == 0)
 		return base;
 
@@ -88,14 +86,14 @@ double recEffiPow(double base, int power) {
 	*                     of the base to the power of power in an efficient recursive way
 	*                     of x^y=x^(y/2)*x^(y/2)
 	*******************************************************************************/
-	const double INF = 1.00 / 0.00;
+    counter++;
 	int isNeg = 0;
 	double isOdd = 0;
 	double result;
 	if (power == 0)
 		return 1;
-	if (power < 0 && base == 0)
-		return INF;
+    if (power < 0 && base == 0)
+        return 1.00/base;
 	if (power == 1 || base == 0)
 		return base;
 	if (power < 0) {
@@ -109,7 +107,6 @@ double recEffiPow(double base, int power) {
 		power--;
 	} else
 		isOdd = 1;
-	counter++;
 	//computing x^(y/2)
 	result = recEffiPow(base, power / 2);
 	if (isNeg)
