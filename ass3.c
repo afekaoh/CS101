@@ -6,7 +6,7 @@
 ********************/
 #include <math.h>
 #include <stdio.h>
-
+#include "ass3.h"
 int counter;
 
 double iterPow(double base, int power) {
@@ -147,8 +147,13 @@ void printRow(int arr[], int size, int max) {
 	*                     in an evenly distributed way by adding a zeros to make all the
 	*                     numbers the same size by the factor of max
 	*******************************************************************************/
-	//the log will return number of digit -1
-	int setSize = (int) log10(max) + 1;
+
+	//there is no number with 0 digits
+	int setSize=1;
+	//edge case of matrix full only with 0's
+	if(max!=0)
+        //the log will return number of digit -1
+        setSize= (int) log10(max) + 1;
 	for (int i = 0; i < size; ++i) {
 		printf("%0*d", setSize, arr[i]);
 		//adding a space after every number but the last element
