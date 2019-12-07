@@ -3,4 +3,4 @@ project(HomeWork C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(HomeWork main.c ass3.c)
+add_executable(HomeWork ass3.c main.c)
