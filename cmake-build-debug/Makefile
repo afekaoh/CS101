@@ -123,59 +123,32 @@ HomeWork/fast:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/build
 .PHONY : HomeWork/fast
 
-ass3.o: ass3.c.o
+ass4.o: ass4.c.o
 
-.PHONY : ass3.o
-
-# target to build an object file
-ass3.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass3.c.o
-.PHONY : ass3.c.o
-
-ass3.i: ass3.c.i
-
-.PHONY : ass3.i
-
-# target to preprocess a source file
-ass3.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass3.c.i
-.PHONY : ass3.c.i
-
-ass3.s: ass3.c.s
-
-.PHONY : ass3.s
-
-# target to generate assembly for a file
-ass3.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass3.c.s
-.PHONY : ass3.c.s
-
-main.o: main.c.o
-
-.PHONY : main.o
+.PHONY : ass4.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/main.c.o
-.PHONY : main.c.o
+ass4.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4.c.o
+.PHONY : ass4.c.o
 
-main.i: main.c.i
+ass4.i: ass4.c.i
 
-.PHONY : main.i
+.PHONY : ass4.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/main.c.i
-.PHONY : main.c.i
+ass4.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4.c.i
+.PHONY : ass4.c.i
 
-main.s: main.c.s
+ass4.s: ass4.c.s
 
-.PHONY : main.s
+.PHONY : ass4.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/main.c.s
-.PHONY : main.c.s
+ass4.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4.c.s
+.PHONY : ass4.c.s
 
 # Help Target
 help:
@@ -186,12 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HomeWork"
 	@echo "... edit_cache"
-	@echo "... ass3.o"
-	@echo "... ass3.i"
-	@echo "... ass3.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... ass4.o"
+	@echo "... ass4.i"
+	@echo "... ass4.s"
 .PHONY : help
 
 
