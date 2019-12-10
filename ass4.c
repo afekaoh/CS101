@@ -1,56 +1,101 @@
 #include <string.h>
 #include <stdio.h>
-
-
-#define SIZE 8
-
-
-
-void printBorad(char *arr[SIZE],int rows){
-    for (int i = 0; i < rows; ++i) {
-        int len=(int)strlen(arr[i]);
-        printf("%s",arr[i]);
-//        for (int j = 0; j <len ; ++j) {
-//            printf("|%c|",arr[i][j]);
-//        }
-//        printf("\n");
-        }
-    }
-
-
+#include "ass4.h"
+#include <ctype.h>
 typedef struct {
-    char srcPiece;
-    char srcRow;
-    char srcCol;
-    int srcI;
-    int srcJ;
-    char destPiece;
-    char destRow;
-    char destCol;
-    int destI;
-    int destJ;
-}Move;
+    // some constants that i
+    char FIRST_COL;
+    char space;
+    char delim[];
 
-void creatBorad( char *fem, const char *delim,char *borad[SIZE]) {
-    int i = 0;
-    char *p = strtok (fem, delim);
-    char *arr[SIZE];
-    while (p != NULL)
-    {
-        arr[i++] = p;
-        p = strtok (NULL, "/");
-    }
-    for (i = 0; i <SIZE ;i++) {
-        sprintf(borad[i],"%s", arr[i]);
-    }
+}MakeBoard;
+ MakeBoard const consts={'A', ' ', "/"};
+
+int toDigit(char piece) {
+    if ('0' < piece && piece < '9')
+        return piece - '0';
+    return 0;
 }
 
-int main() {
-    char fem[] ="hello/world/Hi/there/a/a/a/a/a";
-    char delim[]="/";
-    char *borad[SIZE];
-    creatBorad(fem, delim,borad);
-
-printBorad(borad,SIZE);
-    return 0;
+void rowBoard(char boardRow[], char tempRow[]) {
+int i=0;
+    while(*tempRow){
+    int spaces=0;
+    if(toDigit(*tempRow)) {
+        spaces = toDigit(*tempRow);
+        while (spaces) {
+            boardRow[i++] = consts.space;
+            spaces--;
+        }
     }
+    else
+        boardRow[i]=*tempRow;
+    i++;
+    tempRow++;
+}
+    boardRow[i]='\0';
+}
+
+void createBoard(char board[][SIZE], char fen[]) {
+    int i = 0;
+
+    char tempBorad[SIZE][SIZE] = {};
+    printf("%s\n", fen);
+    int spaces = 0;
+    char *fenRow = strtok(fen, consts.delim);
+    while (fenRow != NULL) {
+        strcpy(tempBorad[i++],fenRow);
+        fenRow = strtok(NULL, consts.delim);
+    }
+   for(i=0;i<SIZE;i++){
+       rowBoard(board[i],tempBorad[i]);
+   }
+}
+
+void printColumns() {
+    char column;
+    column = consts.FIRST_COL;
+    printf("* |");
+    for (int i = 0; i < SIZE; i++) {
+        if (i) {
+            printf("%c",consts.space);
+        }
+        printf("%c", column);
+        column++;
+    }
+    printf("| *\n");
+}
+
+void printSpacers() {
+    printf("* -");
+    for (int i = 0; i < SIZE; i++) {
+        printf("--");
+    }
+    printf(" *\n");
+}
+
+void printRow(char row[], int rowIdx) {
+    printf("%d ", rowIdx);
+    for (int i=0;i<SIZE;i++) {
+        {
+            printf("|%c", row[i]);
+        }
+    }
+    printf("| %d\n", rowIdx);
+}
+
+void printBoard(char board[][SIZE]) {
+    printColumns();
+    printSpacers();
+
+        for (int i = 0; i <SIZE; ++i) {
+                printRow(board[i],i+1);
+            }
+    printColumns();
+    printSpacers();
+}
+
+void makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
+
+
+}

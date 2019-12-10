@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/HomeWork.dir/ass4.c.o"
+  "CMakeFiles/HomeWork.dir/main.c.o"
   "HomeWork.exe"
   "HomeWork.pdb"
   "libHomeWork.dll.a"
