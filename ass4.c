@@ -23,7 +23,7 @@ enum consts {
 };
 typedef struct {
 	char srcPiece, srcRow, srcCol, destPiece, destRow, destCol, toPromote;
-	int iSrc, jSrc, iDest, jDest, captureLoc;
+	int iSrc, jSrc, iDest, jDest;
 	int isWhite, isCapture, isPromotion, isCheck, isMate, isLegal;
 } Move;
 
@@ -118,6 +118,12 @@ void printBoard(char board[][SIZE]) {
 	printSpacers();
 	printColumns();
 }
+char pieceColor(char piece, int isWhite) {
+	if (isWhite)
+		return piece;
+	else
+		return tolower(piece);
+}
 
 void parseFlags(Move *move, char *index) {
 	int counter = 0;
@@ -130,25 +136,18 @@ void parseFlags(Move *move, char *index) {
 			move->isCheck = counter;
 		if (*index == PROMOTION) {
 			move->isPromotion = counter;
-			move->toPromote = *(index + 1);
+			move->toPromote = pieceColor(*(index + 1),move->isWhite);
 		}
 		index++;
 		counter++;
 	}
 }
 
-char pieceColor(char piece, int isWhite) {
-	if (isWhite)
-		return piece;
+int toIndex(char position) {
+	if (isdigit(position))
+		return toDigit(position) - 1;
 	else
-		return tolower(piece);
-}
-
-int toIndex(char location, int isWhite) {
-	if (isdigit(location))
-		return toDigit(location) - 1;
-	else
-		return (int) fmax(location - 'a', 0);
+		return (int) fmax(position - 'a', 0);
 
 }
 
@@ -174,11 +173,12 @@ void parseMove(char pgn[], int isWhiteTurn, Move *move) {
 		if (move->isCapture)
 			lastPos--;
 		if (islower(*lastPos))
-				move->srcCol = *lastPos;
-		} else {
+			move->srcCol = *lastPos;
+		else if(isdigit(*lastPos)){
 			move->srcRow = *(lastPos--);    //taking the pointer one step back
 			if (islower(*lastPos))
 				move->srcCol = *lastPos;
+		}
 	}
 	else {
 		//the pgn is of the form [col][x](col)(row)
@@ -187,15 +187,20 @@ void parseMove(char pgn[], int isWhiteTurn, Move *move) {
 			//the pgn is of the form (col)(x)(col)(row)
 			move->srcCol = pgn[0];
 	}
-	move->iSrc = toIndex(move->srcRow, isWhiteTurn);
-	move->jSrc = toIndex(move->srcCol, isWhiteTurn);
-	move->iDest = toIndex(move->destRow, isWhiteTurn);
-	move->jDest = toIndex(move->destCol, isWhiteTurn);
+	move->iSrc = toIndex(move->srcRow);
+	move->jSrc = toIndex(move->srcCol);
+	move->iDest = toIndex(move->destRow);
+	move->jDest = toIndex(move->destCol);
 }
+
+void updateMove(char board[][SIZE], Move *move, int isWhite) {
+
+}
+
 void makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
 	Move move = {};
 	parseMove(pgn, isWhiteTurn, &move);
-
+	updateMove(board,&move,isWhiteTurn);
 	printMove(&move);
 //	printf("%s, %d\n", pgn, isWhiteTurn);
 
