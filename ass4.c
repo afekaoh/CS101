@@ -194,15 +194,9 @@ void parseMove(char pgn[], Move *move) {
 }
 
 void updateMove(char board[][SIZE], Move *move) {
-char **destPos=&(board[move->iDest][move->jDest]);
 
-destPos[0][0];
-	if (!move->jSrc || !move->iSrc) {
-
-
-
-	}
-	else {
+	if (!move->jSrc || !move->iSrc)
+	 {
 		// we don't have both the row and the column
 
 		if (move->iSrc) {
