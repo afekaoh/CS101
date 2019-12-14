@@ -13,14 +13,10 @@ enum consts {
 	PROMOTION = '=',
 	CAPTURE = 'x',
 	PAWN = 'P'
-/*
- * some definition
- * L = big letter
- * l = small letter
- * n = number
- *
- */
 };
+
+char const delim[] = "/";
+
 typedef struct {
 	char srcPiece, srcRow, srcCol, destPiece, destRow, destCol, toPromote;
 	int iSrc, jSrc, iDest, jDest;
@@ -29,12 +25,12 @@ typedef struct {
 
 
 void printMove(Move *move) {
-	printf("src: %c, %c:%d, %c:%d; ", move->srcPiece, move->srcCol, move->jSrc, move->srcRow, move->iSrc);
-	printf("dest: %c, %c:%d, %c:%d;", move->destPiece, move->destCol, move->jDest, move->destRow, move->iDest);
+	printf("src: '%c', %c:%d, %c:%d; ", move->srcPiece, move->srcCol, move->jSrc, move->srcRow, move->iSrc);
+	printf("dest: '%c', %c:%d, %c:%d;", move->destPiece, move->destCol, move->jDest, move->destRow, move->iDest);
 	if (move->isCapture)
 		printf(" %c", CAPTURE);
 	if (move->isPromotion) {
-		printf(" %c%c", PROMOTION, move->toPromote);
+		printf(" %c", move->toPromote);
 	}
 	if (move->isMate)
 		printf(" %c;", MATE);
@@ -50,28 +46,27 @@ int toDigit(char piece) {
 }
 
 void creatRow(char boardRow[], char *tempRow) {
-	int i = 0;
+	int j = 0;
 	while (*tempRow) {
 		int spaces = 0;
-		if (toDigit(*tempRow)) {
+		if (isdigit(*tempRow)) {
 			spaces = toDigit(*tempRow);
 			while (spaces) {
-				boardRow[i++] = EMPTY;
+				boardRow[j++] = EMPTY;
 				spaces--;
 			}
 		} else
-			boardRow[i++] = *tempRow;
+			boardRow[j++] = *tempRow;
 		tempRow++;
 	}
-	boardRow[i] = '\0';
 }
 
 void createBoard(char board[][SIZE], char fen[]) {
 	int i = 0;
-	char *fenRow = strtok(fen, "/");
+	char *fenRow = strtok(fen, delim);
 	while (fenRow != NULL) {
 		creatRow(board[i++], fenRow);
-		fenRow = strtok(NULL, "/");
+		fenRow = strtok(NULL, delim);
 	}
 
 }
@@ -113,11 +108,12 @@ void printBoard(char board[][SIZE]) {
 	printSpacers();
 
 	for (int i = 0; i < SIZE; ++i) {
-		printRow(board[i], i + 1);
+		printRow(board[i], SIZE - i);
 	}
 	printSpacers();
 	printColumns();
 }
+
 char pieceColor(char piece, int isWhite) {
 	if (isWhite)
 		return piece;
@@ -136,7 +132,7 @@ void parseFlags(Move *move, char *index) {
 			move->isCheck = counter;
 		if (*index == PROMOTION) {
 			move->isPromotion = counter;
-			move->toPromote = pieceColor(*(index + 1),move->isWhite);
+			move->toPromote = pieceColor(*(index + 1), move->isWhite);
 		}
 		index++;
 		counter++;
@@ -145,13 +141,13 @@ void parseFlags(Move *move, char *index) {
 
 int toIndex(char position) {
 	if (isdigit(position))
-		return toDigit(position) - 1;
+		return SIZE - toDigit(position);
 	else
 		return (int) fmax(position - 'a', 0);
 
 }
 
-char* setDest(Move *move, char *index) {
+char *setDest(Move *move, char *index) {
 	while (!isdigit(*index))
 		index--;
 	index--;
@@ -160,29 +156,33 @@ char* setDest(Move *move, char *index) {
 	return --index;     //returning the position of the previous element
 }
 
-void parseMove(char pgn[], int isWhiteTurn, Move *move) {
-	move->isWhite = isWhiteTurn;
+void parseMove(char pgn[], Move *move) {
 	int len = (int) strlen(pgn);
+	//setting a pointer to the last position of the array
 	char *lastPos = &(pgn[len - 1]);
 
 	lastPos = setDest(move, lastPos);
 	parseFlags(move, pgn);
 
+	/*
+	 * after parseFlags and setDest we only need to check the first optional part of the pgn
+	 * of the form [Piece][col][row]
+	 */
 	if (isupper(pgn[0])) {
-		move->srcPiece = pieceColor(pgn[0], isWhiteTurn);
+		//the pgn is of the form (Piece)[col][row]
+		move->srcPiece = pieceColor(pgn[0], move->isWhite);
 		if (move->isCapture)
 			lastPos--;
 		if (islower(*lastPos))
 			move->srcCol = *lastPos;
-		else if(isdigit(*lastPos)){
+		else if (isdigit(*lastPos)) {
 			move->srcRow = *(lastPos--);    //taking the pointer one step back
 			if (islower(*lastPos))
 				move->srcCol = *lastPos;
 		}
-	}
-	else {
-		//the pgn is of the form [col][x](col)(row)
-		move->srcPiece = pieceColor(PAWN, isWhiteTurn);
+	} else {
+		//the piece is a pawn
+		move->srcPiece = pieceColor(PAWN, move->isWhite);
 		if (move->isCapture)
 			//the pgn is of the form (col)(x)(col)(row)
 			move->srcCol = pgn[0];
@@ -193,14 +193,40 @@ void parseMove(char pgn[], int isWhiteTurn, Move *move) {
 	move->jDest = toIndex(move->destCol);
 }
 
-void updateMove(char board[][SIZE], Move *move, int isWhite) {
+void updateMove(char board[][SIZE], Move *move) {
+char **destPos=&(board[move->iDest][move->jDest]);
 
+destPos[0][0];
+	if (!move->jSrc || !move->iSrc) {
+
+
+
+	}
+	else {
+		// we don't have both the row and the column
+
+		if (move->iSrc) {
+			// we have the row
+
+			//printf("row:%c\n",move->srcRow);
+		} else if (move->jSrc) {
+			//we have the column
+//			printf("col:%c\n",move->srcCol);
+
+		} else {
+			// we have
+//			printf("all\n");
+		}
+
+	}
+	move->destPiece = board[move->iDest][move->jDest];
 }
 
 void makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
 	Move move = {};
-	parseMove(pgn, isWhiteTurn, &move);
-	updateMove(board,&move,isWhiteTurn);
+	move.isWhite = isWhiteTurn;
+	parseMove(pgn, &move);
+	updateMove(board, &move);
 	printMove(&move);
 //	printf("%s, %d\n", pgn, isWhiteTurn);
 
