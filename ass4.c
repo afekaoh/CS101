@@ -2,19 +2,26 @@
 #include <stdio.h>
 #include "ass4.h"
 #include <ctype.h>
-#include <assert.h>
 #include <math.h>
 
-enum consts {
-	FIRST_COL = 'A',
-	EMPTY = ' ',
-	MATE = '#',
-	CHECK = '+',
-	PROMOTION = '=',
-	CAPTURE = 'x',
-	PAWN = 'P'
-};
-
+const char EMPTY = ' ';
+const char CAPTURE = 'x';
+const char PROMOTION = '=';
+const char CHECK = '+';
+const char MATE = '#';
+const char FIRST_COL = 'A';
+const char WHITE_PAWN = 'P';
+const char WHITE_ROOK = 'R';
+const char WHITE_KNIGHT = 'N';
+const char WHITE_BISHOP = 'B';
+const char WHITE_QUEEN = 'Q';
+const char WHITE_KING = 'K';
+const char BLACK_PAWN = 'p';
+const char BLACK_ROOK = 'r';
+const char BLACK_KNIGHT = 'n';
+const char BLACK_BISHOP = 'b';
+const char BLACK_QUEEN = 'q';
+const char BLACK_KING = 'k';
 char const delim[] = "/";
 
 typedef struct {
@@ -182,7 +189,7 @@ void parseMove(char pgn[], Move *move) {
 		}
 	} else {
 		//the piece is a pawn
-		move->srcPiece = pieceColor(PAWN, move->isWhite);
+		move->srcPiece = pieceColor(WHITE_PAWN, move->isWhite);
 		if (move->isCapture)
 			//the pgn is of the form (col)(x)(col)(row)
 			move->srcCol = pgn[0];
@@ -193,35 +200,67 @@ void parseMove(char pgn[], Move *move) {
 	move->jDest = toIndex(move->destCol);
 }
 
-void updateMove(char board[][SIZE], Move *move) {
 
-	if (!move->jSrc || !move->iSrc)
-	 {
-		// we don't have both the row and the column
-
-		if (move->iSrc) {
-			// we have the row
-
-			//printf("row:%c\n",move->srcRow);
-		} else if (move->jSrc) {
-			//we have the column
-//			printf("col:%c\n",move->srcCol);
-
+char *findPieceLoc(char board[][SIZE], Move *move, char toLook) {
+	char *pos = NULL;
+	int i = move->iDest;
+	int j = move->jDest;
+	char piece = move->srcPiece;
+	if (islower(piece) == islower(board[i][j]))
+		return NULL;
+	if (toLook) {
+		if (isdigit(toLook)) {
+			//we have the row
 		} else {
-			// we have
-//			printf("all\n");
+			//we have the column
 		}
-
+	} else {
+		//we have neither
+		if (move->isWhite) {
+			if (piece == WHITE_PAWN) {
+				if (move->isCapture) {
+					if (board[i - 1][j - 1] == piece)
+						return &board[i - 1][j - 1];
+					if (board[i - 1][j + 1] == piece)
+						return &board[i - 1][j + 1];
+					return NULL;
+				}
+				else{
+					if(board[i-1][j]==piece)
+						return &board[i-1][j];
+					if(i==4)
+						if(board[i-2][j]==piece)
+							return &board[i-2][j];
+					return NULL;
+				}
+			}
+		}
 	}
-	move->destPiece = board[move->iDest][move->jDest];
+	return pos;
+
 }
 
-void makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
+void updateMove(char board[][SIZE], Move *move) {
+	move->destPiece = board[move->iDest][move->jDest];
+	char toLook = 0;
+	if (!move->srcRow || !move->srcCol) {
+		if (move->srcRow)
+			toLook = move->srcRow;
+
+		else if (move->srcRow)
+			toLook = move->srcCol;
+
+		char *pos = findPieceLoc(board, move, toLook);
+	}
+}
+
+
+int makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
 	Move move = {};
 	move.isWhite = isWhiteTurn;
 	parseMove(pgn, &move);
 	updateMove(board, &move);
 	printMove(&move);
 //	printf("%s, %d\n", pgn, isWhiteTurn);
-
+	return 0;
 }

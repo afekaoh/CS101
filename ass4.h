@@ -3,7 +3,7 @@
 #define SIZE 8
 void createBoard(char board[][SIZE], char fen[]);
 void printBoard(char board[][SIZE]);
-void makeMove(char board[][SIZE], char pgn[], int isWhiteTurn);
+int makeMove(char board[][SIZE], char pgn[], int isWhiteTurn);
 void printBoardFromFEN(char fen[]);
 
 #endif
