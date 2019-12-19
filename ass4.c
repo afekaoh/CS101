@@ -241,13 +241,13 @@ int setMove(Move *move, int i, int j) {
 	return 1;
 }
 
-int checkOtherCheck(Move const *move, int iOther, int jOther, Move *checkKing, char tempBoard[][]) {
+int checkOtherCheck(Move const *move, int iOther, int jOther, Move *checkKing, char tempBoard[][SIZE]) {
 	(*checkKing).isDestWhite = !move->isSrcWhite;
 	(*checkKing).iDest = iOther;
 	(*checkKing).jDest = jOther;
-	if (!(findPiece(tempBoard, checkKing, 1) && (move->isMate || move->isCheck)))
-		return 0;
-	return 1;
+	if (findPiece(tempBoard, checkKing, 1) && (move->isMate || move->isCheck))
+		return 1;
+	return 0;
 }
 
 int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
@@ -279,8 +279,8 @@ int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	if (findPiece(tempBoard, &checkKing, 1))
 		return 0;
 
-	if (checkOtherCheck(move, iOther, jOther, &checkKing, tempBoard))
-		return 0;
+//	if (!checkOtherCheck(move, iOther, jOther, &checkKing, tempBoard))
+//		return 0;
 
 	return setMove(move, i, j);
 }
@@ -525,7 +525,7 @@ int findPiece(char board[][SIZE], Move *move, int flag) {
 	if (isBishop(piece))
 		return findBishop(board, move, flag) && move->isDestWhite != checkColor(piece);
 	if (isQueen(piece))
-		return findQueen(board, move, flag) && move->isDestWhite != checkColor(piece);
+		return  findQueen(board, move, flag) && move->isDestWhite != checkColor(piece);
 	if (isKing(piece))
 		return findKing(board, move, flag) && move->isDestWhite != checkColor(piece);
 	if (isKnight(piece))
