@@ -3,6 +3,8 @@
 #include "ass4.h"
 #include <ctype.h>
 #include <math.h>
+#include <assert.h>
+#include <stdlib.h>
 
 const char EMPTY = ' ';
 const char CAPTURE = 'x';
@@ -31,26 +33,16 @@ typedef struct {
 	int isSrcWhite, isDestWhite, isCapture, isPromotion, isCheck, isMate, isLegal;
 } Move;
 
+int findKnight(char[][SIZE], Move *, int);
 
-void printMove(Move *move) {
-	printf("src: '%c', %c:%d, %c:%d; ", move->srcPiece, move->srcCol, move->jSrc, move->srcRow, move->iSrc);
-	printf("dest: '%c', %c:%d, %c:%d;", move->destPiece, move->destCol, move->jDest, move->destRow, move->iDest);
-	if (move->isCapture)
-		printf(" %c", CAPTURE);
-	if (move->isPromotion) {
-		printf(" %c", move->toPromote);
-	}
-	if (move->isMate)
-		printf(" %c;", MATE);
-	else if (move->isCheck)
-		printf(" %c;", CHECK);
-	printf("\n");
-}
+void makeStep(char [][SIZE], Move *);
+
+int findPiece(char board[][SIZE], Move *move, int flag);
+
 
 int toDigit(char piece) {
-	if ('0' < piece && piece <= '9')
-		return piece - '0';
-	return 0;
+	assert('0' <= piece && piece <= '9');
+	return piece - '0';
 }
 
 void creatRow(char boardRow[], char *tempRow) {
@@ -122,7 +114,7 @@ void printBoard(char board[][SIZE]) {
 	printColumns();
 }
 
-char pieceColor(char piece, int isWhite) {
+char setColor(char piece, int isWhite) {
 	if (isWhite)
 		return piece;
 	else
@@ -130,20 +122,18 @@ char pieceColor(char piece, int isWhite) {
 }
 
 void parseFlags(Move *move, char *index) {
-	int counter = 0;
 	while (*index) {
 		if (*index == CAPTURE)
-			move->isCapture = counter;
+			move->isCapture = 1;
 		if (*index == MATE)
-			move->isMate = counter;
+			move->isMate = 1;
 		if (*index == CHECK)
-			move->isCheck = counter;
+			move->isCheck = 1;
 		if (*index == PROMOTION) {
-			move->isPromotion = counter;
-			move->toPromote = pieceColor(*(index + 1), move->isSrcWhite);
+			move->isPromotion = 1;
+			move->toPromote = setColor(*(index + 1), move->isSrcWhite);
 		}
 		index++;
-		counter++;
 	}
 }
 
@@ -161,10 +151,6 @@ char *setDest(Move *move, char *index) {
 }
 
 int parseMove(char pgn[], Move *move) {
-	if (strcasecmp(pgn, "aaa") == 0)
-		return 2;
-	if (strcasecmp(pgn, "bbb") == 0)
-		return 3;
 	int len = (int) strlen(pgn);
 	//setting a pointer to the last position of the array
 	char *lastPos = &(pgn[len - 1]);
@@ -178,7 +164,7 @@ int parseMove(char pgn[], Move *move) {
 	 */
 	if (isupper(pgn[0])) {
 		//the pgn is of the form (Piece)[col][row]
-		move->srcPiece = pieceColor(pgn[0], move->isSrcWhite);
+		move->srcPiece = setColor(pgn[0], move->isSrcWhite);
 		if (move->isCapture)
 			lastPos--;
 		if (islower(*lastPos))
@@ -190,7 +176,7 @@ int parseMove(char pgn[], Move *move) {
 		}
 	} else {
 		//the piece is a pawn
-		move->srcPiece = pieceColor(WHITE_PAWN, move->isSrcWhite);
+		move->srcPiece = setColor(WHITE_PAWN, move->isSrcWhite);
 		if (move->isCapture)
 			//the pgn is of the form (col)(x)(col)(row)
 			move->srcCol = pgn[0];
@@ -214,357 +200,428 @@ int canStep(Move *move) {
 	return 0;
 }
 
-char *findPawn(char board[][SIZE], Move *move, char piece) {
-	int pawnMove = (int) pow(-1, move->isSrcWhite);  //return -1 if pawn is black and 1 if is white
-	int i = move->iDest;
-	int j = move->jDest;
-	if (move->isCapture) {
-		if (board[i][j] != EMPTY) {
-			if (!move->isDestWhite != !move->isSrcWhite)
-				if (board[i - pawnMove][move->jSrc] == piece){
-					move->isLegal=1;
-					return &(board[i - pawnMove][move->jSrc]);
-				}
-			return NULL;
-		}
-		return NULL;
-	}
-	if (board[i - pawnMove][j] == piece) {
-		return &(board[i - pawnMove][j]);
-	}
-	if (board[i - pawnMove][j] != EMPTY)
-		return NULL;
-	if ((move->isSrcWhite && i == 4) || (!move->isSrcWhite && i == 3))
-		if (board[i - 2 * pawnMove][j] == piece) {
-			move->isLegal=1;
-			return &(board[i - 2 * pawnMove][j]);
-		}
-	return NULL;
+
+char checkColor(char piece) {
+	if (isupper(piece))
+		return 1;
+
+	return 0;
 }
 
-char *checkColumn(char *dest, char const *start, char const *end, char piece) {
-	char *check = dest - SIZE;
-	while (check >= start) {
-		if (*check == EMPTY) {
-			check -= SIZE;
-			continue;
-		}
-		if (piece == *check) {
-			return check;
-		}
-		break;
-	}
-	check = dest + SIZE;
-	while (check <= end) {
-		if (*check == EMPTY) {
-			check += SIZE;
-			continue;
-		}
-		if (piece == *check) {
-			return check;
-		}
-		break;
-	}
-	return NULL;
+int isPawn(char piece) {
+	return piece == WHITE_PAWN || piece == BLACK_PAWN;
 }
 
-int setSrcIndex(Move *move, int i, int j) {
+int isRook(char piece) {
+	return piece == WHITE_ROOK || piece == BLACK_ROOK;
+}
+
+int isBishop(char piece) {
+	return piece == BLACK_BISHOP || piece == WHITE_BISHOP;
+}
+
+int isQueen(char piece) {
+	return piece == WHITE_QUEEN || piece == BLACK_QUEEN;
+}
+
+int isKing(char piece) {
+	return piece == WHITE_KING || piece == BLACK_KING;
+}
+
+int isKnight(char piece) {
+	return piece == WHITE_KNIGHT || piece == BLACK_KNIGHT;
+}
+
+int setMove(Move *move, int i, int j) {
+	if (move->isPromotion)
+		move->srcPiece = setColor(move->toPromote, move->isSrcWhite);
 	move->iSrc = i;
 	move->jSrc = j;
+	move->isLegal = 1;
 	return 1;
 }
 
-char *checkRow(char *dest, const char *start, const char *end, char piece) {
-	char *tempPos = dest - 1;
-	while (tempPos >= start) {
-		if (*tempPos == EMPTY) {
-			tempPos--;
-			continue;
-		}
-		if (piece == *tempPos)
-			return tempPos;
-		break;
-	}
-	tempPos = dest + 1;
-	while (tempPos <= end) {
-		if (*tempPos == EMPTY) {
-			tempPos++;
-			continue;
-		}
-		if (piece == *tempPos)
-			return tempPos;
-		break;
-	}
-	return NULL;
+int checkOtherCheck(Move const *move, int iOther, int jOther, Move *checkKing, char tempBoard[][]) {
+	(*checkKing).isDestWhite = !move->isSrcWhite;
+	(*checkKing).iDest = iOther;
+	(*checkKing).jDest = jOther;
+	if (!(findPiece(tempBoard, checkKing, 1) && (move->isMate || move->isCheck)))
+		return 0;
+	return 1;
 }
 
-char *findRook(char board[][SIZE], char *dest, Move *move, char piece) {
-	char *src = NULL;
-	if ((move->isLegal = canStep(move))) {
-		src = checkColumn(dest, &board[0][move->jDest], &board[SIZE][move->jDest], piece);
-		if (src == NULL)
-			src = checkRow(dest, &board[move->iDest][0], &board[move->iDest][SIZE], piece);
-
-	}
-	return src;
-}
-
-char *checkMainDiagonal(char *dest, const char *start, const char *end, char piece) {
-	char *check = ((dest - SIZE) - 1);
-	while (check >= start) {
-		if (*check == EMPTY) {
-			check = ((check - SIZE) - 1);
-			continue;
-		}
-		if (piece == *check) {
-			return check;
-		}
-		break;
-	}
-	check = ((dest + SIZE) + 1);
-	while (check <= end) {
-		if (*check == EMPTY) {
-			check = ((check + SIZE) + 1);
-			continue;
-		}
-		if (piece == *check) {
-			return check;
-		}
-		break;
-	}
-	return NULL;
-}
-
-char *checkSecDiagonal(char *dest, const char *start, const char *end, char piece) {
-	char *check = ((dest + SIZE) - 1);
-	while (check >= start) {
-		if (*check == EMPTY) {
-			check = ((check + SIZE) - 1);
-			continue;
-		}
-		if (piece == *check) {
-			return check;
-		}
-		break;
-	}
-	check = ((dest - SIZE) + 1);
-	while (check <= end) {
-		if (*check == EMPTY) {
-			check = ((check - SIZE) + 1);
-			continue;
-		}
-		if (piece == *check) {
-			return check;
-		}
-		break;
-	}
-	return NULL;
-}
-
-char *findBishop(char board[][SIZE], char *dest, Move *move, char piece) {
-	char *src = NULL;
-	if ((move->isLegal = canStep(move))) {
-		src = checkMainDiagonal(dest, &board[0][0], &board[SIZE - 1][SIZE - 1], piece);
-		if (src == NULL)
-			src = checkSecDiagonal(dest, &board[0][0], &board[SIZE - 1][SIZE - 1], piece);
-	}
-	return src;
-}
-
-char *
-checkAll(char board[][SIZE], Move *move, int leftBorder, int rightBorder, int topBorder, int bottomBorder, char piece) {
-	char *src = NULL;
-	char *dest = &board[move->iDest][move->jDest];
-	src = checkColumn(dest, &board[topBorder][move->jDest], &board[bottomBorder][move->jDest], piece);
-	if (src == NULL)
-		src = checkRow(dest, &board[move->iDest][leftBorder], &board[move->iDest][rightBorder], piece);
-	if (src == NULL)
-		src = checkMainDiagonal(dest, &board[topBorder][leftBorder], &board[bottomBorder][rightBorder], piece);
-	if (src == NULL)
-		src = checkSecDiagonal(dest, &board[bottomBorder][leftBorder], &board[topBorder][rightBorder], piece);
-	return src;
-}
-
-char *findQueen(char board[][SIZE], Move *move, int leftBorder, int rightBorder, int topBorder, int bottomBorder,
-                char piece) {
-	if ((move->isLegal = canStep(move)))
-		return checkAll(board, move, leftBorder, rightBorder, topBorder, bottomBorder, piece);
-}
-
-char *findKing(char board[][SIZE], Move *move, char piece) {
-	int top = (int) fmax(0, move->iDest - 1);
-	int bottom = (int) fmin(SIZE - 1, move->iDest + 1);
-	int right = (int) fmin(SIZE - 1, move->jDest + 1);
-	int left = (int) fmax(0, move->jDest - 1);
-	if ((move->isLegal = canStep(move)))
-		return checkAll(board, move, left, right, top, bottom, piece);
-}
-
-int isValidKnight(const char *src, const char *dest) {
-	if ((src + (2 * SIZE) + 1) == dest)
-		return 1;
-	if ((src + (2 * SIZE) - 1) == dest)
-		return 1;
-	if ((src + (SIZE) + 2) == dest)
-		return 1;
-	if ((src + (SIZE) - 2) == dest)
-		return 1;
-	if ((src - (2 * SIZE) + 1) == dest)
-		return 1;
-	if ((src - (2 * SIZE) + 1) == dest)
-		return 1;
-	if ((src - (SIZE) + 2) == dest)
-		return 1;
-	if ((src - (SIZE) - 2) == dest)
-		return 1;
-	return 0;
-}
-
-char *checkKnight(char *dest, Move *move, char piece) {
-	int horizontalBoundary = move->iDest;
-	int verticalBorder = move->jDest;
-	if (horizontalBoundary - 2 >= 0 && verticalBorder - 2 >= 0) {
-		if (*(dest - (SIZE) - 2) == piece)
-			return dest - (SIZE) - 2;
-		if (*(dest - (2 * SIZE) - 1) == piece)
-			return dest - (2 * SIZE) - 1;
-	}
-	if (horizontalBoundary - 2 >= 0 && verticalBorder + 2 < SIZE) {
-		if (*(dest - (2 * SIZE) + 1) == piece)
-			return dest - (2 * SIZE) - 1;
-		if (*(dest - (SIZE) + 2) == piece)
-			return dest - (SIZE) + 2;
-	}
-	if (horizontalBoundary + 2 < SIZE && verticalBorder + 2 < SIZE) {
-		if (*(dest + (2 * SIZE) + 1) == piece)
-			return dest + (2 * SIZE) + 1;
-		if (*(dest + (SIZE) + 2) == piece)
-			return dest + (SIZE) + 2;
-	}
-	if (horizontalBoundary + 2 < SIZE && verticalBorder - 2 >= 0) {
-		if (*(dest + (2 * SIZE) - 1) == piece)
-			return dest + (2 * SIZE) - 1;
-		if (*(dest + (SIZE) - 2) == piece)
-			return dest + (SIZE) - 2;
-	}
-	return 0;
-}
-
-char *findKnight(char board[][SIZE], Move *move, char piece) {
-	char *dest = &board[move->iDest][move->jDest];
-	if ((move->isLegal = canStep(move)))
-		return checkKnight(dest, move, piece);
-}
-
-char *findPiece(char board[][SIZE], char *dest, Move *move) {
-	char piece = move->srcPiece;
-	if (piece == WHITE_PAWN || piece == BLACK_PAWN)
-		return findPawn(board, move, piece);
-	if (piece == WHITE_ROOK || piece == BLACK_ROOK)
-		return findRook(board, dest, move, piece);
-	if (piece == BLACK_BISHOP || piece == WHITE_BISHOP)
-		return findBishop(board, dest, move, piece);
-	if (piece == WHITE_QUEEN || piece == BLACK_QUEEN)
-		return findQueen(board, move, 0, SIZE - 1, 0, SIZE - 1, piece);
-	if (piece == WHITE_KING || piece == BLACK_KING)
-		return findKing(board, move, piece);
-	if (piece == WHITE_KNIGHT || piece == BLACK_KNIGHT) {
-		return findKnight(board, move, piece);
-	}
-	return 0;
-}
-
-
-void makeStep(char *dest, char *src) {
-	if (dest != NULL && src != NULL) {
-		*dest = *src;
-		*src = EMPTY;
-	} else
-		printf("promblem\n");
-
-}
-
-int isValidMove(char board[][SIZE], int i, int j, char *dest, char piece) {
-	char *src = &board[i][j];
-
-	//	if (piece == WHITE_PAWN || piece == BLACK_PAWN)
-//		return findPawn(board, move, piece);
-//	if (piece == WHITE_ROOK || piece == BLACK_ROOK)
-//		return findRook(board, dest, move, piece);
-//	if (piece == BLACK_BISHOP || piece == WHITE_BISHOP)
-//		return findBishop(board, dest, move, piece);
-//	if (piece == WHITE_QUEEN || piece == BLACK_QUEEN)
-//		return findQueen(board, move, 0, SIZE - 1, 0, SIZE - 1, piece);
-//	if (piece == WHITE_KING || piece == BLACK_KING)
-//		return findKing(board, move, piece);
-	if (piece == WHITE_KNIGHT || piece == BLACK_KNIGHT) {
-		return isValidKnight(src, dest);
-	}
-	return 0;
-
-}
-
-char *findPiecePos(char board[][SIZE], Move *move, char toLook) {
-	char *dest = &board[move->iDest][move->jDest];
-	char piece = move->srcPiece;
-	if (toLook) {
-		if (isdigit(toLook)) {
-			int k = toIndex(toLook);
-		} else {
-			int j = toIndex(toLook);
-			for (int i = 0; i < SIZE; ++i) {
-				if (board[i][j] == piece)
-					if (isValidMove(board, i, j, dest, piece)) {
-						move->isLegal = 1;
-						return &board[i][j];
-					}
+int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
+	int iKing = 0, jKing = 0, iOther = 0, jOther = 0;
+	Move checkKing;
+	checkKing.srcPiece = move->srcPiece;
+	checkKing.iSrc = i;
+	checkKing.jSrc = j;
+	checkKing.iDest = move->iDest;
+	checkKing.jDest = move->jDest;
+	checkKing.isDestWhite = kingColor;
+	char tempBoard[SIZE][SIZE];
+	for (int k = 0; k < SIZE; ++k) {
+		for (int l = 0; l < SIZE; ++l) {
+			tempBoard[k][l] = board[k][l];
+			if (board[k][l] == setColor(WHITE_KING, kingColor)) {
+				iKing = k;
+				jKing = l;
+			}
+			if (board[k][l] == setColor(WHITE_KING, !kingColor)) {
+				iOther = k;
+				jOther = l;
 			}
 		}
-	} else {
-		//we have neither
-		return findPiece(board, dest, move);
 	}
-	return NULL;
+	makeStep(tempBoard, &checkKing);
+	checkKing.iDest = iKing;
+	checkKing.jDest = jKing;
+	if (findPiece(tempBoard, &checkKing, 1))
+		return 0;
+
+	if (checkOtherCheck(move, iOther, jOther, &checkKing, tempBoard))
+		return 0;
+
+	return setMove(move, i, j);
 }
 
+int findPawn(char board[][SIZE], Move *move, int flag) {
+	int pawnMove = (int) pow(-1, move->isSrcWhite);
+	int i = move->iDest;
+	int j = move->jDest;
+	char piece = move->srcPiece;
+	if (move->isCapture) {
+		if (board[i][j] != EMPTY) {
+			if (board[i - pawnMove][move->jSrc] == piece) {
+				if (flag)
+					return 1;
+				move->isLegal = isValidMove(board, move, i - pawnMove, move->jSrc, move->isSrcWhite);
+				return 1;
+			}
+		}
+		return 0;
+	}
+	if (board[i - pawnMove][j] == piece) {
+		if (flag)
+			return 1;
+		move->isLegal = isValidMove(board, move, i - pawnMove, j, move->isSrcWhite);
+		return 1;
+	}
+	if ((move->isSrcWhite && i == SIZE - 4) || (!move->isSrcWhite && i == 3))
+		if (board[i - pawnMove][j] == EMPTY) {
+			if (flag)
+				return 1;
+			move->isLegal = isValidMove(board, move, i - (2 * pawnMove), j, move->isSrcWhite);
+			return 1;
+		}
+	return 0;
+}
+
+int findInCol(char board[][SIZE], Move *move, int flag) {
+	for (int i = move->iDest - 1; i >= 0; --i) {
+		if (board[i][move->jDest] == EMPTY)
+			continue;
+		if (board[i][move->jDest] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, i, move->jDest, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	for (int i = move->iDest + 1; i < SIZE; ++i) {
+		if (board[i][move->jDest] == EMPTY)
+			continue;
+		if (board[i][move->jDest] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, i, move->jDest, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	return 0;
+}
+
+int findInRow(char board[][SIZE], Move *move, int flag) {
+	for (int j = move->jDest - 1; j >= 0; j--) {
+		if (board[move->iDest][j] == EMPTY)
+			continue;
+		if (board[move->iDest][j] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, move->iDest, j, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	for (int j = move->jDest + 1; j < SIZE; ++j) {
+		if (board[move->iDest][j] == EMPTY)
+			continue;
+		if (board[move->iDest][j] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, move->iDest, j, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	return 0;
+}
+
+int findRook(char board[][SIZE], Move *move, int flag) {
+	if (findInCol(board, move, flag))
+		return 1;
+	if (findInRow(board, move, flag))
+		return 1;
+	return 0;
+}
+
+int findnSecDiag(char board[][SIZE], Move *move, int flag) {
+	int i = move->iDest + 1;
+	int j = move->jDest - 1;
+	while (i < SIZE && j >= 0) {
+		if (board[i][j] == EMPTY) {
+			i++;
+			j--;
+			continue;
+		}
+		if (board[i][j] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, i, j, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	i = move->iDest - 1;
+	j = move->jDest + 1;
+	while (i >= 0 && j < SIZE) {
+		if (board[i][j] == EMPTY) {
+			i--;
+			j++;
+			continue;
+		}
+		if (board[i][j] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, i, j, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	return 0;
+}
+
+
+int findnMainDiag(char board[][SIZE], Move *move, int flag) {
+	int i = move->iDest - 1;
+	int j = move->jDest - 1;
+	while (i >= 0 && j >= 0) {
+		if (board[i][j] == EMPTY) {
+			i--;
+			j--;
+			continue;
+		}
+		if (board[i][j] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, i, j, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	i = move->iDest + 1;
+	j = move->jDest + 1;
+	while (i < SIZE && j < SIZE) {
+		if (board[i][j] == EMPTY) {
+			i++;
+			j++;
+			continue;
+		}
+		if (board[i][j] == move->srcPiece) {
+			if (flag)
+				return 1;
+			if (isValidMove(board, move, i, j, move->isSrcWhite))
+				return 1;
+		}
+		break;
+	}
+	return 0;
+}
+
+int findBishop(char board[][SIZE], Move *move, int flag) {
+	if (findnMainDiag(board, move, flag))
+		return 1;
+	if (findnSecDiag(board, move, flag))
+		return 1;
+	return 0;
+}
+
+int findQueen(char board[][SIZE], Move *move, int flag) {
+	if (findInRow(board, move, flag))
+		return 1;
+	if (findInCol(board, move, flag))
+		return 1;
+	if (findnMainDiag(board, move, flag))
+		return 1;
+	if (findnSecDiag(board, move, flag))
+		return 1;
+	return 0;
+}
+
+int findKing(char board[][SIZE], Move *move, int flag) {
+	int iMove[] = {-1, 0, 1};
+	int jMove[] = {-1, 0, 1};
+	for (int k = 0; k < 3; k++) {
+		for (int l = 0; l < 3; l++) {
+			int i = move->iDest + iMove[l];
+			int j = move->jDest + jMove[k];
+			if (i >= SIZE || i < 0 || j >= SIZE || j < 0)
+				continue;
+			if (board[i][j] == move->srcPiece) {
+				if (flag)
+					return 1;
+				if (isValidMove(board, move, i, j, move->isSrcWhite))
+					return 1;
+			}
+		}
+	}
+	return 0;
+}
+
+int findKnight(char board[][SIZE], Move *move, int flag) {
+	int iMove[] = {1, 2, 1, 2, -1, -2, -1, -2};
+	int jMove[] = {2, 1, -2, -1, 2, 1, -2, -1};
+	for (int index = 0; index < 8; ++index) {
+		int i = move->iDest + iMove[index];
+		int j = move->jDest + jMove[index];
+		if (i >= SIZE || i < 0 || j >= SIZE || j < 0)
+			continue;
+		if (board[i][j] == move->srcPiece) {
+			if (!flag) {
+				if (isValidMove(board, move, i, j, move->isSrcWhite))
+					return 1;
+			} else
+				return 1;
+		}
+	}
+	return 0;
+}
+
+
+void makeStep(char (*board)[8], Move *move) {
+	board[move->iSrc][move->jSrc] = EMPTY;
+	board[move->iDest][move->jDest] = move->srcPiece;
+}
+
+
+int findPiece(char board[][SIZE], Move *move, int flag) {
+	char piece = move->srcPiece;
+	if (isPawn(piece))
+		return findPawn(board, move, flag) && move->isDestWhite != checkColor(piece);
+	if (isRook(piece))
+		return findRook(board, move, flag) && move->isDestWhite != checkColor(piece);
+	if (isBishop(piece))
+		return findBishop(board, move, flag) && move->isDestWhite != checkColor(piece);
+	if (isQueen(piece))
+		return findQueen(board, move, flag) && move->isDestWhite != checkColor(piece);
+	if (isKing(piece))
+		return findKing(board, move, flag) && move->isDestWhite != checkColor(piece);
+	if (isKnight(piece))
+		return findKnight(board, move, flag) && move->isDestWhite != checkColor(piece);
+	return 0;
+}
+
+int isClearRow(char board[][SIZE], Move *move, int i, int j, int sign) {
+	i += sign;
+	while (i != move->iDest) {
+		if (board[i][j] != EMPTY)
+			return 0;
+		i += sign;
+	}
+	return 1;
+}
+
+int isClearCol(char board[][SIZE], Move *move, int i, int j, int sign) {
+	j += sign;
+	while (j != move->jDest) {
+		if (board[i][j] != EMPTY)
+			return 0;
+		j += sign;
+	}
+	return 1;
+}
+
+int isClearDiag(char board[][SIZE], Move *move, int i, int j, int iSign, int jSign) {
+	i += iSign;
+	j += jSign;
+	while (i != move->jDest && j != move->jDest) {
+		if (board[i][j] != EMPTY)
+			return 0;
+		i += iSign;
+		j += jSign;
+	}
+	return 1;
+}
+
+int isClearKnight(int i, int j, Move *move) {
+	if (abs(move->iDest - i) == 2 && abs(move->jDest - j) == 1)
+		return 1;
+	if (abs(move->iDest - i) == 1 && abs(move->jDest - j) == 2)
+		return 1;
+	return 0;
+}
+
+int canMove(char board[][SIZE], Move *move, int iSrc, int jSrc) {
+	char piece = move->srcPiece;
+	int iSign = move->iDest - iSrc > 0 ? 1 : -1;
+	int jSign = move->jDest - jSrc > 0 ? 1 : -1;
+	if (isRook(move->srcPiece))
+		return isClearRow(board, move, iSrc, jSrc, iSign) || isClearCol(board, move, iSrc, jSrc, jSign);
+	if (isBishop(piece))
+		return isClearDiag(board, move, iSrc, jSrc, iSign, jSign);
+	if (isQueen(piece))
+		return isClearRow(board, move, iSrc, jSrc, iSign) || isClearCol(board, move, iSrc, jSrc, jSign) ||
+		       isClearDiag(board, move, iSrc, jSrc, iSign, jSign);
+	if (isKnight(piece))
+		return isClearKnight(iSrc, jSrc, move);
+	return 0;
+}
 
 void updateMove(char board[][SIZE], Move *move) {
 	move->destPiece = board[move->iDest][move->jDest];
 	move->isDestWhite = isupper(move->destPiece);
-	char toLook = 0;
-	char *dest = &board[move->iDest][move->jDest];
-
-	if (!(move->srcRow && move->srcCol)) {
-		if (move->srcRow)
-			toLook = move->srcRow;
-
-		else if (move->srcCol)
-			toLook = move->srcCol;
-
-		char *src = findPiecePos(board, move, toLook);
-		//		move->srcRow = toRow(move->iSrc);
-//		move->srcCol = toCol(move->jSrc);
-		if (move->isLegal) {
-			makeStep(dest, src);
-		}
+	char piece = move->srcPiece;
+	if (canStep(move)) {
+		if (!(move->srcRow && move->srcCol)) {
+			if (move->srcRow && !isPawn(piece)) {
+				for (int j = 0; j < SIZE; ++j) {
+					if (board[move->iSrc][j] == piece)
+						if (canMove(board, move, move->iSrc, j))
+							if (isValidMove(board, move, move->iSrc, j, move->isSrcWhite))
+								break;
+				}
+			} else if (move->srcCol && !isPawn(piece)) {
+				for (int i = 0; i < SIZE; ++i) {
+					if (board[i][move->jSrc] == piece)
+						if (canMove(board, move, i, move->jSrc))
+							if (isValidMove(board, move, i, move->jSrc, move->isSrcWhite))
+								break;
+				}
+			} else
+				findPiece(board, move, 0);
+		} else
+			isValidMove(board, move, move->iSrc, move->jSrc, move->isSrcWhite);
+		if (move->isLegal)
+			makeStep(board, move);
 	}
 }
-
 
 int makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
 	Move move = {};
 	move.isSrcWhite = isWhiteTurn;
-	if (parseMove(pgn, &move) == 2) {
-		board[7][0] = EMPTY;
-		board[7][4] = EMPTY;
-		board[7][2] = WHITE_KING;
-		board[7][3] = WHITE_ROOK;
-	} else if (parseMove(pgn, &move) == 3) {
-		board[0][4] = EMPTY;
-		board[0][0] = EMPTY;
-		board[0][2] = BLACK_KING;
-		board[0][3] = BLACK_ROOK;
-	}
+	int x = parseMove(pgn, &move);
 	updateMove(board, &move);
 //	printMove(&move);
 	return move.isLegal;
