@@ -290,7 +290,7 @@ int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	for (int index = 0; index < NUM_OF_PIECES; ++index) {
 		checkKing.srcPiece = setColor(PIECES[index], !kingColor);
 		if (checkKing.srcPiece == setColor(WHITE_PAWN, !kingColor)) {
-			int pawnMove = (int) pow(-1, !kingColor);
+			int pawnMove = (int) -pow(-1, !kingColor);
 			if (checkKing.jDest > 0)
 				if (board[checkKing.iSrc - pawnMove][checkKing.jDest - 1] == setColor(WHITE_KING,kingColor))
 					return 0;
@@ -305,7 +305,7 @@ int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	for (int index = 0; index < NUM_OF_PIECES; ++index) {
 		checkKing.srcPiece = setColor(PIECES[index], kingColor);
 		if (checkKing.srcPiece == setColor(WHITE_PAWN, kingColor)) {
-			int pawnMove = (int) pow(-1, kingColor);
+			int pawnMove = (int) -pow(-1, kingColor);
 			if (checkKing.jDest > 0)
 				if (board[checkKing.iSrc - pawnMove][checkKing.jDest - 1] == setColor(WHITE_KING,kingColor))
 					return 0;
