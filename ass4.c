@@ -26,7 +26,7 @@ const char BLACK_KNIGHT = 'n';
 const char BLACK_BISHOP = 'b';
 const char BLACK_QUEEN = 'q';
 const char BLACK_KING = 'k';
-char const delim[] = "/";
+char const DELIM[] = "/";
 char PIECES[NUM_OF_PIECES] = {'P', 'R', 'N', 'B', 'Q', 'K'};
 
 typedef struct {
@@ -64,10 +64,10 @@ void creatRow(char boardRow[], char *tempRow) {
 
 void createBoard(char board[][SIZE], char fen[]) {
 	int i = 0;
-	char *fenRow = strtok(fen, delim);
+	char *fenRow = strtok(fen, DELIM);
 	while (fenRow != NULL) {
 		creatRow(board[i++], fenRow);
-		fenRow = strtok(NULL, delim);
+		fenRow = strtok(NULL, DELIM);
 	}
 
 }
@@ -151,7 +151,7 @@ char *setDest(Move *move, char *index) {
 	return --index;     //returning the position of the previous element
 }
 
-int parseMove(char pgn[], Move *move) {
+void parseMove(char pgn[], Move *move) {
 	int len = (int) strlen(pgn);
 	//setting a pointer to the last position of the array
 	char *lastPos = &(pgn[len - 1]);
@@ -186,7 +186,6 @@ int parseMove(char pgn[], Move *move) {
 	move->jSrc = toIndex(move->srcCol);
 	move->iDest = toIndex(move->destRow);
 	move->jDest = toIndex(move->destCol);
-	return 1;
 }
 
 int canStep(Move *move) {
@@ -255,7 +254,7 @@ void findKingOnBoard(char board[][SIZE], int kingColor, int *iKing, int *jKing) 
 	}
 }
 
-void copyBoard(char board[][SIZE], int kingColor, char tempBoard[][SIZE]) {
+void copyBoard(char board[][SIZE], char tempBoard[][SIZE]) {
 
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {
@@ -284,18 +283,36 @@ int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	checkKing.jDest = move->jDest;
 	checkKing.isDestWhite = kingColor;
 	char tempBoard[SIZE][SIZE];
-	copyBoard(board, kingColor, tempBoard);
+	copyBoard(board, tempBoard);
 	makeStep(tempBoard, &checkKing);
-	findKingOnBoard(tempBoard,kingColor,&checkKing.iDest,&checkKing.jDest);
+	findKingOnBoard(tempBoard, kingColor, &checkKing.iDest, &checkKing.jDest);
 
 	for (int index = 0; index < NUM_OF_PIECES; ++index) {
 		checkKing.srcPiece = setColor(PIECES[index], !kingColor);
+		if (checkKing.srcPiece == setColor(WHITE_PAWN, !kingColor)) {
+			int pawnMove = (int) pow(-1, !kingColor);
+			if (checkKing.jDest > 0)
+				if (board[checkKing.iSrc - pawnMove][checkKing.jDest - 1] == setColor(WHITE_KING,kingColor))
+					return 0;
+			if (checkKing.jDest < SIZE - 1)
+				if (board[checkKing.iSrc - pawnMove][checkKing.jDest + 1] == setColor(WHITE_KING,kingColor))
+					return 0;
+		}
 		if (findPiece(tempBoard, &checkKing, 1))
 			return 0;
 	}
-	findKingOnBoard(tempBoard,!kingColor,&checkKing.iDest,&checkKing.jDest);
-	for (int index = 0; index <NUM_OF_PIECES;++index) {
-		checkKing.srcPiece=setColor(PIECES[index],kingColor);
+	findKingOnBoard(tempBoard, !kingColor, &checkKing.iDest, &checkKing.jDest);
+	for (int index = 0; index < NUM_OF_PIECES; ++index) {
+		checkKing.srcPiece = setColor(PIECES[index], kingColor);
+		if (checkKing.srcPiece == setColor(WHITE_PAWN, kingColor)) {
+			int pawnMove = (int) pow(-1, kingColor);
+			if (checkKing.jDest > 0)
+				if (board[checkKing.iSrc - pawnMove][checkKing.jDest - 1] == setColor(WHITE_KING,kingColor))
+					return 0;
+			if (checkKing.jDest < SIZE - 1)
+				if (board[checkKing.iSrc - pawnMove][checkKing.jDest + 1] == setColor(WHITE_KING,kingColor))
+					return 0;
+		}
 		if (!checkOtherCheck(move, &checkKing, tempBoard))
 			return 0;
 	}
@@ -303,17 +320,14 @@ int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	return setMove(move, i, j);
 }
 
-
 int findPawn(char board[][SIZE], Move *move, int flag) {
 	int pawnMove = (int) pow(-1, move->isSrcWhite);
 	int i = move->iDest;
 	int j = move->jDest;
 	char piece = move->srcPiece;
-	if (move->isCapture||flag) {
+	if (move->isCapture || flag) {
 		if (board[i][j] != EMPTY) {
 			if (board[i - pawnMove][move->jSrc] == piece) {
-				if (flag)
-					return 1;
 				move->isLegal = isValidMove(board, move, i - pawnMove, move->jSrc, move->isSrcWhite);
 				return 1;
 			}
@@ -324,10 +338,8 @@ int findPawn(char board[][SIZE], Move *move, int flag) {
 		move->isLegal = isValidMove(board, move, i - pawnMove, j, move->isSrcWhite);
 		return 1;
 	}
-	if ((move->isSrcWhite && (board[SIZE - 2][j]==piece)) || (!move->isSrcWhite && (board[1][j]==piece)))
+	if ((move->isSrcWhite && (board[SIZE - 2][j] == piece)) || (!move->isSrcWhite && (board[1][j] == piece)))
 		if (board[i - pawnMove][j] == EMPTY) {
-			if (flag)
-				return 1;
 			move->isLegal = isValidMove(board, move, i - (2 * pawnMove), j, move->isSrcWhite);
 			return 1;
 		}
@@ -536,7 +548,7 @@ void makeStep(char board[][SIZE], Move *move) {
 
 int findPiece(char board[][SIZE], Move *move, int flag) {
 	char piece = move->srcPiece;
-	if (isPawn(piece))
+	if (isPawn(piece) && !flag)
 		return findPawn(board, move, flag) && move->isDestWhite != checkColor(piece);
 	if (isRook(piece))
 		return findRook(board, move, flag);
@@ -551,36 +563,42 @@ int findPiece(char board[][SIZE], Move *move, int flag) {
 	return 0;
 }
 
-int isClearRow(char board[][SIZE], Move *move, int i, int j, int sign) {
+int isClearCol(char board[][SIZE], Move *move, int i, int j, int sign) {
 	i += sign;
 	while (i != move->iDest) {
 		if (board[i][j] != EMPTY)
 			return 0;
 		i += sign;
 	}
-	return 1;
+	if (i == move->iDest && j == move->jDest)
+		return 1;
+	return 0;
 }
 
-int isClearCol(char board[][SIZE], Move *move, int i, int j, int sign) {
+int isClearRow(char board[][SIZE], Move *move, int i, int j, int sign) {
 	j += sign;
 	while (j != move->jDest) {
 		if (board[i][j] != EMPTY)
 			return 0;
 		j += sign;
 	}
-	return 1;
+	if (j == move->jDest && i == move->iDest)
+		return 1;
+	return 0;
 }
 
 int isClearDiag(char board[][SIZE], Move *move, int i, int j, int iSign, int jSign) {
 	i += iSign;
 	j += jSign;
-	while (i != move->jDest && j != move->jDest) {
+	while ((j != move->jDest) && (i != move->iDest)) {
 		if (board[i][j] != EMPTY)
 			return 0;
 		i += iSign;
 		j += jSign;
 	}
-	return 1;
+	if (i == move->iDest && j == move->jDest)
+		return 1;
+	return 0;
 }
 
 int isClearKnight(int i, int j, Move *move) {
@@ -596,11 +614,11 @@ int canMove(char board[][SIZE], Move *move, int iSrc, int jSrc) {
 	int iSign = move->iDest - iSrc > 0 ? 1 : -1;
 	int jSign = move->jDest - jSrc > 0 ? 1 : -1;
 	if (isRook(move->srcPiece))
-		return isClearRow(board, move, iSrc, jSrc, iSign) || isClearCol(board, move, iSrc, jSrc, jSign);
+		return isClearCol(board, move, iSrc, jSrc, iSign) || isClearRow(board, move, iSrc, jSrc, jSign);
 	if (isBishop(piece))
 		return isClearDiag(board, move, iSrc, jSrc, iSign, jSign);
 	if (isQueen(piece))
-		return isClearRow(board, move, iSrc, jSrc, iSign) || isClearCol(board, move, iSrc, jSrc, jSign) ||
+		return isClearCol(board, move, iSrc, jSrc, iSign) || isClearRow(board, move, iSrc, jSrc, jSign) ||
 		       isClearDiag(board, move, iSrc, jSrc, iSign, jSign);
 	if (isKnight(piece))
 		return isClearKnight(iSrc, jSrc, move);
@@ -639,7 +657,7 @@ void updateMove(char board[][SIZE], Move *move) {
 int makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
 	Move move = {};
 	move.isSrcWhite = isWhiteTurn;
-	int x = parseMove(pgn, &move);
+	parseMove(pgn, &move);
 	updateMove(board, &move);
 //	printMove(&move);
 	return move.isLegal;
