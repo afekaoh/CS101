@@ -6,6 +6,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#define NUM_OF_PIECES 6
+
 const char EMPTY = ' ';
 const char CAPTURE = 'x';
 const char PROMOTION = '=';
@@ -25,7 +27,7 @@ const char BLACK_BISHOP = 'b';
 const char BLACK_QUEEN = 'q';
 const char BLACK_KING = 'k';
 char const delim[] = "/";
-
+char PIECES[NUM_OF_PIECES] = {'P', 'R', 'N', 'B', 'Q', 'K'};
 
 typedef struct {
 	char srcPiece, srcRow, srcCol, destPiece, destRow, destCol, toPromote;
@@ -38,7 +40,6 @@ int findKnight(char[][SIZE], Move *, int);
 void makeStep(char [][SIZE], Move *);
 
 int findPiece(char board[][SIZE], Move *move, int flag);
-
 
 int toDigit(char piece) {
 	assert('0' <= piece && piece <= '9');
@@ -200,7 +201,6 @@ int canStep(Move *move) {
 	return 0;
 }
 
-
 char checkColor(char piece) {
 	if (isupper(piece))
 		return 1;
@@ -241,18 +241,43 @@ int setMove(Move *move, int i, int j) {
 	return 1;
 }
 
+void findKingOnBoard(char board[][SIZE], int kingColor, int *iKing, int *jKing) {
+	for (int i = 0; i < SIZE; ++i) {
+		for (int j = 0; j < SIZE; ++j) {
+
+			if (board[i][j] == setColor(WHITE_KING, kingColor)) {
+				(*iKing) = i;
+				(*jKing) = j;
+				return;
+			}
+
+		}
+	}
+}
+
+void copyBoard(char board[][SIZE], int kingColor, char tempBoard[][SIZE]) {
+
+	for (int i = 0; i < SIZE; ++i) {
+		for (int j = 0; j < SIZE; ++j) {
+			tempBoard[i][j] = board[i][j];
+		}
+
+	}
+}
+
 int checkOtherCheck(Move const *move, int iOther, int jOther, Move *checkKing, char tempBoard[][SIZE]) {
-	(*checkKing).isDestWhite = !move->isSrcWhite;
-	(*checkKing).iDest = iOther;
-	(*checkKing).jDest = jOther;
-	if (findPiece(tempBoard, checkKing, 1) && (move->isMate || move->isCheck))
-		return 1;
-	return 0;
+	if (findPiece(tempBoard, checkKing, 1)) {
+		if (move->isCheck || move->isMate) {
+			return 1;
+		}
+		return 0;
+	}
+	return 1;
 }
 
 int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	int iKing = 0, jKing = 0, iOther = 0, jOther = 0;
-	Move checkKing;
+	Move checkKing = {};
 	checkKing.srcPiece = move->srcPiece;
 	checkKing.iSrc = i;
 	checkKing.jSrc = j;
@@ -260,30 +285,25 @@ int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	checkKing.jDest = move->jDest;
 	checkKing.isDestWhite = kingColor;
 	char tempBoard[SIZE][SIZE];
-	for (int k = 0; k < SIZE; ++k) {
-		for (int l = 0; l < SIZE; ++l) {
-			tempBoard[k][l] = board[k][l];
-			if (board[k][l] == setColor(WHITE_KING, kingColor)) {
-				iKing = k;
-				jKing = l;
-			}
-			if (board[k][l] == setColor(WHITE_KING, !kingColor)) {
-				iOther = k;
-				jOther = l;
-			}
-		}
-	}
+	copyBoard(board, kingColor, tempBoard);
 	makeStep(tempBoard, &checkKing);
-	checkKing.iDest = iKing;
-	checkKing.jDest = jKing;
-	if (findPiece(tempBoard, &checkKing, 1))
-		return 0;
+	findKingOnBoard(tempBoard,kingColor,&checkKing.iDest,&checkKing.jDest);
 
-//	if (!checkOtherCheck(move, iOther, jOther, &checkKing, tempBoard))
-//		return 0;
+	for (int index = 0; index < NUM_OF_PIECES; ++index) {
+		checkKing.srcPiece = setColor(PIECES[index], !kingColor);
+		if (findPiece(tempBoard, &checkKing, 1))
+			return 0;
+	}
+	findKingOnBoard(tempBoard,!kingColor,&checkKing.iDest,&checkKing.jDest);
+	for (int index = 0; index <NUM_OF_PIECES;++index) {
+		checkKing.srcPiece=setColor(PIECES[index],kingColor);
+		if (!checkOtherCheck(move, iOther, jOther, &checkKing, tempBoard))
+			return 0;
+	}
 
 	return setMove(move, i, j);
 }
+
 
 int findPawn(char board[][SIZE], Move *move, int flag) {
 	int pawnMove = (int) pow(-1, move->isSrcWhite);
@@ -307,7 +327,7 @@ int findPawn(char board[][SIZE], Move *move, int flag) {
 		move->isLegal = isValidMove(board, move, i - pawnMove, j, move->isSrcWhite);
 		return 1;
 	}
-	if ((move->isSrcWhite && i == SIZE - 4) || (!move->isSrcWhite && i == 3))
+	if ((move->isSrcWhite && (board[SIZE - 4][j]==piece)) || (!move->isSrcWhite && (board[3][j]==piece)))
 		if (board[i - pawnMove][j] == EMPTY) {
 			if (flag)
 				return 1;
@@ -521,15 +541,15 @@ int findPiece(char board[][SIZE], Move *move, int flag) {
 	if (isPawn(piece))
 		return findPawn(board, move, flag) && move->isDestWhite != checkColor(piece);
 	if (isRook(piece))
-		return findRook(board, move, flag) && move->isDestWhite != checkColor(piece);
+		return findRook(board, move, flag);
 	if (isBishop(piece))
-		return findBishop(board, move, flag) && move->isDestWhite != checkColor(piece);
+		return findBishop(board, move, flag);
 	if (isQueen(piece))
-		return  findQueen(board, move, flag) && move->isDestWhite != checkColor(piece);
+		return findQueen(board, move, flag);
 	if (isKing(piece))
-		return findKing(board, move, flag) && move->isDestWhite != checkColor(piece);
+		return findKing(board, move, flag);
 	if (isKnight(piece))
-		return findKnight(board, move, flag) && move->isDestWhite != checkColor(piece);
+		return findKnight(board, move, flag);
 	return 0;
 }
 
