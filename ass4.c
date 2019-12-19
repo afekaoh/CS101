@@ -265,7 +265,7 @@ void copyBoard(char board[][SIZE], int kingColor, char tempBoard[][SIZE]) {
 	}
 }
 
-int checkOtherCheck(Move const *move, int iOther, int jOther, Move *checkKing, char tempBoard[][SIZE]) {
+int checkOtherCheck(Move const *move, Move *checkKing, char tempBoard[][SIZE]) {
 	if (findPiece(tempBoard, checkKing, 1)) {
 		if (move->isCheck || move->isMate) {
 			return 1;
@@ -276,7 +276,6 @@ int checkOtherCheck(Move const *move, int iOther, int jOther, Move *checkKing, c
 }
 
 int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
-	int iKing = 0, jKing = 0, iOther = 0, jOther = 0;
 	Move checkKing = {};
 	checkKing.srcPiece = move->srcPiece;
 	checkKing.iSrc = i;
@@ -297,7 +296,7 @@ int isValidMove(char board[][SIZE], Move *move, int i, int j, int kingColor) {
 	findKingOnBoard(tempBoard,!kingColor,&checkKing.iDest,&checkKing.jDest);
 	for (int index = 0; index <NUM_OF_PIECES;++index) {
 		checkKing.srcPiece=setColor(PIECES[index],kingColor);
-		if (!checkOtherCheck(move, iOther, jOther, &checkKing, tempBoard))
+		if (!checkOtherCheck(move, &checkKing, tempBoard))
 			return 0;
 	}
 
@@ -310,7 +309,7 @@ int findPawn(char board[][SIZE], Move *move, int flag) {
 	int i = move->iDest;
 	int j = move->jDest;
 	char piece = move->srcPiece;
-	if (move->isCapture) {
+	if (move->isCapture||flag) {
 		if (board[i][j] != EMPTY) {
 			if (board[i - pawnMove][move->jSrc] == piece) {
 				if (flag)
@@ -322,12 +321,10 @@ int findPawn(char board[][SIZE], Move *move, int flag) {
 		return 0;
 	}
 	if (board[i - pawnMove][j] == piece) {
-		if (flag)
-			return 1;
 		move->isLegal = isValidMove(board, move, i - pawnMove, j, move->isSrcWhite);
 		return 1;
 	}
-	if ((move->isSrcWhite && (board[SIZE - 4][j]==piece)) || (!move->isSrcWhite && (board[3][j]==piece)))
+	if ((move->isSrcWhite && (board[SIZE - 2][j]==piece)) || (!move->isSrcWhite && (board[1][j]==piece)))
 		if (board[i - pawnMove][j] == EMPTY) {
 			if (flag)
 				return 1;
@@ -530,9 +527,10 @@ int findKnight(char board[][SIZE], Move *move, int flag) {
 }
 
 
-void makeStep(char (*board)[8], Move *move) {
+void makeStep(char board[][SIZE], Move *move) {
 	board[move->iSrc][move->jSrc] = EMPTY;
 	board[move->iDest][move->jDest] = move->srcPiece;
+
 }
 
 
