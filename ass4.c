@@ -2,9 +2,8 @@
  *Adam Shay Shapira
  *316044809
  *01
- *ass04
- *******************/
-
+ *ass4
+*******************/
 #include <string.h>
 #include <stdio.h>
 #include "ass4.h"
@@ -18,7 +17,7 @@
 
 //some const deceleration for later use
 
-// FEN & Board characters
+// PGN & Board characters
 const char EMPTY = ' ';
 const char CAPTURE = 'x';
 const char PROMOTION = '=';
@@ -57,9 +56,7 @@ typedef struct {
 	Boolean isSrcWhite, isDestWhite, isCapture, isPromotion, isCheck, isLegal;
 } Move;
 
-void makeStep(char [][SIZE], Move *);
-
-Boolean findPiece(char board[][SIZE], Move *move, int checkCheck);
+Boolean findPiece(char board[][SIZE], Move *move, Boolean checkCheck);
 
 int toDigit(char digit) {
 	//function that gets character of digit and return its value
@@ -91,14 +88,14 @@ void creatRow(char boardRow[], char *fenRow) {
 	}
 }
 
-/**********************************************************************************
-* Function Name: creatRow
-* Input: char boardRow[][] - 2D in the order of SIZExSIZE which represent a chess board
- * 		 char fen[] - a string which represent a state of the board
+/**********************************************************************
+* Function Name: createBoard
+* Input:char board[][SIZE] - 2D array representing a chess board
+* 		char fen[] - a string of a chess representing a board state
 * Output: None
-* Function Operation: the function reads the string and converts him to the board
- * 					row by row by using create row function
-**********************************************************************************/
+* Function Operation:the function gets a board and a state
+*						 and create a board in this state
+***********************************************************************/
 void createBoard(char board[][SIZE], char fen[]) {
 	int i = 0;
 	char *fenRow = strtok(fen, DELIM);
@@ -106,7 +103,6 @@ void createBoard(char board[][SIZE], char fen[]) {
 		creatRow(board[i++], fenRow);
 		fenRow = strtok(NULL, DELIM);
 	}
-
 }
 
 
@@ -152,10 +148,9 @@ void printRow(char row[], int rowIdx) {
 * Function Operation: printing the board row by row
 **********************************************************************************/
 void printBoard(char board[][SIZE]) {
-	//todo
 	printColumns();
 	printSpacers();
-
+	
 	for (int i = 0; i < SIZE; ++i) {
 		printRow(board[i], SIZE - i);
 	}
@@ -164,7 +159,7 @@ void printBoard(char board[][SIZE]) {
 }
 
 char setColor(char piece, int isWhite) {
-	/*the function gets a piece and a color (1 for White and 0 for Black)
+	/*the function gets a char piece and a color (1 for White and 0 for Black)
 	and returns the piece in the same color (big letter for White and small for Black)
 	 */
 	if (isWhite)
@@ -176,16 +171,17 @@ char setColor(char piece, int isWhite) {
 /**********************************************************************************
 * Function Name: parseFlags
 * Input: Move *move - a pointer to Move struct
- * 		*index - pointer to a string of PGN
+* 		*index - pointer to a string of PGN
 * Output: None
-* Function Operation: the function reads the string and turnings on the
-corresponding flags in the Move struct
+* Function Operation: the function reads the string with a pointer and turnings on the
+*					corresponding flags in the Move struct
 **********************************************************************************/
 void parseFlags(Move *move, char *index) {
 	while (*index) {
 		if (*index == CAPTURE)
 			move->isCapture = TRUE;
 		if (*index == CHECK || *index == MATE)
+			//the tow states are identical for this assigment purposes
 			move->isCheck = TRUE;
 		if (*index == PROMOTION) {
 			move->isPromotion = TRUE;
@@ -196,9 +192,13 @@ void parseFlags(Move *move, char *index) {
 }
 
 int toIndex(char position) {
-	//todo
-	//the function gets a char position (can be a row or a column) and returns its value on the board
-	return isdigit(position) ? SIZE - toDigit(position) : (int) fmax(position - 'a', -1);
+/*
+	the function gets a char position and returns its value on the board  if its a row or a column
+    if it's not a row or a column it's returning -1
+*/
+	if (isalnum(position))
+		return isdigit(position) ? SIZE - toDigit(position) : position - 'a';
+	return -1;
 }
 
 /**********************************************************************************
@@ -209,27 +209,32 @@ int toIndex(char position) {
 * Function Operation: the function reads the string and puts the data in the Move struct
 **********************************************************************************/
 char *setDest(Move *move, char *index) {
-	while (!isdigit(*index))    //if we reading from the end we bound to gets a number representing the dest row
+	while (!isdigit(*index)) {
+		//if we reading from the end we bound to gets a number representing the dest row
 		index--;
+	}
+	//taking another step back
 	index--;
+	//the char before the row number is the dest column
 	move->destCol = index[0];
-	move->destRow = index[1];   //the char before the row number is the dest column
-	return --index;     //returning the position of the previous element
+	move->destRow = index[1];
+	//returning the position of the previous element
+	return --index;
 }
 
 void parseMove(char pgn[], Move *move) {
-	//the function gets a pgn string and a pointer to Move struct parse the pgn and puting the data in the Move struct
+	//the function gets a pgn string and a pointer to Move struct parse the pgn and putting the data in the Move struct
 	int len = (int) strlen(pgn);
 	//setting a pointer to the last position of the array
 	char *lastPos = &(pgn[len - 1]);
-
-	lastPos = setDest(move, lastPos);
 	parseFlags(move, pgn);
-
+	lastPos = setDest(move, lastPos);
+	
 	/*
 	 * after parseFlags and setDest we only need to check the first optional part of the pgn
 	 * of the form [Piece][col][row]
 	 */
+	
 	if (isupper(pgn[0])) {
 		//the pgn is of the form (Piece)[col][row]
 		move->srcPiece = setColor(pgn[0], move->isSrcWhite);
@@ -238,12 +243,14 @@ void parseMove(char pgn[], Move *move) {
 		if (islower(*lastPos))
 			move->srcCol = *lastPos;
 		else if (isdigit(*lastPos)) {
-			move->srcRow = *(lastPos--);    //taking the pointer one step back
+			//could be (Piece)(col)(row) or (Piece)(row)
+			move->srcRow = *(lastPos--);    //taking source row and moving the pointer one step back
 			if (islower(*lastPos))
+				// then it's (Piece)(col)(row)
 				move->srcCol = *lastPos;
 		}
 	} else {
-		//the piece is a pawn
+		//the source piece is a pawn
 		move->srcPiece = setColor(WHITE_PAWN, move->isSrcWhite);
 		if (move->isCapture)
 			//the pgn is of the form (col)(x)(col)(row)
@@ -270,64 +277,65 @@ int canStep(Move *move) {
 }
 
 Boolean isPawn(char piece) {
-	//return if the piece is Pawn
 	return piece == WHITE_PAWN || piece == BLACK_PAWN;
 }
 
 Boolean isRook(char piece) {
-	//return if the piece is Rook
 	return piece == WHITE_ROOK || piece == BLACK_ROOK;
 }
 
 Boolean isBishop(char piece) {
-	//return if the piece is Bishop
 	return piece == BLACK_BISHOP || piece == WHITE_BISHOP;
 }
 
 Boolean isQueen(char piece) {
-	//return if the piece is Queen
 	return piece == WHITE_QUEEN || piece == BLACK_QUEEN;
 }
 
 Boolean isKing(char piece) {
-	//return if the piece is King
 	return piece == WHITE_KING || piece == BLACK_KING;
 }
 
 Boolean isKnight(char piece) {
-	//return if the piece is Knight
 	return piece == WHITE_KNIGHT || piece == BLACK_KNIGHT;
 }
 
+void makeStep(char board[][SIZE], Move *move) {
+	//the function gets a board and a move and makes the step that's in the move
+	board[move->iSrc][move->jSrc] = EMPTY;
+	board[move->iDest][move->jDest] = move->srcPiece;
+}
+
 /**********************************************************************************
-* Function Name: setDest
+* Function Name: setSource
 * Input: Move *move - a pointer to Move struct
  * 		int row - destenation row location
  * 		int column - dest coloumn location
 * Output: None
 * Function Operation: the function reads the string and puts the
 **********************************************************************************/
-Boolean setMove(Move *move, int row, int column, Boolean legal) {
-	//todo
+void setSource(Move *move, int row, int column) {
 	if (move->isPromotion)
 		move->srcPiece = setColor(move->toPromote, move->isSrcWhite);
 	move->iSrc = row;
 	move->jSrc = column;
-	move->isLegal = legal;
-	return TRUE;
+	move->isLegal = TRUE;
 }
 
 void findKingOnBoard(char board[][SIZE], int kingColor, Move *move) {
-	//todo
+	/*
+	* the function gets a board move and a color the function find the king in the color and
+	* assign its position to the move
+	*/
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {
-
+			
 			if (board[i][j] == setColor(WHITE_KING, kingColor)) {
 				move->iDest = i;
 				move->jDest = j;
 				return;
 			}
-
+			
 		}
 	}
 }
@@ -338,136 +346,163 @@ void copyBoard(char const board[][SIZE], char tempBoard[][SIZE]) {
 		for (int j = 0; j < SIZE; ++j) {
 			tempBoard[i][j] = board[i][j];
 		}
-
+		
 	}
 }
 
-Boolean isCheck(char tempBoard[][SIZE], int kingColor, Move *move) {
-	//todo
-	findKingOnBoard(tempBoard, kingColor, move);
+void setMove(Move const *move, Move *tempMove) {
+	//the function gets 2 moves pointers and update the temp from the original
+	tempMove->srcPiece = move->srcPiece;
+	tempMove->iDest = move->iDest;
+	tempMove->jDest = move->jDest;
+	tempMove->isDestWhite = move->isSrcWhite;
+}
+
+void makeTempMove(char const board[][SIZE], char tempBoard[][SIZE], Move const *move, Move *tempMove,
+                  int row, int column) {
+	//sets the new board and the new move
+	copyBoard(board, tempBoard);
+	setMove(move, tempMove);
+	setSource(tempMove, row, column);
+	//making the step on the new board
+	makeStep(tempBoard, tempMove);
+}
+
+/*********************************************************************************
+* Function Name: isCheck
+* Input: char board[][SIZE] - 2D array
+* 		 int kingColor - the color of the king (0 for black, 1 for white)
+* 		 Move *move - a pointer to a Move struct
+* Output: TRUE (1) if there is check or FALSE (0) if not
+* Function Operation: the function find if there is a threat to the king (check) by searching for around the king
+* 					and calling the findPiece function in the check Check mode which means it's only searching
+* 					for an existence of a piece that can reach the king
+*********************************************************************************/
+Boolean isCheck(char board[][SIZE], int kingColor, Move *move) {
+	findKingOnBoard(board, kingColor, move);
 	for (int index = 0; index < NUM_OF_PIECES; ++index) {
 		move->srcPiece = setColor(PIECES[index], !kingColor);
 		if (move->srcPiece == setColor(WHITE_PAWN, !kingColor)) {
 			//checking for pawns that can capture the king
 			int pawnMove = (int) pow(-1, kingColor);
-			if (move->iDest + pawnMove >= 0 && move->iDest + pawnMove < SIZE) {
-				if (move->jDest > 0)
-					if (tempBoard[move->iDest + pawnMove][move->jDest - 1] == setColor(WHITE_PAWN, !kingColor))
-						return TRUE;
-				if (move->jDest < SIZE - 1)
-					if (tempBoard[move->iDest + pawnMove][move->jDest + 1] == setColor(WHITE_PAWN, !kingColor))
-						return TRUE;
-			}
-		} else if (findPiece(tempBoard, move, TRUE))
+			if (move->iDest + pawnMove < 0 || move->iDest + pawnMove >= SIZE)
+				continue;
+			if (move->jDest > 0)
+				if (board[move->iDest + pawnMove][move->jDest - 1] == setColor(WHITE_PAWN, !kingColor))
+					return TRUE;
+			if (move->jDest < SIZE - 1)
+				if (board[move->iDest + pawnMove][move->jDest + 1] == setColor(WHITE_PAWN, !kingColor))
+					return TRUE;
+		} else if (findPiece(board, move, TRUE))
 			return TRUE;
 	}
 	return FALSE;
 }
 
-void makeTempMove(char const board[][SIZE], Move const *move, int i, int j, Move *tempMove, char tempBoard[][SIZE]) {
-	//todo
-	tempMove->srcPiece = move->srcPiece;
-	setMove(tempMove, i, j, FALSE);
-	tempMove->iDest = move->iDest;
-	tempMove->jDest = move->jDest;
-	tempMove->isDestWhite = move->isSrcWhite;
-	copyBoard(board, tempBoard);
-	makeStep(tempBoard, tempMove);
-}
-
-Boolean isValidMove(char board[][SIZE], Move *move, int i, int j) {
-	//todo
+/******************************************************************************************************
+* Function Name: isValidMove
+* Input: char board[][Size] - 2D array
+* 		 Move *move - a pointer to move struct
+* 		 int row - the row of the piece we check if it's valid
+* 		 int column - the column of the piece we check if it's valid
+* Output: Boolean TRUE (1) if it's valid move or FALSE (0) if it's not
+* Function Operation: the function checks if a given move is valid meaning it logically sound
+* 					and not makes an illegal check to either kings on the board
+******************************************************************************************************/
+Boolean isValidMove(char board[][SIZE], Move *move, int row, int column) {
+	if (!canStep(move))
+		// the move was logically wrong
+		return FALSE;
+	
 	Move tempMove = {};
 	char tempBoard[SIZE][SIZE];
 	int kingColor = move->isSrcWhite;
-	makeTempMove(board, move, i, j, &tempMove, tempBoard);
-
+	makeTempMove(board, tempBoard, move, &tempMove, row, column);
+	
 	if (isCheck(tempBoard, kingColor, &tempMove))
-		//if there is check on the played side
+		//if there is check on the played side after the step
 		return FALSE;
-
+	
 	if (isCheck(tempBoard, !kingColor, &tempMove))
 		//if there is check on the opponent side
 		if (!move->isCheck)
 			return FALSE;
-
-	return setMove(move, i, j, TRUE);
+	setSource(move, row, column);
+	return TRUE;
 }
 
+/************************************************************************************************************
+* Function Name: findPawn
+* Input: char board[][Size] - 2D array
+* 		 Move *move - a pointer to move struct
+* Output: Boolean TRUE (1) if found a pawn and FALSE (0) if didnt
+* Function Operation: the function searching in every place that a pawn could be around the destination
+************************************************************************************************************/
 Boolean findPawn(char board[][SIZE], Move *move) {
-	//todo
 	int pawnMove = (int) pow(-1, move->isSrcWhite);
-	int i = move->iDest;
-	int j = move->jDest;
+	int row = move->iDest;
+	int column = move->jDest;
 	char piece = move->srcPiece;
 	if (move->isCapture) {
-		if (board[i][j] != EMPTY) {
-			if (board[i - pawnMove][move->jSrc] == piece) {
-				move->isLegal = isValidMove(board, move, i - pawnMove, move->jSrc);
+		if (board[row][column] != EMPTY) {
+			if (board[row - pawnMove][move->jSrc] == piece) {
+				move->isLegal = isValidMove(board, move, row - pawnMove, move->jSrc);
 				return TRUE;
 			}
 		}
 		return FALSE;
 	}
-	if (board[i - pawnMove][j] == piece) {
-		move->isLegal = isValidMove(board, move, i - pawnMove, j);
+	if (board[row - pawnMove][column] == piece) {
+		move->isLegal = isValidMove(board, move, row - pawnMove, column);
 		return TRUE;
 	}
-	if ((move->isSrcWhite && (board[SIZE - 2][j] == piece)) || (!move->isSrcWhite && (board[1][j] == piece)))
-		if (board[i - pawnMove][j] == EMPTY) {
-			move->isLegal = isValidMove(board, move, i - (2 * pawnMove), j);
+	if (board[row - (2 * pawnMove)][column] == piece && row - (2 * pawnMove) == (move->isSrcWhite ? SIZE - 2 : 1))
+		//if the pawn is white then he should be in SIZE - 2 row if he's black then in the row 1
+		if (board[row - pawnMove][column] == EMPTY) {
+			move->isLegal = isValidMove(board, move, row - (2 * pawnMove), column);
 			return TRUE;
 		}
 	return FALSE;
 }
 
-Boolean findInCol(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
-	for (int i = move->iDest - 1; i >= 0; --i) {
-		if (board[i][move->jDest] == EMPTY)
+/************************************************************************************************************
+* Function Name: findInCol
+* Input: char board[][Size] - 2D array
+* 		 Move *move - a pointer to move struct
+* 		 Boolean checkCheck - if we are in checkCheck mode
+* Output: Boolean TRUE (1) if found the piece and FALSE (0) if didnt
+* Function Operation: the function goes from the destination and search in every row for a given column
+* 					  and returning false if the piece searched is the piece can't make the move
+* 					  (not there,blocked or not valid)
+************************************************************************************************************/
+Boolean findInCol(char board[][SIZE], Move *move, Boolean checkCheck) {
+	int row = move->iDest - 1;
+	while (row >= 0) {
+		// searching upward to the destination
+		if (board[row][move->jDest] == EMPTY) {
+			row--;
 			continue;
-		if (board[i][move->jDest] == move->srcPiece) {
+		}
+		if (board[row][move->jDest] == move->srcPiece) {
 			if (checkCheck)
 				return TRUE;
-			if (isValidMove(board, move, i, move->jDest))
+			if (isValidMove(board, move, row, move->jDest))
 				return TRUE;
 		}
 		break;
 	}
-	for (int i = move->iDest + 1; i < SIZE; ++i) {
-		if (board[i][move->jDest] == EMPTY)
+	//resetting the row
+	row = move->iDest + 1;
+	while (row < SIZE) {
+		//searching downward to the destination
+		if (board[row][move->jDest] == EMPTY) {
+			row++;
 			continue;
-		if (board[i][move->jDest] == move->srcPiece) {
-			if (checkCheck)
-				return TRUE;
-			if (isValidMove(board, move, i, move->jDest))
-				return TRUE;
 		}
-		break;
-	}
-	return FALSE;
-}
-
-Boolean findInRow(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
-	for (int j = move->jDest - 1; j >= 0; j--) {
-		if (board[move->iDest][j] == EMPTY)
-			continue;
-		if (board[move->iDest][j] == move->srcPiece) {
+		if (board[row][move->jDest] == move->srcPiece) {
 			if (checkCheck)
 				return TRUE;
-			if (isValidMove(board, move, move->iDest, j))
-				return TRUE;
-		}
-		break;
-	}
-	for (int j = move->jDest + 1; j < SIZE; ++j) {
-		if (board[move->iDest][j] == EMPTY)
-			continue;
-		if (board[move->iDest][j] == move->srcPiece) {
-			if (checkCheck)
-				return TRUE;
-			if (isValidMove(board, move, move->iDest, j))
+			if (isValidMove(board, move, row, move->jDest))
 				return TRUE;
 		}
 		break;
@@ -475,8 +510,54 @@ Boolean findInRow(char board[][SIZE], Move *move, int checkCheck) {
 	return FALSE;
 }
 
-Boolean findRook(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
+/************************************************************************************************************
+* Function Name: findInRow
+* Input: char board[][Size] - 2D array
+* 		 Move *move - a pointer to move struct
+* 		 Boolean checkCheck - if we are in checkCheck mode
+* Output: Boolean TRUE (1) if found the piece and FALSE (0) if didnt
+* Function Operation: the function goes from the destination and search in every column for a given row
+* 					  and returning false if the piece searched is the piece can't make the move
+* 					  (not there,blocked or not valid)
+************************************************************************************************************/
+Boolean findInRow(char board[][SIZE], Move *move, Boolean checkCheck) {
+	int column = move->jDest - 1;
+	while (column >= 0) {
+		//searching left to the destination
+		if (board[move->iDest][column] == EMPTY) {
+			column--;
+			continue;
+		}
+		if (board[move->iDest][column] == move->srcPiece) {
+			if (checkCheck)
+				return TRUE;
+			if (isValidMove(board, move, move->iDest, column))
+				return TRUE;
+		}
+		break;
+	}
+	
+	//resetting the column
+	column = move->jDest + 1;
+	while (column < SIZE) {
+		//searching right to the destination
+		if (board[move->iDest][column] == EMPTY) {
+			column++;
+			continue;
+		}
+		if (board[move->iDest][column] == move->srcPiece) {
+			if (checkCheck)
+				return TRUE;
+			if (isValidMove(board, move, move->iDest, column))
+				return TRUE;
+		}
+		break;
+	}
+	return FALSE;
+}
+
+Boolean findRook(char board[][SIZE], Move *move, Boolean checkCheck) {
+	//the function search in the row and the column of the destination for a rook and returning if found a valid one
 	if (findInCol(board, move, checkCheck))
 		return TRUE;
 	if (findInRow(board, move, checkCheck))
@@ -484,73 +565,47 @@ Boolean findRook(char board[][SIZE], Move *move, int checkCheck) {
 	return FALSE;
 }
 
-Boolean findInSecDiag(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
-	int i = move->iDest + 1;
-	int j = move->jDest - 1;
-	while (i < SIZE && j >= 0) {
-		if (board[i][j] == EMPTY) {
-			i++;
-			j--;
+/************************************************************************************************************
+* Function Name: findInSecDiag
+* Input: char board[][Size] - 2D array
+* 		 Move *move - a pointer to move struct
+* 		 Boolean checkCheck - if we are in checkCheck mode
+* Output: Boolean TRUE (1) if found the piece and FALSE (0) if didnt
+* Function Operation: the function goes from the destination and search in the secondary diagonal for the piece
+* 					  and returning false if the piece searched is the piece can't make the move
+* 					  (not there,blocked or not valid)
+************************************************************************************************************/
+Boolean findInSecDiag(char board[][SIZE], Move *move, Boolean checkCheck) {
+	int row = move->iDest + 1;
+	int column = move->jDest - 1;
+	while (row < SIZE && column >= 0) {
+		//searching downward and to the left
+		if (board[row][column] == EMPTY) {
+			row++;
+			column--;
 			continue;
 		}
-		if (board[i][j] == move->srcPiece) {
+		if (board[row][column] == move->srcPiece) {
 			if (checkCheck)
 				return TRUE;
-			if (isValidMove(board, move, i, j))
+			if (isValidMove(board, move, row, column))
 				return TRUE;
 		}
 		break;
 	}
-	i = move->iDest - 1;
-	j = move->jDest + 1;
-	while (i >= 0 && j < SIZE) {
-		if (board[i][j] == EMPTY) {
-			i--;
-			j++;
+	row = move->iDest - 1;
+	column = move->jDest + 1;
+	while (row >= 0 && column < SIZE) {
+		//searching upward and to the right
+		if (board[row][column] == EMPTY) {
+			row--;
+			column++;
 			continue;
 		}
-		if (board[i][j] == move->srcPiece) {
+		if (board[row][column] == move->srcPiece) {
 			if (checkCheck)
 				return TRUE;
-			if (isValidMove(board, move, i, j))
-				return TRUE;
-		}
-		break;
-	}
-	return FALSE;
-}
-
-Boolean findInMainDiag(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
-	int i = move->iDest - 1;
-	int j = move->jDest - 1;
-	while (i >= 0 && j >= 0) {
-		if (board[i][j] == EMPTY) {
-			i--;
-			j--;
-			continue;
-		}
-		if (board[i][j] == move->srcPiece) {
-			if (checkCheck)
-				return TRUE;
-			if (isValidMove(board, move, i, j))
-				return TRUE;
-		}
-		break;
-	}
-	i = move->iDest + 1;
-	j = move->jDest + 1;
-	while (i < SIZE && j < SIZE) {
-		if (board[i][j] == EMPTY) {
-			i++;
-			j++;
-			continue;
-		}
-		if (board[i][j] == move->srcPiece) {
-			if (checkCheck)
-				return TRUE;
-			if (isValidMove(board, move, i, j))
+			if (isValidMove(board, move, row, column))
 				return TRUE;
 		}
 		break;
@@ -558,8 +613,56 @@ Boolean findInMainDiag(char board[][SIZE], Move *move, int checkCheck) {
 	return FALSE;
 }
 
-Boolean findBishop(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
+/************************************************************************************************************
+* Function Name: findInSecDiag
+* Input: char board[][Size] - 2D array
+* 		 Move *move - a pointer to move struct
+* 		 Boolean checkCheck - if we are in checkCheck mode
+* Output: Boolean TRUE (1) if found the piece and FALSE (0) if didnt
+* Function Operation: the function goes from the destination and search in the main diagonal for the piece
+* 					  and returning false if the piece searched is the piece can't make the move
+* 					  (not there,blocked or not valid)
+************************************************************************************************************/
+Boolean findInMainDiag(char board[][SIZE], Move *move, Boolean checkCheck) {
+	int row = move->iDest - 1;
+	int column = move->jDest - 1;
+	while (row >= 0 && column >= 0) {
+		if (board[row][column] == EMPTY) {
+			//searching upward and to the left
+			row--;
+			column--;
+			continue;
+		}
+		if (board[row][column] == move->srcPiece) {
+			if (checkCheck)
+				return TRUE;
+			if (isValidMove(board, move, row, column))
+				return TRUE;
+		}
+		break;
+	}
+	row = move->iDest + 1;
+	column = move->jDest + 1;
+	while (row < SIZE && column < SIZE) {
+		//searching downward and to the right
+		if (board[row][column] == EMPTY) {
+			row++;
+			column++;
+			continue;
+		}
+		if (board[row][column] == move->srcPiece) {
+			if (checkCheck)
+				return TRUE;
+			if (isValidMove(board, move, row, column))
+				return TRUE;
+		}
+		break;
+	}
+	return FALSE;
+}
+
+Boolean findBishop(char board[][SIZE], Move *move, Boolean checkCheck) {
+	//the function search in the diagonals of the destination for a bishop and returning if found a valid one
 	if (findInMainDiag(board, move, checkCheck))
 		return TRUE;
 	if (findInSecDiag(board, move, checkCheck))
@@ -567,8 +670,10 @@ Boolean findBishop(char board[][SIZE], Move *move, int checkCheck) {
 	return FALSE;
 }
 
-Boolean findQueen(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
+Boolean findQueen(char board[][SIZE], Move *move, Boolean checkCheck) {
+	/*the function search in the the row column and diagonals of the destination
+	* for a queen and returning if found a valid one
+	*/
 	if (findInRow(board, move, checkCheck))
 		return TRUE;
 	if (findInCol(board, move, checkCheck))
@@ -580,20 +685,24 @@ Boolean findQueen(char board[][SIZE], Move *move, int checkCheck) {
 	return FALSE;
 }
 
-Boolean findKing(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
+Boolean findKing(char board[][SIZE], Move *move, Boolean checkCheck) {
+	/*the function function searches in the 3X3 square around the destination
+	 where the king might be and returning if found a valid one
+	 */
 	int iMove[] = {-1, 0, 1};
 	int jMove[] = {-1, 0, 1};
-	for (int k = 0; k < 3; k++) {
-		for (int l = 0; l < 3; l++) {
-			int i = move->iDest + iMove[l];
-			int j = move->jDest + jMove[k];
-			if (i >= SIZE || i < 0 || j >= SIZE || j < 0)
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (i == 0 && j == 0)
 				continue;
-			if (board[i][j] == move->srcPiece) {
+			int row = move->iDest + iMove[j];
+			int column = move->jDest + jMove[i];
+			if (row >= SIZE || row < 0 || column >= SIZE || column < 0)
+				continue;
+			if (board[row][column] == move->srcPiece) {
 				if (checkCheck)
 					return TRUE;
-				if (isValidMove(board, move, i, j))
+				if (isValidMove(board, move, row, column))
 					return TRUE;
 			}
 		}
@@ -601,37 +710,42 @@ Boolean findKing(char board[][SIZE], Move *move, int checkCheck) {
 	return FALSE;
 }
 
-Boolean findKnight(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
+Boolean findKnight(char board[][SIZE], Move *move, Boolean checkCheck) {
+	/* the function function searches in all the spots on the board that a knight
+	 * can be given a destination returning if found a valid one
+	 */
+	
 	int iMove[] = {1, 2, 1, 2, -1, -2, -1, -2};
 	int jMove[] = {2, 1, -2, -1, 2, 1, -2, -1};
 	for (int index = 0; index < 8; ++index) {
-		int i = move->iDest + iMove[index];
-		int j = move->jDest + jMove[index];
-		if (i >= SIZE || i < 0 || j >= SIZE || j < 0)
+		int row = move->iDest + iMove[index];
+		int column = move->jDest + jMove[index];
+		if (row >= SIZE || row < 0 || column >= SIZE || column < 0)
 			continue;
-		if (board[i][j] == move->srcPiece) {
-			if (!checkCheck) {
-				if (isValidMove(board, move, i, j))
-					return TRUE;
-			} else
+		if (board[row][column] == move->srcPiece) {
+			if (checkCheck)
+				return TRUE;
+			if (isValidMove(board, move, row, column))
 				return TRUE;
 		}
 	}
 	return FALSE;
 }
 
-void makeStep(char board[][SIZE], Move *move) {
-	//todo
-	board[move->iSrc][move->jSrc] = EMPTY;
-	board[move->iDest][move->jDest] = move->srcPiece;
-}
-
-Boolean findPiece(char board[][SIZE], Move *move, int checkCheck) {
-	//todo
+/******************************************************************************************************
+* Function Name: findPiece
+* Input: char board[][SIZE] - a 2D array
+* 		 Move *move - a pointer to the move struct
+* 		 Boolean checkCheck - if we in the checkCheck mode
+* Output: Boolean TRUE (1) if found a valid piece and FALSE (0) if not
+* Function Operation: the function search if there is a valid piece that can reach the destination
+* 					and returning FALSE in couldn't
+******************************************************************************************************/
+Boolean findPiece(char board[][SIZE], Move *move, Boolean checkCheck) {
 	char piece = move->srcPiece;
 	if (isPawn(piece))
-		return findPawn(board, move);   //no need for checkCheck because the logic makes sure it won't enter here
+		//no need for checkCheck because the logic makes sure it won't enter here in checkCheck mode
+		return findPawn(board, move);
 	if (isRook(piece))
 		return findRook(board, move, checkCheck);
 	if (isBishop(piece))
@@ -642,113 +756,131 @@ Boolean findPiece(char board[][SIZE], Move *move, int checkCheck) {
 		return findKing(board, move, checkCheck);
 	if (isKnight(piece))
 		return findKnight(board, move, checkCheck);
+	
 	return FALSE;
 }
 
-Boolean isClearCol(char board[][SIZE], Move *move, int i, int j, int sign) {
-	//todo
-	i += sign;
-	while (i != move->iDest) {
-		if (board[i][j] != EMPTY)
+Boolean isClearCol(char board[][SIZE], Move *move, int iSrc, int jSrc, int Direction) {
+	//gets a source and a destination and find if the column between them is clear
+	iSrc += Direction;
+	while (iSrc != move->iDest) {
+		if (board[iSrc][jSrc] != EMPTY)
 			return FALSE;
-		i += sign;
+		iSrc += Direction;
 	}
-	if (i == move->iDest && j == move->jDest)
-		return TRUE;
-	return FALSE;
+	//make sure we got exactly to the destination
+	return iSrc == move->iDest && jSrc == move->jDest ? TRUE : FALSE;
 }
 
-Boolean isClearRow(char board[][SIZE], Move *move, int i, int j, int sign) {
-	//todo
-	j += sign;
-	while (j != move->jDest) {
-		if (board[i][j] != EMPTY)
+Boolean isClearRow(char board[][SIZE], Move *move, int iSrc, int jSrc, int Direction) {
+	//gets a source and a destination and find if the row between them is clear
+	jSrc += Direction;
+	while (jSrc != move->jDest) {
+		if (board[iSrc][jSrc] != EMPTY)
 			return FALSE;
-		j += sign;
+		jSrc += Direction;
 	}
-	if (j == move->jDest && i == move->iDest)
-		return TRUE;
-	return FALSE;
+	//make sure we got exactly to the destination
+	return jSrc == move->jDest && iSrc == move->iDest ? TRUE : FALSE;
 }
 
-Boolean isClearDiag(char board[][SIZE], Move *move, int i, int j, int iSign, int jSign) {
-	//todo
-	i += iSign;
-	j += jSign;
-	while ((j != move->jDest) && (i != move->iDest)) {
-		if (board[i][j] != EMPTY)
+Boolean isClearDiag(char board[][SIZE], Move *move, int row, int column, int iDirection, int jDirection) {
+	//gets a source and a destination and find if the diagonal between them is clear
+	row += iDirection;
+	column += jDirection;
+	while ((column != move->jDest) && (row != move->iDest)) {
+		if (board[row][column] != EMPTY)
 			return FALSE;
-		i += iSign;
-		j += jSign;
+		row += iDirection;
+		column += jDirection;
 	}
-	if (i == move->iDest && j == move->jDest)
+	//make sure we got exactly to the destination
+	return row == move->iDest && column == move->jDest ? TRUE : FALSE;
+}
+
+Boolean isClearKnight(int row, int column, Move *move) {
+	//gets a source and a destination and find if a knight could make a move from the source to the destination
+	if (abs(move->iDest - row) == 2 && abs(move->jDest - column) == 1)
+		return TRUE;
+	if (abs(move->iDest - row) == 1 && abs(move->jDest - column) == 2)
 		return TRUE;
 	return FALSE;
 }
 
-Boolean isClearKnight(int i, int j, Move *move) {
-	//todo
-	if (abs(move->iDest - i) == 2 && abs(move->jDest - j) == 1)
-		return TRUE;
-	if (abs(move->iDest - i) == 1 && abs(move->jDest - j) == 2)
-		return TRUE;
-	return FALSE;
-}
-
-Boolean canMove(char board[][SIZE], Move *move, int iSrc, int jSrc) {
-	//todo
-	char piece = move->srcPiece;
-	int iSign = move->iDest - iSrc > 0 ? 1 : -1;
-	int jSign = move->jDest - jSrc > 0 ? 1 : -1;
+Boolean canMove(char board[][SIZE], Move *move, int row, int column) {
+	//gets a source and a destination and returning if a given piece can reach the destination
+	
+	//calculating the direction between the source and the destination
+	int iDirection = move->iDest - row > 0 ? 1 : -1;
+	int jDirection = move->jDest - column > 0 ? 1 : -1;
 	if (isRook(move->srcPiece))
-		return isClearCol(board, move, iSrc, jSrc, iSign) || isClearRow(board, move, iSrc, jSrc, jSign);
-	if (isBishop(piece))
-		return isClearDiag(board, move, iSrc, jSrc, iSign, jSign);
-	if (isQueen(piece))
-		return isClearCol(board, move, iSrc, jSrc, iSign) || isClearRow(board, move, iSrc, jSrc, jSign) ||
-		       isClearDiag(board, move, iSrc, jSrc, iSign, jSign);
-	if (isKnight(piece))
-		return isClearKnight(iSrc, jSrc, move);
+		return isClearCol(board, move, row, column, iDirection) || isClearRow(board, move, row, column, jDirection);
+	if (isBishop(move->srcPiece))
+		return isClearDiag(board, move, row, column, iDirection, jDirection);
+	if (isQueen(move->srcPiece))
+		return isClearCol(board, move, row, column, iDirection) || isClearRow(board, move, row, column, jDirection) ||
+		       isClearDiag(board, move, row, column, iDirection, jDirection);
+	if (isKnight(move->srcPiece))
+		return isClearKnight(row, column, move);
 	return FALSE;
 }
 
+/******************************************************************************************************
+* Function Name: updateMove
+* Input: char board[][] - 2D array
+* 		 Move *move - a pointer to a move struct which saves all the important aspect of a chess move
+* Output: None
+* Function Operation: the function search for the piece that made the move and then make it
+******************************************************************************************************/
 void updateMove(char board[][SIZE], Move *move) {
-	//todo
-	Boolean checkCheck = FALSE;
 	move->destPiece = board[move->iDest][move->jDest];
 	move->isDestWhite = isupper(move->destPiece);
 	char piece = move->srcPiece;
-	if (canStep(move)) {
-		if (!(move->srcRow && move->srcCol)) {
-			if (move->srcRow && !isPawn(piece)) {
-				for (int j = 0; j < SIZE; ++j) {
-					if (board[move->iSrc][j] == piece)
-						if (canMove(board, move, move->iSrc, j))
-							if (isValidMove(board, move, move->iSrc, j))
-								break;
-				}
-			} else if (move->srcCol && !isPawn(piece)) {
-				for (int i = 0; i < SIZE; ++i) {
-					if (board[i][move->jSrc] == piece)
-						if (canMove(board, move, i, move->jSrc))
-							if (isValidMove(board, move, i, move->jSrc))
-								break;
-				}
-			} else
-				findPiece(board, move, checkCheck);
+	if (!move->srcRow || !move->srcCol) {
+		//if we don't have the source row or the source column
+		if (move->srcRow && !isPawn(piece)) {
+			for (int j = 0; j < SIZE; j++) {
+				// search the row for the piece
+				if (board[move->iSrc][j] == piece)
+					if (canMove(board, move, move->iSrc, j))
+						//is free to move there
+						if (isValidMove(board, move, move->iSrc, j))
+							//valid move
+							break;
+			}
+		} else if (move->srcCol && !isPawn(piece)) {
+			for (int i = 0; i < SIZE; i++) {
+				// search the column for the piece
+				if (board[i][move->jSrc] == piece)
+					if (canMove(board, move, i, move->jSrc))
+						//is free to move there
+						if (isValidMove(board, move, i, move->jSrc))
+							//valid move
+							break;
+			}
 		} else
-			isValidMove(board, move, move->iSrc, move->jSrc);
-		if (move->isLegal)
-			makeStep(board, move);
-	}
+			findPiece(board, move, FALSE);
+	} else
+		// we have both
+		isValidMove(board, move, move->iSrc, move->jSrc);
+	
+	if (move->isLegal)
+		makeStep(board, move);
 }
 
+/************************************************************************************************************
+* Function Name: makeMove
+* Input: char board[][] - 2D array representing a chess board
+* 		 char pgn[] - a string representing  a move
+* 		 int isWhiteTurn - 1 if it's the white's turn and 0 if it's the black turn
+* Output: int 1 if the move is legal and 0 if not
+* Function Operation: the function gets a board and a string of move and makes it or return if its not a valid move
+************************************************************************************************************/
 int makeMove(char board[][SIZE], char pgn[], int isWhiteTurn) {
-	//todo
+	//initialize the move struct to be all zeros
 	Move move = {};
 	move.isSrcWhite = isWhiteTurn;
 	parseMove(pgn, &move);
 	updateMove(board, &move);
 	return move.isLegal;
-
 }
