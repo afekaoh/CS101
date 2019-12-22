@@ -689,11 +689,13 @@ Boolean findKing(char board[][SIZE], Move *move, Boolean checkCheck) {
 	/*the function function searches in the 3X3 square around the destination
 	 where the king might be and returning if found a valid one
 	 */
+	int const SQUARE_SIZE = 3;
 	int iMove[] = {-1, 0, 1};
 	int jMove[] = {-1, 0, 1};
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
+	for (int i = 0; i < SQUARE_SIZE; i++) {
+		for (int j = 0; j < SQUARE_SIZE; j++) {
 			if (i == 1 && j == 1)
+				//its board[iDest][jDest] which is the destination so we need to skip that
 				continue;
 			int row = move->iDest + iMove[j];
 			int column = move->jDest + jMove[i];
@@ -714,10 +716,11 @@ Boolean findKnight(char board[][SIZE], Move *move, Boolean checkCheck) {
 	/* the function function searches in all the spots on the board that a knight
 	 * can be given a destination returning if found a valid one
 	 */
-	
+	//the number of places that a knight can be from a given destination
+	const NUM_OF_MOVES = 8;
 	int iMove[] = {1, 2, 1, 2, -1, -2, -1, -2};
 	int jMove[] = {2, 1, -2, -1, 2, 1, -2, -1};
-	for (int index = 0; index < 8; ++index) {
+	for (int index = 0; index < NUM_OF_MOVES; ++index) {
 		int row = move->iDest + iMove[index];
 		int column = move->jDest + jMove[index];
 		if (row >= SIZE || row < 0 || column >= SIZE || column < 0)
@@ -839,22 +842,22 @@ void updateMove(char board[][SIZE], Move *move) {
 	if (!move->srcRow || !move->srcCol) {
 		//if we don't have the source row or the source column
 		if (move->srcRow && !isPawn(piece)) {
-			for (int j = 0; j < SIZE; j++) {
+			for (int column = 0; column < SIZE; column++) {
 				// search the row for the piece
-				if (board[move->iSrc][j] == piece)
-					if (canMove(board, move, move->iSrc, j))
+				if (board[move->iSrc][column] == piece)
+					if (canMove(board, move, move->iSrc, column))
 						//is free to move there
-						if (isValidMove(board, move, move->iSrc, j))
+						if (isValidMove(board, move, move->iSrc, column))
 							//valid move
 							break;
 			}
 		} else if (move->srcCol && !isPawn(piece)) {
-			for (int i = 0; i < SIZE; i++) {
+			for (int row = 0; row < SIZE; row++) {
 				// search the column for the piece
-				if (board[i][move->jSrc] == piece)
-					if (canMove(board, move, i, move->jSrc))
+				if (board[row][move->jSrc] == piece)
+					if (canMove(board, move, row, move->jSrc))
 						//is free to move there
-						if (isValidMove(board, move, i, move->jSrc))
+						if (isValidMove(board, move, row, move->jSrc))
 							//valid move
 							break;
 			}
