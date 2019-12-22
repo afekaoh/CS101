@@ -717,7 +717,7 @@ Boolean findKnight(char board[][SIZE], Move *move, Boolean checkCheck) {
 	 * can be given a destination returning if found a valid one
 	 */
 	//the number of places that a knight can be from a given destination
-	const NUM_OF_MOVES = 8;
+	int const NUM_OF_MOVES = 8;
 	int iMove[] = {1, 2, 1, 2, -1, -2, -1, -2};
 	int jMove[] = {2, 1, -2, -1, 2, 1, -2, -1};
 	for (int index = 0; index < NUM_OF_MOVES; ++index) {
