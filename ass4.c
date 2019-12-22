@@ -693,7 +693,7 @@ Boolean findKing(char board[][SIZE], Move *move, Boolean checkCheck) {
 	int jMove[] = {-1, 0, 1};
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			if (i == 0 && j == 0)
+			if (i == 1 && j == 1)
 				continue;
 			int row = move->iDest + iMove[j];
 			int column = move->jDest + jMove[i];

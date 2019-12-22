@@ -7,7 +7,7 @@ void printMove(char board[][SIZE], char *const pgn[], int gameLength) {
 		if (i == 11) {
 			printf("%d", i);
 		}
-		int isWhite = !(i % 2);
+		int isWhite = (i % 2);
 		leagal = makeMove(board, pgn[i], isWhite);
 		if (isWhite)
 			printf("White:");
@@ -29,7 +29,7 @@ int main() {
 	char fen82[] = "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR";
 	char fen83[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 	char fen84[] = "rnb2b2/pppppppp/5Qk1/R1B5/1r1R1P1n/5B2/PPPP1PPP/1N1qK1N1";
-	char fen85[] = "5R2/6Q1/7P/3K4/8/8/2k3P1/8";
+	char fen85[] = "2R1k3/4B3/B7/2n3Q1/8/5N2/3K4/8";
 	char fen86[] = "6B1/2b5/7b/8/8/8/5b1B/B7";
 	char fen87[] = "r1bqqb1r/8/8/8/8/8/8/R1BQQB1R";
 	char fen88[] = "r1bqkb1r/8/8/8/8/8/8/R1BQKB1R";
@@ -137,8 +137,7 @@ int main() {
 			"Qa7"
 	};
 	char *pgn85[] = {
-			"Kb1", "h7",
-			"Ka2", "h8=B"
+			"Kf7", "Qf6#"
 	};
 	
 	char *pgn86[] = {
@@ -200,10 +199,10 @@ int main() {
 			"Rd3", "Rb3",
 			"Rdxb3"
 	};
-	int gameLength = sizeof(pgn84) / sizeof(char *);
-	createBoard(board, fen83);
+	int gameLength = sizeof(pgn85) / sizeof(char *);
+	createBoard(board, fen85);
 	printBoard(board);
-	printMove(board, pgn84, gameLength);
+	printMove(board, pgn85, gameLength);
 	return 0;
 }
 
