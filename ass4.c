@@ -309,8 +309,8 @@ void makeStep(char board[][SIZE], Move *move) {
 /**********************************************************************************
 * Function Name: setSource
 * Input: Move *move - a pointer to Move struct
- * 		int row - destenation row location
- * 		int column - dest coloumn location
+ * 		int row - destination row location
+ * 		int column - dest column location
 * Output: None
 * Function Operation: the function reads the string and puts the
 **********************************************************************************/
