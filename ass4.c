@@ -828,6 +828,13 @@ Boolean canMove(char board[][SIZE], Move *move, int row, int column) {
 	return FALSE;
 }
 
+Boolean checkValidity(char board[][SIZE], Move *move, int row, int column) {
+	if (canMove(board, move, row, column))
+		if (isValidMove(board, move, row, column))
+			return TRUE;
+	return FALSE;
+}
+
 /******************************************************************************************************
 * Function Name: updateMove
 * Input: char board[][] - 2D array
@@ -845,28 +852,22 @@ void updateMove(char board[][SIZE], Move *move) {
 			for (int column = 0; column < SIZE; column++) {
 				// search the row for the piece
 				if (board[move->iSrc][column] == piece)
-					if (canMove(board, move, move->iSrc, column))
-						//is free to move there
-						if (isValidMove(board, move, move->iSrc, column))
-							//valid move
-							break;
+					if (checkValidity(board, move, move->iSrc, column))
+						break;
 			}
 		} else if (move->srcCol && !isPawn(piece)) {
 			for (int row = 0; row < SIZE; row++) {
 				// search the column for the piece
 				if (board[row][move->jSrc] == piece)
-					if (canMove(board, move, row, move->jSrc))
-						//is free to move there
-						if (isValidMove(board, move, row, move->jSrc))
-							//valid move
-							break;
+					if (checkValidity(board, move, row, move->jSrc))
+						break;
 			}
 		} else
 			findPiece(board, move, FALSE);
-	} else
+	} else {
 		// we have both
-		isValidMove(board, move, move->iSrc, move->jSrc);
-	
+		checkValidity(board, move, move->iSrc, move->jSrc);
+	}
 	if (move->isLegal)
 		makeStep(board, move);
 }

@@ -137,7 +137,7 @@ int main() {
 			"Qa7"
 	};
 	char *pgn85[] = {
-			"Kf7", "Qf6#"
+			"K8a4", "Qf6#"
 	};
 	
 	char *pgn86[] = {
