@@ -74,13 +74,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4.c">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/ass4.c">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4.h">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/ass4.h">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/main.c">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/main.c">
 			<Option target="HomeWork"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/CMakeLists.txt">

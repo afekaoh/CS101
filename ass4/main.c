@@ -7,7 +7,7 @@ void printMove(char board[][SIZE], char *const pgn[], int gameLength) {
 		if (i == 11) {
 			printf("%d", i);
 		}
-		int isWhite = (i % 2);
+		int isWhite = !(i % 2);
 		leagal = makeMove(board, pgn[i], isWhite);
 		if (isWhite)
 			printf("White:");
@@ -29,7 +29,7 @@ int main() {
 	char fen82[] = "rnbqkbnr/8/8/8/8/8/8/RNBQKBNR";
 	char fen83[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 	char fen84[] = "rnb2b2/pppppppp/5Qk1/R1B5/1r1R1P1n/5B2/PPPP1PPP/1N1qK1N1";
-	char fen85[] = "2R1k3/4B3/B7/2n3Q1/8/5N2/3K4/8";
+	char fen85[] = "7k/5P2/8/1P5P/2P2P2/7P/KPr3PP/2r1P1P1";
 	char fen86[] = "6B1/2b5/7b/8/8/8/5b1B/B7";
 	char fen87[] = "r1bqqb1r/8/8/8/8/8/8/R1BQQB1R";
 	char fen88[] = "r1bqkb1r/8/8/8/8/8/8/R1BQKB1R";
@@ -137,7 +137,7 @@ int main() {
 			"Qa7"
 	};
 	char *pgn85[] = {
-			"K8a4", "Qf6#"
+			"f8=Q+", "Kh7"
 	};
 	
 	char *pgn86[] = {

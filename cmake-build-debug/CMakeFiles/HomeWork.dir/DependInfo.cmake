@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass4.c.o"
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/main.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/main.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/ass4.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass4/ass4.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/main.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass4/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

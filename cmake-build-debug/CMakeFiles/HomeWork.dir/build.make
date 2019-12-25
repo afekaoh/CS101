@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe
+CMAKE_COMMAND = /cygdrive/c/Users/afeka/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -E remove -f
+RM = /cygdrive/c/Users/afeka/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -57,42 +57,42 @@ include CMakeFiles/HomeWork.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/HomeWork.dir/flags.make
 
-CMakeFiles/HomeWork.dir/ass4.c.o: CMakeFiles/HomeWork.dir/flags.make
-CMakeFiles/HomeWork.dir/ass4.c.o: ../ass4.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/HomeWork.dir/ass4.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass4.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4.c"
+CMakeFiles/HomeWork.dir/ass4/main.c.o: CMakeFiles/HomeWork.dir/flags.make
+CMakeFiles/HomeWork.dir/ass4/main.c.o: ../ass4/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/HomeWork.dir/ass4/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass4/main.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/main.c"
 
-CMakeFiles/HomeWork.dir/ass4.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass4.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4.c" > CMakeFiles/HomeWork.dir/ass4.c.i
+CMakeFiles/HomeWork.dir/ass4/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass4/main.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/main.c" > CMakeFiles/HomeWork.dir/ass4/main.c.i
 
-CMakeFiles/HomeWork.dir/ass4.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass4.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4.c" -o CMakeFiles/HomeWork.dir/ass4.c.s
+CMakeFiles/HomeWork.dir/ass4/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass4/main.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/main.c" -o CMakeFiles/HomeWork.dir/ass4/main.c.s
 
-CMakeFiles/HomeWork.dir/main.c.o: CMakeFiles/HomeWork.dir/flags.make
-CMakeFiles/HomeWork.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/HomeWork.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/main.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/main.c"
+CMakeFiles/HomeWork.dir/ass4/ass4.c.o: CMakeFiles/HomeWork.dir/flags.make
+CMakeFiles/HomeWork.dir/ass4/ass4.c.o: ../ass4/ass4.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/HomeWork.dir/ass4/ass4.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass4/ass4.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/ass4.c"
 
-CMakeFiles/HomeWork.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/main.c" > CMakeFiles/HomeWork.dir/main.c.i
+CMakeFiles/HomeWork.dir/ass4/ass4.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass4/ass4.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/ass4.c" > CMakeFiles/HomeWork.dir/ass4/ass4.c.i
 
-CMakeFiles/HomeWork.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/main.c" -o CMakeFiles/HomeWork.dir/main.c.s
+CMakeFiles/HomeWork.dir/ass4/ass4.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass4/ass4.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass4/ass4.c" -o CMakeFiles/HomeWork.dir/ass4/ass4.c.s
 
 # Object files for target HomeWork
 HomeWork_OBJECTS = \
-"CMakeFiles/HomeWork.dir/ass4.c.o" \
-"CMakeFiles/HomeWork.dir/main.c.o"
+"CMakeFiles/HomeWork.dir/ass4/main.c.o" \
+"CMakeFiles/HomeWork.dir/ass4/ass4.c.o"
 
 # External object files for target HomeWork
 HomeWork_EXTERNAL_OBJECTS =
 
-HomeWork.exe: CMakeFiles/HomeWork.dir/ass4.c.o
-HomeWork.exe: CMakeFiles/HomeWork.dir/main.c.o
+HomeWork.exe: CMakeFiles/HomeWork.dir/ass4/main.c.o
+HomeWork.exe: CMakeFiles/HomeWork.dir/ass4/ass4.c.o
 HomeWork.exe: CMakeFiles/HomeWork.dir/build.make
 HomeWork.exe: CMakeFiles/HomeWork.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable HomeWork.exe"

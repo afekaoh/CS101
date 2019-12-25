@@ -89,12 +89,12 @@ void creatRow(char boardRow[], char *fenRow) {
 }
 
 /**********************************************************************
-* Function Name: createBoard
-* Input:char board[][SIZE] - 2D array representing a chess board
-* 		char fen[] - a string of a chess representing a board state
-* Output: None
-* Function Operation:the function gets a board and a state
-*						 and create a board in this state
+* \Function_Name createBoard
+* \Input char board[][SIZE] - 2D array representing a chess board
+		char fen[] - a string of a chess representing a board state
+* \Output None
+* \Function_Operation the function gets a board and a state
+						 and create a board in this state
 ***********************************************************************/
 void createBoard(char board[][SIZE], char fen[]) {
 	int i = 0;
@@ -158,10 +158,12 @@ void printBoard(char board[][SIZE]) {
 	printColumns();
 }
 
+/***************************************
+ the function gets a char piece and a color (1 for White and 0 for Black)
+ and returns the piece in the same color (big letter for White and small for Black)
+***************************************/
 char setColor(char piece, int isWhite) {
-	/*the function gets a char piece and a color (1 for White and 0 for Black)
-	and returns the piece in the same color (big letter for White and small for Black)
-	 */
+	
 	if (isWhite)
 		return piece;
 	else
@@ -324,7 +326,7 @@ void setSource(Move *move, int row, int column) {
 
 void findKingOnBoard(char board[][SIZE], int kingColor, Move *move) {
 	/*
-	* the function gets a board move and a color the function find the king in the color and
+	* the function gets a board, move and a color the function find the king in the color and
 	* assign its position to the move
 	*/
 	for (int i = 0; i < SIZE; ++i) {
@@ -355,7 +357,9 @@ void setMove(Move const *move, Move *tempMove) {
 	tempMove->srcPiece = move->srcPiece;
 	tempMove->iDest = move->iDest;
 	tempMove->jDest = move->jDest;
-	tempMove->isDestWhite = move->isSrcWhite;
+	tempMove->isSrcWhite = move->isSrcWhite;
+	tempMove->isPromotion = move->isPromotion;
+	tempMove->toPromote = move->toPromote;
 }
 
 void makeTempMove(char const board[][SIZE], char tempBoard[][SIZE], Move const *move, Move *tempMove,
@@ -366,6 +370,7 @@ void makeTempMove(char const board[][SIZE], char tempBoard[][SIZE], Move const *
 	setSource(tempMove, row, column);
 	//making the step on the new board
 	makeStep(tempBoard, tempMove);
+	
 }
 
 /*********************************************************************************
@@ -418,14 +423,12 @@ Boolean isValidMove(char board[][SIZE], Move *move, int row, int column) {
 	char tempBoard[SIZE][SIZE];
 	int kingColor = move->isSrcWhite;
 	makeTempMove(board, tempBoard, move, &tempMove, row, column);
-	
 	if (isCheck(tempBoard, kingColor, &tempMove))
 		//if there is check on the played side after the step
 		return FALSE;
 	
-	if (isCheck(tempBoard, !kingColor, &tempMove))
-		//if there is check on the opponent side
-		if (!move->isCheck)
+	if (isCheck(tempBoard, !kingColor, &tempMove) != move->isCheck)
+		//if there is check on the opponent side and it is legal PGN wise
 			return FALSE;
 	setSource(move, row, column);
 	return TRUE;
