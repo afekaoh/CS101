@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /cygdrive/c/Users/afeka/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe
+CMAKE_COMMAND = /cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /cygdrive/c/Users/afeka/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E remove -f
+RM = /cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/cygdrive/c/Users/afeka/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/cygdrive/c/Users/afeka/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E echo No\ interactive\ CMake\ dialog\ available.
+	/cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -123,59 +123,113 @@ HomeWork/fast:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/build
 .PHONY : HomeWork/fast
 
-ass4/ass4.o: ass4/ass4.c.o
+ass5/ass5.o: ass5/ass5.c.o
 
-.PHONY : ass4/ass4.o
-
-# target to build an object file
-ass4/ass4.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4/ass4.c.o
-.PHONY : ass4/ass4.c.o
-
-ass4/ass4.i: ass4/ass4.c.i
-
-.PHONY : ass4/ass4.i
-
-# target to preprocess a source file
-ass4/ass4.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4/ass4.c.i
-.PHONY : ass4/ass4.c.i
-
-ass4/ass4.s: ass4/ass4.c.s
-
-.PHONY : ass4/ass4.s
-
-# target to generate assembly for a file
-ass4/ass4.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4/ass4.c.s
-.PHONY : ass4/ass4.c.s
-
-ass4/main.o: ass4/main.c.o
-
-.PHONY : ass4/main.o
+.PHONY : ass5/ass5.o
 
 # target to build an object file
-ass4/main.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4/main.c.o
-.PHONY : ass4/main.c.o
+ass5/ass5.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/ass5.c.o
+.PHONY : ass5/ass5.c.o
 
-ass4/main.i: ass4/main.c.i
+ass5/ass5.i: ass5/ass5.c.i
 
-.PHONY : ass4/main.i
+.PHONY : ass5/ass5.i
 
 # target to preprocess a source file
-ass4/main.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4/main.c.i
-.PHONY : ass4/main.c.i
+ass5/ass5.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/ass5.c.i
+.PHONY : ass5/ass5.c.i
 
-ass4/main.s: ass4/main.c.s
+ass5/ass5.s: ass5/ass5.c.s
 
-.PHONY : ass4/main.s
+.PHONY : ass5/ass5.s
 
 # target to generate assembly for a file
-ass4/main.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass4/main.c.s
-.PHONY : ass4/main.c.s
+ass5/ass5.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/ass5.c.s
+.PHONY : ass5/ass5.c.s
+
+ass5/element.o: ass5/element.c.o
+
+.PHONY : ass5/element.o
+
+# target to build an object file
+ass5/element.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/element.c.o
+.PHONY : ass5/element.c.o
+
+ass5/element.i: ass5/element.c.i
+
+.PHONY : ass5/element.i
+
+# target to preprocess a source file
+ass5/element.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/element.c.i
+.PHONY : ass5/element.c.i
+
+ass5/element.s: ass5/element.c.s
+
+.PHONY : ass5/element.s
+
+# target to generate assembly for a file
+ass5/element.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/element.c.s
+.PHONY : ass5/element.c.s
+
+ass5/main.o: ass5/main.c.o
+
+.PHONY : ass5/main.o
+
+# target to build an object file
+ass5/main.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/main.c.o
+.PHONY : ass5/main.c.o
+
+ass5/main.i: ass5/main.c.i
+
+.PHONY : ass5/main.i
+
+# target to preprocess a source file
+ass5/main.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/main.c.i
+.PHONY : ass5/main.c.i
+
+ass5/main.s: ass5/main.c.s
+
+.PHONY : ass5/main.s
+
+# target to generate assembly for a file
+ass5/main.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/main.c.s
+.PHONY : ass5/main.c.s
+
+ass5/stuck.o: ass5/stuck.c.o
+
+.PHONY : ass5/stuck.o
+
+# target to build an object file
+ass5/stuck.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stuck.c.o
+.PHONY : ass5/stuck.c.o
+
+ass5/stuck.i: ass5/stuck.c.i
+
+.PHONY : ass5/stuck.i
+
+# target to preprocess a source file
+ass5/stuck.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stuck.c.i
+.PHONY : ass5/stuck.c.i
+
+ass5/stuck.s: ass5/stuck.c.s
+
+.PHONY : ass5/stuck.s
+
+# target to generate assembly for a file
+ass5/stuck.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stuck.c.s
+.PHONY : ass5/stuck.c.s
 
 # Help Target
 help:
@@ -186,12 +240,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HomeWork"
 	@echo "... edit_cache"
-	@echo "... ass4/ass4.o"
-	@echo "... ass4/ass4.i"
-	@echo "... ass4/ass4.s"
-	@echo "... ass4/main.o"
-	@echo "... ass4/main.i"
-	@echo "... ass4/main.s"
+	@echo "... ass5/ass5.o"
+	@echo "... ass5/ass5.i"
+	@echo "... ass5/ass5.s"
+	@echo "... ass5/element.o"
+	@echo "... ass5/element.i"
+	@echo "... ass5/element.s"
+	@echo "... ass5/main.o"
+	@echo "... ass5/main.i"
+	@echo "... ass5/main.s"
+	@echo "... ass5/stuck.o"
+	@echo "... ass5/stuck.i"
+	@echo "... ass5/stuck.s"
 .PHONY : help
 
 

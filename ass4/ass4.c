@@ -264,16 +264,14 @@ void parseMove(char pgn[], Move *move) {
 	move->jDest = toIndex(move->destCol);
 }
 
-int canStep(Move *move) {
+Boolean canStep(Move *move) {
 	//the function gets a pointer to Move struct and checking the validity of the move it represent
 	if (move->isCapture) {
 		if (move->destPiece != EMPTY)
 			if (!move->isDestWhite != !move->isSrcWhite)
-				//false if both the src and dest is the same color and true if they are different
+				//return srcWhite xor destWhite
 				return TRUE;
-		return FALSE;
-	}
-	if (move->destPiece == EMPTY)   //and isCapture is false
+	} else if (move->destPiece == EMPTY)
 		return TRUE;
 	return FALSE;
 }
@@ -429,7 +427,7 @@ Boolean isValidMove(char board[][SIZE], Move *move, int row, int column) {
 	
 	if (isCheck(tempBoard, !kingColor, &tempMove) != move->isCheck)
 		//if there is check on the opponent side and it is legal PGN wise
-			return FALSE;
+		return FALSE;
 	setSource(move, row, column);
 	return TRUE;
 }
