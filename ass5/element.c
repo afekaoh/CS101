@@ -1,10 +1,10 @@
-#include "headers/element.h"
 #include <stdio.h>
+#include "element.h"
 
 void printElement(Element e) {
-	printf("%c\n", e.value);
+	printf("%c", e.c);
 }
 
 void scanElement(Element *e) {
-	scanf(" %c", &e->value);
+	scanf(" %c", &e->c);
 }

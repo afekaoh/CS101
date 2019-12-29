@@ -2,7 +2,7 @@
 #define __ELEMENT_H
 
 typedef struct {
-	char value;
+	char c;
 } Element;
 
 void printElement(Element e);

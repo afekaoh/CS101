@@ -123,33 +123,6 @@ HomeWork/fast:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/build
 .PHONY : HomeWork/fast
 
-ass5/ass5.o: ass5/ass5.c.o
-
-.PHONY : ass5/ass5.o
-
-# target to build an object file
-ass5/ass5.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/ass5.c.o
-.PHONY : ass5/ass5.c.o
-
-ass5/ass5.i: ass5/ass5.c.i
-
-.PHONY : ass5/ass5.i
-
-# target to preprocess a source file
-ass5/ass5.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/ass5.c.i
-.PHONY : ass5/ass5.c.i
-
-ass5/ass5.s: ass5/ass5.c.s
-
-.PHONY : ass5/ass5.s
-
-# target to generate assembly for a file
-ass5/ass5.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/ass5.c.s
-.PHONY : ass5/ass5.c.s
-
 ass5/element.o: ass5/element.c.o
 
 .PHONY : ass5/element.o
@@ -204,32 +177,86 @@ ass5/main.c.s:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/main.c.s
 .PHONY : ass5/main.c.s
 
-ass5/stuck.o: ass5/stuck.c.o
+ass5/queue.o: ass5/queue.c.o
 
-.PHONY : ass5/stuck.o
+.PHONY : ass5/queue.o
 
 # target to build an object file
-ass5/stuck.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stuck.c.o
-.PHONY : ass5/stuck.c.o
+ass5/queue.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/queue.c.o
+.PHONY : ass5/queue.c.o
 
-ass5/stuck.i: ass5/stuck.c.i
+ass5/queue.i: ass5/queue.c.i
 
-.PHONY : ass5/stuck.i
+.PHONY : ass5/queue.i
 
 # target to preprocess a source file
-ass5/stuck.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stuck.c.i
-.PHONY : ass5/stuck.c.i
+ass5/queue.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/queue.c.i
+.PHONY : ass5/queue.c.i
 
-ass5/stuck.s: ass5/stuck.c.s
+ass5/queue.s: ass5/queue.c.s
 
-.PHONY : ass5/stuck.s
+.PHONY : ass5/queue.s
 
 # target to generate assembly for a file
-ass5/stuck.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stuck.c.s
-.PHONY : ass5/stuck.c.s
+ass5/queue.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/queue.c.s
+.PHONY : ass5/queue.c.s
+
+ass5/stack.o: ass5/stack.c.o
+
+.PHONY : ass5/stack.o
+
+# target to build an object file
+ass5/stack.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stack.c.o
+.PHONY : ass5/stack.c.o
+
+ass5/stack.i: ass5/stack.c.i
+
+.PHONY : ass5/stack.i
+
+# target to preprocess a source file
+ass5/stack.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stack.c.i
+.PHONY : ass5/stack.c.i
+
+ass5/stack.s: ass5/stack.c.s
+
+.PHONY : ass5/stack.s
+
+# target to generate assembly for a file
+ass5/stack.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stack.c.s
+.PHONY : ass5/stack.c.s
+
+ass5/strings.o: ass5/strings.c.o
+
+.PHONY : ass5/strings.o
+
+# target to build an object file
+ass5/strings.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/strings.c.o
+.PHONY : ass5/strings.c.o
+
+ass5/strings.i: ass5/strings.c.i
+
+.PHONY : ass5/strings.i
+
+# target to preprocess a source file
+ass5/strings.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/strings.c.i
+.PHONY : ass5/strings.c.i
+
+ass5/strings.s: ass5/strings.c.s
+
+.PHONY : ass5/strings.s
+
+# target to generate assembly for a file
+ass5/strings.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/strings.c.s
+.PHONY : ass5/strings.c.s
 
 # Help Target
 help:
@@ -240,18 +267,21 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HomeWork"
 	@echo "... edit_cache"
-	@echo "... ass5/ass5.o"
-	@echo "... ass5/ass5.i"
-	@echo "... ass5/ass5.s"
 	@echo "... ass5/element.o"
 	@echo "... ass5/element.i"
 	@echo "... ass5/element.s"
 	@echo "... ass5/main.o"
 	@echo "... ass5/main.i"
 	@echo "... ass5/main.s"
-	@echo "... ass5/stuck.o"
-	@echo "... ass5/stuck.i"
-	@echo "... ass5/stuck.s"
+	@echo "... ass5/queue.o"
+	@echo "... ass5/queue.i"
+	@echo "... ass5/queue.s"
+	@echo "... ass5/stack.o"
+	@echo "... ass5/stack.i"
+	@echo "... ass5/stack.s"
+	@echo "... ass5/strings.o"
+	@echo "... ass5/strings.i"
+	@echo "... ass5/strings.s"
 .PHONY : help
 
 

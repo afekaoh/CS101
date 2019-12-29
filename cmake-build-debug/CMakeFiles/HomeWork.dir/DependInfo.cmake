@@ -4,10 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/ass5.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/ass5.c.o"
   "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/element.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/element.c.o"
   "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/main.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/main.c.o"
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stuck.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/stuck.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/queue.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/queue.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stack.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/stack.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/strings.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/strings.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

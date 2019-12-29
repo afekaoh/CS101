@@ -1,12 +1,14 @@
 #include <string.h>
-#include "headers/stuck.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "stack.h"
+
 
 typedef enum {
 	SIMPLE = 1,
-	SQUARE, CURLY
+	SQUARE, CURLY, TRIANGLE
 } parentheses;
+
 
 int whichOpen(char parentheses) {
 	switch (parentheses) {
@@ -16,6 +18,8 @@ int whichOpen(char parentheses) {
 			return SQUARE;
 		case '{':
 			return CURLY;
+		case '<':
+			return TRIANGLE;
 		default:
 			return 0;
 	}
@@ -29,6 +33,8 @@ int whichClose(char parentheses) {
 			return SQUARE;
 		case '}':
 			return CURLY;
+		case '>':
+			return TRIANGLE;
 		default:
 			return 0;
 	}
@@ -38,7 +44,7 @@ int isMatch(char element, char top) {
 	return whichOpen(top) == whichClose(element);
 }
 
-int isLegalString(char const str[]) {
+int isLegalString(char str[]) {
 	int legal = 1;
 	Stack *stack = initStack();
 	if (stack == NULL) {
@@ -47,15 +53,15 @@ int isLegalString(char const str[]) {
 	}
 	Element e;
 	while (*str && legal) {
-		e.value = *str;
-		if (whichOpen(e.value))
+		e.c = *str;
+		if (whichOpen(e.c))
 			push(stack, e);
-		if (whichClose(e.value))
-			legal = isEmpty(stack) ? 0 : isMatch(e.value, pop(stack).value);
+		if (whichClose(e.c))
+			legal = isStackEmpty(stack) ? 0 : isMatch(e.c, pop(stack).c);
 		str++;
 	}
 	if (legal)
-		legal = isEmpty(stack);
-	destroy(stack);
+		legal = isStackEmpty(stack);
+	destroyStack(stack);
 	return legal;
 }

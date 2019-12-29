@@ -70,22 +70,35 @@ CMakeFiles/HomeWork.dir/ass5/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass5/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/main.c" -o CMakeFiles/HomeWork.dir/ass5/main.c.s
 
-CMakeFiles/HomeWork.dir/ass5/stuck.c.o: CMakeFiles/HomeWork.dir/flags.make
-CMakeFiles/HomeWork.dir/ass5/stuck.c.o: ../ass5/stuck.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/HomeWork.dir/ass5/stuck.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass5/stuck.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stuck.c"
+CMakeFiles/HomeWork.dir/ass5/stack.c.o: CMakeFiles/HomeWork.dir/flags.make
+CMakeFiles/HomeWork.dir/ass5/stack.c.o: ../ass5/stack.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/HomeWork.dir/ass5/stack.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass5/stack.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stack.c"
 
-CMakeFiles/HomeWork.dir/ass5/stuck.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass5/stuck.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stuck.c" > CMakeFiles/HomeWork.dir/ass5/stuck.c.i
+CMakeFiles/HomeWork.dir/ass5/stack.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass5/stack.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stack.c" > CMakeFiles/HomeWork.dir/ass5/stack.c.i
 
-CMakeFiles/HomeWork.dir/ass5/stuck.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass5/stuck.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stuck.c" -o CMakeFiles/HomeWork.dir/ass5/stuck.c.s
+CMakeFiles/HomeWork.dir/ass5/stack.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass5/stack.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stack.c" -o CMakeFiles/HomeWork.dir/ass5/stack.c.s
+
+CMakeFiles/HomeWork.dir/ass5/strings.c.o: CMakeFiles/HomeWork.dir/flags.make
+CMakeFiles/HomeWork.dir/ass5/strings.c.o: ../ass5/strings.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/HomeWork.dir/ass5/strings.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass5/strings.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/strings.c"
+
+CMakeFiles/HomeWork.dir/ass5/strings.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass5/strings.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/strings.c" > CMakeFiles/HomeWork.dir/ass5/strings.c.i
+
+CMakeFiles/HomeWork.dir/ass5/strings.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass5/strings.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/strings.c" -o CMakeFiles/HomeWork.dir/ass5/strings.c.s
 
 CMakeFiles/HomeWork.dir/ass5/element.c.o: CMakeFiles/HomeWork.dir/flags.make
 CMakeFiles/HomeWork.dir/ass5/element.c.o: ../ass5/element.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/HomeWork.dir/ass5/element.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/HomeWork.dir/ass5/element.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass5/element.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/element.c"
 
 CMakeFiles/HomeWork.dir/ass5/element.c.i: cmake_force
@@ -96,36 +109,38 @@ CMakeFiles/HomeWork.dir/ass5/element.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass5/element.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/element.c" -o CMakeFiles/HomeWork.dir/ass5/element.c.s
 
-CMakeFiles/HomeWork.dir/ass5/ass5.c.o: CMakeFiles/HomeWork.dir/flags.make
-CMakeFiles/HomeWork.dir/ass5/ass5.c.o: ../ass5/ass5.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/HomeWork.dir/ass5/ass5.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass5/ass5.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/ass5.c"
+CMakeFiles/HomeWork.dir/ass5/queue.c.o: CMakeFiles/HomeWork.dir/flags.make
+CMakeFiles/HomeWork.dir/ass5/queue.c.o: ../ass5/queue.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/HomeWork.dir/ass5/queue.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HomeWork.dir/ass5/queue.c.o   -c "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/queue.c"
 
-CMakeFiles/HomeWork.dir/ass5/ass5.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass5/ass5.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/ass5.c" > CMakeFiles/HomeWork.dir/ass5/ass5.c.i
+CMakeFiles/HomeWork.dir/ass5/queue.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HomeWork.dir/ass5/queue.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/queue.c" > CMakeFiles/HomeWork.dir/ass5/queue.c.i
 
-CMakeFiles/HomeWork.dir/ass5/ass5.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass5/ass5.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/ass5.c" -o CMakeFiles/HomeWork.dir/ass5/ass5.c.s
+CMakeFiles/HomeWork.dir/ass5/queue.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HomeWork.dir/ass5/queue.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/queue.c" -o CMakeFiles/HomeWork.dir/ass5/queue.c.s
 
 # Object files for target HomeWork
 HomeWork_OBJECTS = \
 "CMakeFiles/HomeWork.dir/ass5/main.c.o" \
-"CMakeFiles/HomeWork.dir/ass5/stuck.c.o" \
+"CMakeFiles/HomeWork.dir/ass5/stack.c.o" \
+"CMakeFiles/HomeWork.dir/ass5/strings.c.o" \
 "CMakeFiles/HomeWork.dir/ass5/element.c.o" \
-"CMakeFiles/HomeWork.dir/ass5/ass5.c.o"
+"CMakeFiles/HomeWork.dir/ass5/queue.c.o"
 
 # External object files for target HomeWork
 HomeWork_EXTERNAL_OBJECTS =
 
 HomeWork.exe: CMakeFiles/HomeWork.dir/ass5/main.c.o
-HomeWork.exe: CMakeFiles/HomeWork.dir/ass5/stuck.c.o
+HomeWork.exe: CMakeFiles/HomeWork.dir/ass5/stack.c.o
+HomeWork.exe: CMakeFiles/HomeWork.dir/ass5/strings.c.o
 HomeWork.exe: CMakeFiles/HomeWork.dir/ass5/element.c.o
-HomeWork.exe: CMakeFiles/HomeWork.dir/ass5/ass5.c.o
+HomeWork.exe: CMakeFiles/HomeWork.dir/ass5/queue.c.o
 HomeWork.exe: CMakeFiles/HomeWork.dir/build.make
 HomeWork.exe: CMakeFiles/HomeWork.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable HomeWork.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable HomeWork.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HomeWork.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

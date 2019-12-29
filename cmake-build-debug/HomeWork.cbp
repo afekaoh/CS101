@@ -74,12 +74,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/ass5.c">
-			<Option target="HomeWork"/>
-		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/ass5.h">
-			<Option target="HomeWork"/>
-		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/element.c">
 			<Option target="HomeWork"/>
 		</Unit>
@@ -89,10 +83,22 @@
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/main.c">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stuck.c">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/queue.c">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stuck.h">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/queue.h">
+			<Option target="HomeWork"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stack.c">
+			<Option target="HomeWork"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/stack.h">
+			<Option target="HomeWork"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/strings.c">
+			<Option target="HomeWork"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass5/strings.h">
 			<Option target="HomeWork"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/CMakeLists.txt">
