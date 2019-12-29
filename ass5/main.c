@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include "stuck.h"
-#include "ass5.h"
+#include "headers/stuck.h"
+#include "headers/ass5.h"
 
 void manageStack() {
 	Stack *stack = initStack();
@@ -47,7 +47,8 @@ void manageStrings() {
 			"(87234872364)",
 			"{}",
 			"{999967(})",
-			"{{{[[[((()))]]]}}}"
+			"{{{[[[((()))]]]}}}",
+			"[[[]]]((([][{{()}}])))[]"
 	};
 	int testLen = sizeof(strings) / sizeof(char *);
 	for (int i = 0; i < testLen; i++) {

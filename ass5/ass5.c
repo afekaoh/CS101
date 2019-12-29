@@ -1,47 +1,61 @@
 #include <string.h>
-#include "stuck.h"
+#include "headers/stuck.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-char const OPEN_PARENTHESES[] = "([{";
-char const CLOSE_PARENTHESES[] = ")]}";
+typedef enum {
+	SIMPLE = 1,
+	SQUARE, CURLY
+} parentheses;
 
-char matchParentheses(char element, char top) {
-	switch (element) {
-		case '}' :
-			if (top == '{')
-				return 1;
-		case ']' :
-			if (top == '[')
-				return 1;
-		case ')' :
-			if (top == '(')
-				return 1;
+int whichOpen(char parentheses) {
+	switch (parentheses) {
+		case '(':
+			return SIMPLE;
+		case '[':
+			return SQUARE;
+		case '{':
+			return CURLY;
 		default:
 			return 0;
 	}
 }
 
+int whichClose(char parentheses) {
+	switch (parentheses) {
+		case ')':
+			return SIMPLE;
+		case ']':
+			return SQUARE;
+		case '}':
+			return CURLY;
+		default:
+			return 0;
+	}
+}
+
+int isMatch(char element, char top) {
+	return whichOpen(top) == whichClose(element);
+}
+
 int isLegalString(char const str[]) {
+	int legal = 1;
 	Stack *stack = initStack();
-	Element element;
-	while (*str) {
-		element.value = *str;
-		if (strchr(OPEN_PARENTHESES, element.value) != NULL) {
-			if (isEmpty(stack))
-				push(stack, element);
-			else {
-				if (element.value <= top(stack).value)
-					push(stack, element);
-				else
-					return 0;
-			}
-		}
-		if (strchr(CLOSE_PARENTHESES, element.value) != NULL) {
-			if (!matchParentheses(element.value, pop(stack).value))
-				return 0;
-		}
+	if (stack == NULL) {
+		printf("Sorry, not today\n");
+		exit(42);
+	}
+	Element e;
+	while (*str && legal) {
+		e.value = *str;
+		if (whichOpen(e.value))
+			push(stack, e);
+		if (whichClose(e.value))
+			legal = isEmpty(stack) ? 0 : isMatch(e.value, pop(stack).value);
 		str++;
 	}
-	int flag = isEmpty(stack);
+	if (legal)
+		legal = isEmpty(stack);
 	destroy(stack);
-	return flag;
+	return legal;
 }

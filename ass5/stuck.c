@@ -1,5 +1,5 @@
-#include "stuck.h"
-#include "element.h"
+#include "headers/stuck.h"
+#include "headers/element.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -9,7 +9,7 @@ Stack *initStack() {
 		return NULL;
 	stack->size = 0;
 	stack->topIndex = -1;
-	stack->content = (Element *) malloc(stack->size * sizeof(Element *));
+	stack->content = malloc(stack->size * sizeof(Element));
 	if (stack->content == NULL) {
 		free(stack);
 		return NULL;
@@ -23,7 +23,7 @@ void destroy(Stack *stack) {
 }
 
 void push(Stack *stack, Element element) {
-	Element *temp = realloc(stack->content, ++stack->size * sizeof(Element *));
+	Element *temp = realloc(stack->content, ++stack->size * sizeof(Element));
 	if (temp == NULL) {
 		printf("something went wrong");
 		destroy(stack);
@@ -36,7 +36,7 @@ void push(Stack *stack, Element element) {
 Element pop(Stack *stack) {
 	
 	Element tempElement = stack->content[stack->topIndex--];
-	Element *temp = realloc(stack->content, --stack->size * sizeof(Element *));
+	Element *temp = realloc(stack->content, --stack->size * sizeof(Element));
 	if (temp == NULL) {
 		printf("something went wrong");
 		destroy(stack);
@@ -50,7 +50,7 @@ Element top(Stack *stack) {
 }
 
 int isEmpty(Stack *stack) {
-	if (getCapacity(stack) == stack->size)
+	if (stack->size == 0)
 		return 1;
 	return 0;
 }
@@ -70,13 +70,12 @@ int getNumOfElements(Stack *stack) {
 }
 
 void printStack(Stack *stack) {
-	int size = getNumOfElements(stack);
 	if (isEmpty(stack)) {
 		printf("Empty");
 		return;
 	}
-	for (int i = size - 1; i >= 0; i--) {
-		printf("%d. ", size - i);
+	for (int i = stack->topIndex; i >= 0; i--) {
+		printf("%d. ", stack->size - i);
 		printElement(stack->content[i]);
 	}
 }
