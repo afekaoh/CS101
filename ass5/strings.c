@@ -1,17 +1,26 @@
+/*******************
+Adam Shay Shapira
+*316044809
+*01
+*ass05
+*******************/
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
 
-
+/// enum declaration for the type of parentheses the function deal with
 typedef enum {
-	SIMPLE = 1,
-	SQUARE, CURLY, TRIANGLE
+	NONE, SIMPLE, SQUARE, CURLY, TRIANGLE
 } parentheses;
 
-
-int whichOpen(char parentheses) {
-	switch (parentheses) {
+/************************************************************************************************
+* \input ch - char from the string
+* \return if the char is an opening parenthesis the function returns its type and 0 if it's not
+************************************************************************************************/
+int whichOpen(char ch) {
+	switch (ch) {
 		case '(':
 			return SIMPLE;
 		case '[':
@@ -21,12 +30,16 @@ int whichOpen(char parentheses) {
 		case '<':
 			return TRIANGLE;
 		default:
-			return 0;
+			return NONE;
 	}
 }
 
-int whichClose(char parentheses) {
-	switch (parentheses) {
+/***********************************************************************************************
+* \input ch - char from the string
+* \return if the char is an closing parenthesis the function returns its type and 0 if it's not
+************************************************************************************************/
+int whichClose(char ch) {
+	switch (ch) {
 		case ')':
 			return SIMPLE;
 		case ']':
@@ -36,14 +49,22 @@ int whichClose(char parentheses) {
 		case '>':
 			return TRIANGLE;
 		default:
-			return 0;
+			return NONE;
 	}
 }
 
+/// the function gets 2 chars and checking if they are matching parentheses
 int isMatch(char element, char top) {
 	return whichOpen(top) == whichClose(element);
 }
 
+/***********************************************************************************
+* \input str[] - a string
+* \return 1 if it's legal and 0 if not
+* \brief the functions gets a string and checks if its valid parentheses wise,
+* 		meaning for every opening parenthesis there is a closing one in the revers
+* 		order of appearance
+************************************************************************************/
 int isLegalString(char str[]) {
 	int legal = 1;
 	Stack *stack = initStack();
