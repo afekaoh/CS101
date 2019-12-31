@@ -34,7 +34,7 @@ Queue *initQueue() {
 *******************************************************************************************************/
 void destroyQueue(Queue *queue) {
 	destroyStack(queue->s1);
-	destroyStack(queue->s1);
+	destroyStack(queue->s2);
 	free(queue);
 	queue = NULL;
 }
