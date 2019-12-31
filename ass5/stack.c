@@ -53,10 +53,9 @@ void push(Stack *stack, Element element) {
 		Element *temp = realloc(stack->content, stack->size * sizeof(Element));
 		if (temp == NULL) {
 			printf("something went wrong in %s line %d", __FILE__, __LINE__);
-			destroyStack(stack);
-			exit(42);
-		}
-		stack->content = temp;
+			stack->topIndex--;
+		} else
+			stack->content = temp;
 	}
 }
 
@@ -77,10 +76,9 @@ Element pop(Stack *stack) {
 		Element *temp = realloc(stack->content, stack->size * sizeof(Element));
 		if (temp == NULL) {
 			printf("something went wrong in %s line %d", __FILE__, __LINE__);
-			destroyStack(stack);
-			exit(42);
-		}
-		stack->content = temp;
+			stack->topIndex++;
+		} else
+			stack->content = temp;
 	}
 	return tempElement;
 }
