@@ -45,7 +45,7 @@ void destroyQueue(Queue *queue) {
 * \brief the function gets 2 stacks and moving all the elements from the first one to the second one
 *******************************************************************************************************/
 void spill(Stack *from, Stack *to) {
-	while (lenOfStack(from))
+	while (lenOfStack(from) && capacityOfStack(to) != 0)
 		push(to, pop(from));
 }
 

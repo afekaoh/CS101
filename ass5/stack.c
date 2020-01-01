@@ -53,7 +53,8 @@ void push(Stack *stack, Element element) {
 		Element *temp = realloc(stack->content, stack->size * sizeof(Element));
 		if (temp == NULL) {
 			printf("something went wrong in %s line %d", __FILE__, __LINE__);
-			stack->topIndex--;
+			//returning the stack to it's original state
+			stack->size /= 2;
 		} else
 			stack->content = temp;
 	}
@@ -70,13 +71,14 @@ Element pop(Stack *stack) {
 	Element tempElement = stack->content[stack->topIndex--];
 	
 	if (lenOfStack(stack) == (capacityOfStack(stack) / 2) - 1) {
-		stack->size = (stack->size / 2);
+		stack->size /= 2;
 		// leaving just 1 empty spot in the stack
 		assert(stack->size != 0);
 		Element *temp = realloc(stack->content, stack->size * sizeof(Element));
 		if (temp == NULL) {
 			printf("something went wrong in %s line %d", __FILE__, __LINE__);
-			stack->topIndex++;
+			//returning the stack to it's original state
+			stack->size *= 2;
 		} else
 			stack->content = temp;
 	}
@@ -105,10 +107,6 @@ int lenOfStack(Stack *stack) {
 
 ///prints the stack in LIFO order element by element
 void printStack(Stack *stack) {
-	if (isStackEmpty(stack)) {
-		printf("Empty\n");
-		return;
-	}
 	for (int i = stack->topIndex; i >= 0; i--) {
 		printf("%d: ", i + 1);
 		printElement(stack->content[i]);
