@@ -61,7 +61,7 @@ void spill(Stack *from, Stack *to) {
 * \brief the function gets an element and a queue to push it into and adds the element to the queue
 ***************************************************************************************************/
 void enqueue(Queue *queue, Element element) {
-		push(queue->s1, element);
+	push(queue->s1, element);
 }
 
 /**************************************************************************
@@ -94,6 +94,10 @@ int lenOfQueue(Queue *queue) {
 
 ///returns the potential capacity of the queue
 int capacityOfQueue(Queue *queue) {
-	return capacityOfStack(queue->s1) + capacityOfStack(queue->s2);
+	/*
+	 * capacity is how much can you add to the queue which is capacity of s1 which you add elements in
+	 * and how many elements there is in the queue which is in the capacity of s1 and the len of s2
+	 */
+	return capacityOfStack(queue->s1)+lenOfStack(queue->s2);
 }
 
