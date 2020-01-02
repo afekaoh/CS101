@@ -6,6 +6,7 @@ Adam Shay Shapira
 *******************/
 
 #include "queue.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 /************************************************************************************************
@@ -14,6 +15,11 @@ Adam Shay Shapira
 ************************************************************************************************/
 Queue *initQueue() {
 	Queue *queue = malloc(sizeof(Queue));
+	if (queue == NULL) {
+		printf("heap memory error couldn't allocate memory in: %s, function: %s, line: %d\n", __FILE__, __func__,
+		       __LINE__);
+		return NULL;
+	}
 	queue->s1 = initStack();
 	if (queue->s1 == NULL) {
 		free(queue);
@@ -45,7 +51,7 @@ void destroyQueue(Queue *queue) {
 * \brief the function gets 2 stacks and moving all the elements from the first one to the second one
 *******************************************************************************************************/
 void spill(Stack *from, Stack *to) {
-	while (lenOfStack(from) && capacityOfStack(to) != 0)
+	while (lenOfStack(from) && (capacityOfStack(to) - lenOfStack(to) != 0))
 		push(to, pop(from));
 }
 
@@ -55,13 +61,7 @@ void spill(Stack *from, Stack *to) {
 * \brief the function gets an element and a queue to push it into and adds the element to the queue
 ***************************************************************************************************/
 void enqueue(Queue *queue, Element element) {
-	if (isQueueEmpty(queue))
 		push(queue->s1, element);
-	else {
-		spill(queue->s1, queue->s2);
-		push(queue->s2, element);
-		spill(queue->s2, queue->s1);
-	}
 }
 
 /**************************************************************************
@@ -70,26 +70,30 @@ void enqueue(Queue *queue, Element element) {
 * \brief: the function takes out an element from the queue and returns it.
 **************************************************************************/
 Element dequeue(Queue *queue) {
-	return pop(queue->s1);
+	if (isStackEmpty(queue->s2))
+		spill(queue->s1, queue->s2);
+	return pop(queue->s2);
 }
 
 /// returns the first element of the queue without changing the queue
 Element peek(Queue *queue) {
-	return top(queue->s1);
+	if (isStackEmpty(queue->s2))
+		spill(queue->s1, queue->s2);
+	return top(queue->s2);
 }
 
 ///returns 1 if the queue is empty and 0 if not
 int isQueueEmpty(Queue *queue) {
-	return isStackEmpty(queue->s1);
+	return isStackEmpty(queue->s1) && isStackEmpty(queue->s2);
 }
 
 ///returns the number of element is the queue
 int lenOfQueue(Queue *queue) {
-	return lenOfStack(queue->s1);
+	return lenOfStack(queue->s1) + lenOfStack(queue->s2);
 }
 
 ///returns the potential capacity of the queue
 int capacityOfQueue(Queue *queue) {
-	return capacityOfStack(queue->s1);
+	return capacityOfStack(queue->s1) + capacityOfStack(queue->s2);
 }
 

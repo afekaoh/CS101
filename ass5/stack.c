@@ -16,14 +16,18 @@ Adam Shay Shapira
 ***********************************************************************************************/
 Stack *initStack() {
 	Stack *stack = malloc(sizeof(Stack));
-	if (stack == NULL)
+	if (stack == NULL) {
+		printf("heap memory error couldn't allocate memory in: %s, function: %s, line: %d\n", __FILE__, __func__,
+		       __LINE__);
 		return NULL;
+	}
 	stack->size = 1;
 	stack->topIndex = -1;
 	stack->content = malloc(stack->size * sizeof(Element));
 	if (stack->content == NULL) {
-		free(stack);
-		stack = NULL;
+		printf("heap memory error couldn't allocate memory in: %s, function: %s, line: %d\n", __FILE__, __func__,
+		       __LINE__);
+		destroyStack(stack);
 	}
 	return stack;
 }
@@ -33,10 +37,16 @@ Stack *initStack() {
 * \brief the functions freeing all the memory allocating to the stack and sets the pointers to NULL
 ***************************************************************************************************/
 void destroyStack(Stack *stack) {
-	free(stack->content);
-	stack->content = NULL;
-	free(stack);
-	stack = NULL;
+	if (stack != NULL) {
+		free(stack->content);
+		stack->content = NULL;
+		free(stack);
+		stack = NULL;
+	}
+}
+
+int isFull(Stack *stack) {
+	return capacityOfStack(stack) - lenOfStack(stack) == 0;
 }
 
 /************************************************************************************************************
@@ -48,11 +58,12 @@ void destroyStack(Stack *stack) {
 void push(Stack *stack, Element element) {
 	stack->content[++stack->topIndex] = element;
 	
-	if (capacityOfStack(stack) == 0) {
+	if (isFull(stack)) {
 		stack->size *= 2;
 		Element *temp = realloc(stack->content, stack->size * sizeof(Element));
 		if (temp == NULL) {
-			printf("something went wrong in %s line %d", __FILE__, __LINE__);
+			printf("heap memory error couldn't allocate memory in: %s, function: %s, line: %d\n", __FILE__, __func__,
+			       __LINE__);
 			//returning the stack to it's original state
 			stack->size /= 2;
 		} else
@@ -70,13 +81,14 @@ void push(Stack *stack, Element element) {
 Element pop(Stack *stack) {
 	Element tempElement = stack->content[stack->topIndex--];
 	
-	if (lenOfStack(stack) == (capacityOfStack(stack) / 2) - 1) {
+	if (lenOfStack(stack) == ((capacityOfStack(stack) / 2) - 1)) {
 		stack->size /= 2;
 		// leaving just 1 empty spot in the stack
 		assert(stack->size != 0);
 		Element *temp = realloc(stack->content, stack->size * sizeof(Element));
 		if (temp == NULL) {
-			printf("something went wrong in %s line %d", __FILE__, __LINE__);
+			printf("heap memory error couldn't allocate memory in: %s, function: %s, line: %d\n", __FILE__, __func__,
+			       __LINE__);
 			//returning the stack to it's original state
 			stack->size *= 2;
 		} else

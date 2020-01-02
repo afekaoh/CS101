@@ -7,7 +7,6 @@ Adam Shay Shapira
 
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include "stack.h"
 
 /// enum declaration for the type of parentheses the function deal with
@@ -66,23 +65,24 @@ int isMatch(char element, char top) {
 * 		order of appearance
 ************************************************************************************/
 int isLegalString(char str[]) {
-	int legal = 1;
+	int isLegal = 1;
 	Stack *stack = initStack();
 	if (stack == NULL) {
-		printf("Sorry, not today\n");
-		exit(42);
+		printf("there was a problem couldn't check for legality\n");
+		isLegal = 0;
 	}
 	Element e;
-	while (*str && legal) {
+	while (*str && isLegal) {
 		e.c = *str;
 		if (whichOpen(e.c))
 			push(stack, e);
 		if (whichClose(e.c))
-			legal = isStackEmpty(stack) ? 0 : isMatch(e.c, pop(stack).c);
+			isLegal = isStackEmpty(stack) ? 0 : isMatch(e.c, pop(stack).c);
 		str++;
 	}
-	if (legal)
-		legal = isStackEmpty(stack);
+	if (isLegal)
+		//the stack should be empty by now if not it's not legal string
+		isLegal = isStackEmpty(stack);
 	destroyStack(stack);
-	return legal;
+	return isLegal;
 }
