@@ -4,11 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/adam-shap/CLionProjects/HomeWork/ass5/element.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/element.c.o"
-  "/home/adam-shap/CLionProjects/HomeWork/ass5/main.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/main.c.o"
-  "/home/adam-shap/CLionProjects/HomeWork/ass5/queue.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/queue.c.o"
-  "/home/adam-shap/CLionProjects/HomeWork/ass5/stack.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/stack.c.o"
-  "/home/adam-shap/CLionProjects/HomeWork/ass5/strings.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass5/strings.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentItem.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentList.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/main.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/main.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/student.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/student.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

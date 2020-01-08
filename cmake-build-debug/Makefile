@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/99/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /snap/clion/99/bin/cmake/linux/bin/cmake -E remove -f
+RM = /cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/adam-shap/CLionProjects/HomeWork
+CMAKE_SOURCE_DIR = "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/adam-shap/CLionProjects/HomeWork/cmake-build-debug
+CMAKE_BINARY_DIR = "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/adam-shap/CLionProjects/HomeWork/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/99/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/99/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/cygdrive/c/Users/afeka/.CLion2019.3/system/cygwin_cmake/bin/cmake.exe -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles /home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -123,140 +123,113 @@ HomeWork/fast:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/build
 .PHONY : HomeWork/fast
 
-ass5/element.o: ass5/element.c.o
+student_list_exmp/StudentItem.o: student_list_exmp/StudentItem.c.o
 
-.PHONY : ass5/element.o
-
-# target to build an object file
-ass5/element.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/element.c.o
-.PHONY : ass5/element.c.o
-
-ass5/element.i: ass5/element.c.i
-
-.PHONY : ass5/element.i
-
-# target to preprocess a source file
-ass5/element.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/element.c.i
-.PHONY : ass5/element.c.i
-
-ass5/element.s: ass5/element.c.s
-
-.PHONY : ass5/element.s
-
-# target to generate assembly for a file
-ass5/element.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/element.c.s
-.PHONY : ass5/element.c.s
-
-ass5/main.o: ass5/main.c.o
-
-.PHONY : ass5/main.o
+.PHONY : student_list_exmp/StudentItem.o
 
 # target to build an object file
-ass5/main.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/main.c.o
-.PHONY : ass5/main.c.o
+student_list_exmp/StudentItem.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.o
+.PHONY : student_list_exmp/StudentItem.c.o
 
-ass5/main.i: ass5/main.c.i
+student_list_exmp/StudentItem.i: student_list_exmp/StudentItem.c.i
 
-.PHONY : ass5/main.i
+.PHONY : student_list_exmp/StudentItem.i
 
 # target to preprocess a source file
-ass5/main.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/main.c.i
-.PHONY : ass5/main.c.i
+student_list_exmp/StudentItem.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.i
+.PHONY : student_list_exmp/StudentItem.c.i
 
-ass5/main.s: ass5/main.c.s
+student_list_exmp/StudentItem.s: student_list_exmp/StudentItem.c.s
 
-.PHONY : ass5/main.s
+.PHONY : student_list_exmp/StudentItem.s
 
 # target to generate assembly for a file
-ass5/main.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/main.c.s
-.PHONY : ass5/main.c.s
+student_list_exmp/StudentItem.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.s
+.PHONY : student_list_exmp/StudentItem.c.s
 
-ass5/queue.o: ass5/queue.c.o
+student_list_exmp/StudentList.o: student_list_exmp/StudentList.c.o
 
-.PHONY : ass5/queue.o
+.PHONY : student_list_exmp/StudentList.o
 
 # target to build an object file
-ass5/queue.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/queue.c.o
-.PHONY : ass5/queue.c.o
+student_list_exmp/StudentList.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.o
+.PHONY : student_list_exmp/StudentList.c.o
 
-ass5/queue.i: ass5/queue.c.i
+student_list_exmp/StudentList.i: student_list_exmp/StudentList.c.i
 
-.PHONY : ass5/queue.i
+.PHONY : student_list_exmp/StudentList.i
 
 # target to preprocess a source file
-ass5/queue.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/queue.c.i
-.PHONY : ass5/queue.c.i
+student_list_exmp/StudentList.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.i
+.PHONY : student_list_exmp/StudentList.c.i
 
-ass5/queue.s: ass5/queue.c.s
+student_list_exmp/StudentList.s: student_list_exmp/StudentList.c.s
 
-.PHONY : ass5/queue.s
+.PHONY : student_list_exmp/StudentList.s
 
 # target to generate assembly for a file
-ass5/queue.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/queue.c.s
-.PHONY : ass5/queue.c.s
+student_list_exmp/StudentList.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.s
+.PHONY : student_list_exmp/StudentList.c.s
 
-ass5/stack.o: ass5/stack.c.o
+student_list_exmp/main.o: student_list_exmp/main.c.o
 
-.PHONY : ass5/stack.o
+.PHONY : student_list_exmp/main.o
 
 # target to build an object file
-ass5/stack.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stack.c.o
-.PHONY : ass5/stack.c.o
+student_list_exmp/main.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/main.c.o
+.PHONY : student_list_exmp/main.c.o
 
-ass5/stack.i: ass5/stack.c.i
+student_list_exmp/main.i: student_list_exmp/main.c.i
 
-.PHONY : ass5/stack.i
+.PHONY : student_list_exmp/main.i
 
 # target to preprocess a source file
-ass5/stack.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stack.c.i
-.PHONY : ass5/stack.c.i
+student_list_exmp/main.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/main.c.i
+.PHONY : student_list_exmp/main.c.i
 
-ass5/stack.s: ass5/stack.c.s
+student_list_exmp/main.s: student_list_exmp/main.c.s
 
-.PHONY : ass5/stack.s
+.PHONY : student_list_exmp/main.s
 
 # target to generate assembly for a file
-ass5/stack.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/stack.c.s
-.PHONY : ass5/stack.c.s
+student_list_exmp/main.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/main.c.s
+.PHONY : student_list_exmp/main.c.s
 
-ass5/strings.o: ass5/strings.c.o
+student_list_exmp/student.o: student_list_exmp/student.c.o
 
-.PHONY : ass5/strings.o
+.PHONY : student_list_exmp/student.o
 
 # target to build an object file
-ass5/strings.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/strings.c.o
-.PHONY : ass5/strings.c.o
+student_list_exmp/student.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/student.c.o
+.PHONY : student_list_exmp/student.c.o
 
-ass5/strings.i: ass5/strings.c.i
+student_list_exmp/student.i: student_list_exmp/student.c.i
 
-.PHONY : ass5/strings.i
+.PHONY : student_list_exmp/student.i
 
 # target to preprocess a source file
-ass5/strings.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/strings.c.i
-.PHONY : ass5/strings.c.i
+student_list_exmp/student.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/student.c.i
+.PHONY : student_list_exmp/student.c.i
 
-ass5/strings.s: ass5/strings.c.s
+student_list_exmp/student.s: student_list_exmp/student.c.s
 
-.PHONY : ass5/strings.s
+.PHONY : student_list_exmp/student.s
 
 # target to generate assembly for a file
-ass5/strings.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass5/strings.c.s
-.PHONY : ass5/strings.c.s
+student_list_exmp/student.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/student.c.s
+.PHONY : student_list_exmp/student.c.s
 
 # Help Target
 help:
@@ -267,21 +240,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HomeWork"
 	@echo "... edit_cache"
-	@echo "... ass5/element.o"
-	@echo "... ass5/element.i"
-	@echo "... ass5/element.s"
-	@echo "... ass5/main.o"
-	@echo "... ass5/main.i"
-	@echo "... ass5/main.s"
-	@echo "... ass5/queue.o"
-	@echo "... ass5/queue.i"
-	@echo "... ass5/queue.s"
-	@echo "... ass5/stack.o"
-	@echo "... ass5/stack.i"
-	@echo "... ass5/stack.s"
-	@echo "... ass5/strings.o"
-	@echo "... ass5/strings.i"
-	@echo "... ass5/strings.s"
+	@echo "... student_list_exmp/StudentItem.o"
+	@echo "... student_list_exmp/StudentItem.i"
+	@echo "... student_list_exmp/StudentItem.s"
+	@echo "... student_list_exmp/StudentList.o"
+	@echo "... student_list_exmp/StudentList.i"
+	@echo "... student_list_exmp/StudentList.s"
+	@echo "... student_list_exmp/main.o"
+	@echo "... student_list_exmp/main.i"
+	@echo "... student_list_exmp/main.s"
+	@echo "... student_list_exmp/student.o"
+	@echo "... student_list_exmp/student.i"
+	@echo "... student_list_exmp/student.s"
 .PHONY : help
 
 
