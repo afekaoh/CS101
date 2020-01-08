@@ -39,10 +39,12 @@ Queue *initQueue() {
 * \brief the functions freeing all the memory allocating to the queue and sets all the pointers to NULL
 *******************************************************************************************************/
 void destroyQueue(Queue *queue) {
-	destroyStack(queue->s1);
-	destroyStack(queue->s2);
-	free(queue);
-	queue = NULL;
+	if (queue != NULL) {
+		destroyStack(queue->s1);
+		destroyStack(queue->s2);
+		free(queue);
+		queue = NULL;
+	}
 }
 
 /*******************************************************************************************************
@@ -65,7 +67,7 @@ void enqueue(Queue *queue, Element element) {
 }
 
 /**************************************************************************
-* \input: *queue - a pointer to a stack struct;
+* \input: *queue - a pointer to a stack struct
 * \return: element - the element struct that we removed from the queue
 * \brief: the function takes out an element from the queue and returns it.
 **************************************************************************/
@@ -92,12 +94,8 @@ int lenOfQueue(Queue *queue) {
 	return lenOfStack(queue->s1) + lenOfStack(queue->s2);
 }
 
-///returns the potential capacity of the queue
+///returns how much memory is allocated to the queue
 int capacityOfQueue(Queue *queue) {
-	/*
-	 * capacity is how much can you add to the queue which is capacity of s1 which you add elements in
-	 * and how many elements there is in the queue which is in the capacity of s1 and the len of s2
-	 */
-	return capacityOfStack(queue->s1)+lenOfStack(queue->s2);
+	return capacityOfStack(queue->s1) + capacityOfStack(queue->s2);
 }
 

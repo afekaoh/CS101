@@ -2,12 +2,13 @@
 #define __STACK_H
 
 #include "element.h"
+typedef struct Stack Stack;
 
-typedef struct {
+struct Stack {
 	Element *content;
 	int size;
 	int topIndex;
-} Stack;
+};
 
 Stack *initStack();
 

@@ -9,15 +9,16 @@ Adam Shay Shapira
 #include <stdio.h>
 #include "stack.h"
 
-/// enum declaration for the type of parentheses the function deal with
-typedef enum {
-	NONE, SIMPLE, SQUARE, CURLY, TRIANGLE
-} parentheses;
 
-/************************************************************************************************
-* \input ch - char from the string
-* \return if the char is an opening parenthesis the function returns its type and 0 if it's not
-************************************************************************************************/
+/// enum declaration for the type of brackets
+enum BRACKETS {
+	NONE, SIMPLE, SQUARE, CURLY, TRIANGLE
+};
+
+/****************************************************************************************
+* \input ch - char
+* \return if the char is a right bracket the function returns its type and 0 if it's not
+****************************************************************************************/
 int whichOpen(char ch) {
 	switch (ch) {
 		case '(':
@@ -33,10 +34,10 @@ int whichOpen(char ch) {
 	}
 }
 
-/***********************************************************************************************
-* \input ch - char from the string
-* \return if the char is an closing parenthesis the function returns its type and 0 if it's not
-************************************************************************************************/
+/****************************************************************************************
+* \input ch - char
+* \return if the char is a left bracket the function returns its type and 0 if it's not
+****************************************************************************************/
 int whichClose(char ch) {
 	switch (ch) {
 		case ')':
@@ -52,7 +53,7 @@ int whichClose(char ch) {
 	}
 }
 
-/// the function gets 2 chars and checking if they are matching parentheses
+/// the function gets 2 chars and checking if they are matching brackets
 int isMatch(char element, char top) {
 	return whichOpen(top) == whichClose(element);
 }
@@ -81,7 +82,7 @@ int isLegalString(char str[]) {
 		str++;
 	}
 	if (isLegal)
-		//the stack should be empty by now if not it's not legal string
+		//the stack should be empty now for legal strings
 		isLegal = isStackEmpty(stack);
 	destroyStack(stack);
 	return isLegal;

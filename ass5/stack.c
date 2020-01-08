@@ -45,8 +45,9 @@ void destroyStack(Stack *stack) {
 	}
 }
 
-int isFull(Stack *stack) {
-	return capacityOfStack(stack) - lenOfStack(stack) == 0;
+///returns how mach empty space there is in the stack
+int emptySpace(Stack *stack) {
+	return stack->size - lenOfStack(stack);
 }
 
 /************************************************************************************************************
@@ -58,13 +59,13 @@ int isFull(Stack *stack) {
 void push(Stack *stack, Element element) {
 	stack->content[++stack->topIndex] = element;
 	
-	if (isFull(stack)) {
+	if (emptySpace(stack) == 0) {
 		stack->size *= 2;
 		Element *temp = realloc(stack->content, stack->size * sizeof(Element));
 		if (temp == NULL) {
 			printf("heap memory error couldn't allocate memory in: %s, function: %s, line: %d\n", __FILE__, __func__,
 			       __LINE__);
-			//returning the stack to it's original state
+			//returning the size to it's real value
 			stack->size /= 2;
 		} else
 			stack->content = temp;
@@ -79,9 +80,9 @@ void push(Stack *stack, Element element) {
 * 		the function decrease the capacity of the stack by halving it
 ************************************************************************************************/
 Element pop(Stack *stack) {
-	Element tempElement = stack->content[stack->topIndex--];
+	Element popElement = stack->content[stack->topIndex--];
 	
-	if (lenOfStack(stack) == ((capacityOfStack(stack) / 2) - 1)) {
+	if (emptySpace(stack) > (stack->size / 2)) {
 		stack->size /= 2;
 		// leaving just 1 empty spot in the stack
 		assert(stack->size != 0);
@@ -89,12 +90,12 @@ Element pop(Stack *stack) {
 		if (temp == NULL) {
 			printf("heap memory error couldn't allocate memory in: %s, function: %s, line: %d\n", __FILE__, __func__,
 			       __LINE__);
-			//returning the stack to it's original state
+			//returning the stack to it's real value
 			stack->size *= 2;
 		} else
 			stack->content = temp;
 	}
-	return tempElement;
+	return popElement;
 }
 
 /// returns the top element of the stack without changing the stack
@@ -102,12 +103,12 @@ Element top(Stack *stack) {
 	return stack->content[stack->topIndex];
 }
 
-///returns 1 if the stack is empty and 0 if not
 int isStackEmpty(Stack *stack) {
-	return lenOfStack(stack) == 0 ? 1 : 0;
+	//if len of stack is 0 return 1 and 0 otherwise
+	return !lenOfStack(stack);
 }
 
-///returns the potential capacity of the stack
+///returns how much memory is allocated to the content array
 int capacityOfStack(Stack *stack) {
 	return stack->size;
 }
