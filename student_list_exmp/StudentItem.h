@@ -5,18 +5,18 @@
 
 typedef struct StudentItem StudentItem;
 
-StudentItem *createStudentItem(Student *);
+StudentItem* createStudentItem(Student*);
 
-void freeStudentItem(StudentItem *item);
+void freeStudentItem(StudentItem* item);
 
-void switchStudentItems(StudentItem *a, StudentItem *b);
+void switchStudentItems(StudentItem* a, StudentItem* b);
 
-void setNext(StudentItem *std1, StudentItem *std2);
+void setNext(StudentItem* std1, StudentItem* std2);
 
-void setData(StudentItem *std1, Student *std2);
+void setData(StudentItem* std1, Student* std2);
 
-StudentItem *getNext(StudentItem *std1);
+StudentItem* getNext(StudentItem* std1);
 
-void *getData(StudentItem *std1);
+Student* getData(StudentItem* std1);
 
 #endif //HOMEWORK_STUDENTITEM_H

@@ -74,25 +74,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentItem.c">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/binTree.c">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentItem.h">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/binTree.h">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentList.c">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/data.c">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentList.h">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/data.h">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/main.c">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/dictionary.c">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/student.c">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/dictionary.h">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/student.h">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/main.c">
 			<Option target="HomeWork"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/CMakeLists.txt">

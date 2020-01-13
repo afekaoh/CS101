@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentItem.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.o"
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/StudentList.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.o"
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/main.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/main.c.o"
-  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/student_list_exmp/student.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/student_list_exmp/student.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/binTree.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/binTree.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/data.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/data.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/dictionary.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/dictionary.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/main.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

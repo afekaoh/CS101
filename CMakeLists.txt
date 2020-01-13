@@ -3,4 +3,5 @@ project(HomeWork C)
 
 set(CMAKE_C_STANDARD 99)
 #add_executable(HomeWork ass5/main.c ass5/stack.c ass5/queue.c ass5/strings.c ass5/element.c)
-add_executable(HomeWork student_list_exmp/main.c student_list_exmp/student.c student_list_exmp/StudentItem.c student_list_exmp/StudentList.c)
+#add_executable(HomeWork student_list_exmp/main.c student_list_exmp/student.c student_list_exmp/StudentItem.c student_list_exmp/StudentList.c)
+add_executable(HomeWork ass6/main.c ass6/dictionary.c ass6/binTree.c ass6/data.c)

@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.o"
-  "CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.o"
-  "CMakeFiles/HomeWork.dir/student_list_exmp/main.c.o"
-  "CMakeFiles/HomeWork.dir/student_list_exmp/student.c.o"
+  "CMakeFiles/HomeWork.dir/ass6/binTree.c.o"
+  "CMakeFiles/HomeWork.dir/ass6/data.c.o"
+  "CMakeFiles/HomeWork.dir/ass6/dictionary.c.o"
+  "CMakeFiles/HomeWork.dir/ass6/main.c.o"
   "HomeWork.exe"
   "HomeWork.pdb"
   "libHomeWork.dll.a"

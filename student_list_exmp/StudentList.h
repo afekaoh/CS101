@@ -7,24 +7,24 @@
 typedef struct StudentList StudentList;
 
 
-typedef int (*Comparator)(Student *, Student *);
+typedef int (* Comparator)(Student*, Student*);
 
 typedef void (*Apply)();
 
-void for_each(StudentList *list, Apply);
+void for_each(StudentList* list, Apply);
 
-void freeStudentList(StudentList *list);
+void freeStudentList(StudentList* list);
 
-StudentList *newStudentList();
+StudentList* newStudentList();
 
-void add(StudentList *list, Student *newStudent);
+void add(StudentList* list, Student* newStudent);
 
-StudentItem *newIterator(StudentList *list);
+StudentItem* newIterator(StudentList* list);
 
-void printStudentList(StudentList *list);
+void printStudentList(StudentList* list);
 
-void removeStudent(StudentList *list, Student *student);
+void removeStudent(StudentList* list, Student* student);
 
-void bubbleSort(StudentList *list, Comparator);
+void bubbleSort(StudentList* list, Comparator);
 
-#endif //HOMEWORK_STUDENTLIST_H
+#endif //HOMEWORK_STUDENTLIS

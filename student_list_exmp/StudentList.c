@@ -6,24 +6,24 @@
 #include <stdio.h>
 
 struct StudentList {
-	StudentItem *head, *last;
+	StudentItem* head, * last;
 };
 
-void freeStudentList(StudentList *list) {
+void freeStudentList(StudentList* list) {
 	freeStudentItem(list->head); // cool :)
 	free(list);
 }
 
-StudentList *newStudentList() {
-	StudentList *sl = (StudentList *) malloc(sizeof(StudentList));
+StudentList* newStudentList() {
+	StudentList* sl = (StudentList*) malloc(sizeof(StudentList));
 	sl->head = NULL;
 	sl->last = sl->head; // in our case equivalent to sl->last = NULL
 	return sl;
 }
 
 
-void add(StudentList *list, Student *newStudent) {
-	StudentItem *item = createStudentItem(newStudent);
+void add(StudentList* list, Student* newStudent) {
+	StudentItem* item = createStudentItem(newStudent);
 	if (list->head == NULL) {
 		list->head = item;
 		list->last = item;
@@ -33,26 +33,26 @@ void add(StudentList *list, Student *newStudent) {
 	}
 }
 
-void *newIterator(StudentList *list) {
+void* newIterator(StudentList* list) {
 	return list->head;
 }
 
-void printStudentList(StudentList *list) {
+void printStudentList(StudentList* list) {
 	for_each(list, printStudent);
 	printf("\n");
 }
 
-void for_each(StudentList *list, Apply apply) {
-	StudentItem *iterator = newIterator(list);
+void for_each(StudentList* list, Apply apply) {
+	StudentItem* iterator = newIterator(list);
 	while (iterator != NULL) {
 		apply(getData(iterator));
 		iterator = getNext(iterator);
 	}
 }
 
-void removeStudent(StudentList *list, Student *student) {
-	StudentItem *iterator = newIterator(list);
-	StudentItem *previous = NULL;
+void removeStudent(StudentList* list, Student* student) {
+	StudentItem* iterator = newIterator(list);
+	StudentItem* previous = NULL;
 // if this is the first item
 	if (list->head && equal(getData(list->head), student)) {
 		list->head = getNext(iterator);
@@ -78,8 +78,8 @@ void removeStudent(StudentList *list, Student *student) {
 	}
 }
 
-void bubbleSort(StudentList *list, Comparator compare) {
-	StudentItem *i;
+void bubbleSort(StudentList* list, Comparator compare) {
+	StudentItem* i;
 	int switched = 1;
 	while (switched) {
 		switched = 0;

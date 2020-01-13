@@ -123,113 +123,113 @@ HomeWork/fast:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/build
 .PHONY : HomeWork/fast
 
-student_list_exmp/StudentItem.o: student_list_exmp/StudentItem.c.o
+ass6/binTree.o: ass6/binTree.c.o
 
-.PHONY : student_list_exmp/StudentItem.o
-
-# target to build an object file
-student_list_exmp/StudentItem.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.o
-.PHONY : student_list_exmp/StudentItem.c.o
-
-student_list_exmp/StudentItem.i: student_list_exmp/StudentItem.c.i
-
-.PHONY : student_list_exmp/StudentItem.i
-
-# target to preprocess a source file
-student_list_exmp/StudentItem.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.i
-.PHONY : student_list_exmp/StudentItem.c.i
-
-student_list_exmp/StudentItem.s: student_list_exmp/StudentItem.c.s
-
-.PHONY : student_list_exmp/StudentItem.s
-
-# target to generate assembly for a file
-student_list_exmp/StudentItem.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentItem.c.s
-.PHONY : student_list_exmp/StudentItem.c.s
-
-student_list_exmp/StudentList.o: student_list_exmp/StudentList.c.o
-
-.PHONY : student_list_exmp/StudentList.o
+.PHONY : ass6/binTree.o
 
 # target to build an object file
-student_list_exmp/StudentList.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.o
-.PHONY : student_list_exmp/StudentList.c.o
+ass6/binTree.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/binTree.c.o
+.PHONY : ass6/binTree.c.o
 
-student_list_exmp/StudentList.i: student_list_exmp/StudentList.c.i
+ass6/binTree.i: ass6/binTree.c.i
 
-.PHONY : student_list_exmp/StudentList.i
+.PHONY : ass6/binTree.i
 
 # target to preprocess a source file
-student_list_exmp/StudentList.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.i
-.PHONY : student_list_exmp/StudentList.c.i
+ass6/binTree.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/binTree.c.i
+.PHONY : ass6/binTree.c.i
 
-student_list_exmp/StudentList.s: student_list_exmp/StudentList.c.s
+ass6/binTree.s: ass6/binTree.c.s
 
-.PHONY : student_list_exmp/StudentList.s
+.PHONY : ass6/binTree.s
 
 # target to generate assembly for a file
-student_list_exmp/StudentList.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/StudentList.c.s
-.PHONY : student_list_exmp/StudentList.c.s
+ass6/binTree.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/binTree.c.s
+.PHONY : ass6/binTree.c.s
 
-student_list_exmp/main.o: student_list_exmp/main.c.o
+ass6/data.o: ass6/data.c.o
 
-.PHONY : student_list_exmp/main.o
+.PHONY : ass6/data.o
 
 # target to build an object file
-student_list_exmp/main.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/main.c.o
-.PHONY : student_list_exmp/main.c.o
+ass6/data.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/data.c.o
+.PHONY : ass6/data.c.o
 
-student_list_exmp/main.i: student_list_exmp/main.c.i
+ass6/data.i: ass6/data.c.i
 
-.PHONY : student_list_exmp/main.i
+.PHONY : ass6/data.i
 
 # target to preprocess a source file
-student_list_exmp/main.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/main.c.i
-.PHONY : student_list_exmp/main.c.i
+ass6/data.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/data.c.i
+.PHONY : ass6/data.c.i
 
-student_list_exmp/main.s: student_list_exmp/main.c.s
+ass6/data.s: ass6/data.c.s
 
-.PHONY : student_list_exmp/main.s
+.PHONY : ass6/data.s
 
 # target to generate assembly for a file
-student_list_exmp/main.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/main.c.s
-.PHONY : student_list_exmp/main.c.s
+ass6/data.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/data.c.s
+.PHONY : ass6/data.c.s
 
-student_list_exmp/student.o: student_list_exmp/student.c.o
+ass6/dictionary.o: ass6/dictionary.c.o
 
-.PHONY : student_list_exmp/student.o
+.PHONY : ass6/dictionary.o
 
 # target to build an object file
-student_list_exmp/student.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/student.c.o
-.PHONY : student_list_exmp/student.c.o
+ass6/dictionary.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/dictionary.c.o
+.PHONY : ass6/dictionary.c.o
 
-student_list_exmp/student.i: student_list_exmp/student.c.i
+ass6/dictionary.i: ass6/dictionary.c.i
 
-.PHONY : student_list_exmp/student.i
+.PHONY : ass6/dictionary.i
 
 # target to preprocess a source file
-student_list_exmp/student.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/student.c.i
-.PHONY : student_list_exmp/student.c.i
+ass6/dictionary.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/dictionary.c.i
+.PHONY : ass6/dictionary.c.i
 
-student_list_exmp/student.s: student_list_exmp/student.c.s
+ass6/dictionary.s: ass6/dictionary.c.s
 
-.PHONY : student_list_exmp/student.s
+.PHONY : ass6/dictionary.s
 
 # target to generate assembly for a file
-student_list_exmp/student.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/student_list_exmp/student.c.s
-.PHONY : student_list_exmp/student.c.s
+ass6/dictionary.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/dictionary.c.s
+.PHONY : ass6/dictionary.c.s
+
+ass6/main.o: ass6/main.c.o
+
+.PHONY : ass6/main.o
+
+# target to build an object file
+ass6/main.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/main.c.o
+.PHONY : ass6/main.c.o
+
+ass6/main.i: ass6/main.c.i
+
+.PHONY : ass6/main.i
+
+# target to preprocess a source file
+ass6/main.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/main.c.i
+.PHONY : ass6/main.c.i
+
+ass6/main.s: ass6/main.c.s
+
+.PHONY : ass6/main.s
+
+# target to generate assembly for a file
+ass6/main.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/main.c.s
+.PHONY : ass6/main.c.s
 
 # Help Target
 help:
@@ -240,18 +240,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... HomeWork"
 	@echo "... edit_cache"
-	@echo "... student_list_exmp/StudentItem.o"
-	@echo "... student_list_exmp/StudentItem.i"
-	@echo "... student_list_exmp/StudentItem.s"
-	@echo "... student_list_exmp/StudentList.o"
-	@echo "... student_list_exmp/StudentList.i"
-	@echo "... student_list_exmp/StudentList.s"
-	@echo "... student_list_exmp/main.o"
-	@echo "... student_list_exmp/main.i"
-	@echo "... student_list_exmp/main.s"
-	@echo "... student_list_exmp/student.o"
-	@echo "... student_list_exmp/student.i"
-	@echo "... student_list_exmp/student.s"
+	@echo "... ass6/binTree.o"
+	@echo "... ass6/binTree.i"
+	@echo "... ass6/binTree.s"
+	@echo "... ass6/data.o"
+	@echo "... ass6/data.i"
+	@echo "... ass6/data.s"
+	@echo "... ass6/dictionary.o"
+	@echo "... ass6/dictionary.i"
+	@echo "... ass6/dictionary.s"
+	@echo "... ass6/main.o"
+	@echo "... ass6/main.i"
+	@echo "... ass6/main.s"
 .PHONY : help
 
 
