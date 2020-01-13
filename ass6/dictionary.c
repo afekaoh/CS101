@@ -31,24 +31,23 @@ int sizeOfDictionary(Dictionary* d) {
 }
 
 Result putInDictionary(Dictionary* d, int key, int value) {
-	Data* data = initData();
-	if (data == NULL)
+	Data* newData = initData();
+	if (newData == NULL)
 		return MEM_ERROR;
-	setData(data, key, value);
-	Result result = addToBinTree(d->binTree, data);
+	setData(newData, key, value);
+	Result result = addToBinTree(d->binTree, newData);
 	return result;
 }
 
 int getFromDictionary(Dictionary* d, int key) {
-	BinTree* leaf = findInBinTree(d->binTree, key);
-	if (leaf == NULL)
+	Data* data = getData(findInBinTree(d->binTree, key));
+	if (data == NULL)
 		return FAILURE;
-	return getValue(getData(leaf));
+	return getValue(data);
 }
 
 Result removeFromDictionary(Dictionary* d, int key) {
-	Result result = removeFromBinTree(d->binTree, key);
-	return result;
+	return removeFromBinTree(&d->binTree, NULL, key);
 }
 
 void printDictionary(Dictionary* d) {

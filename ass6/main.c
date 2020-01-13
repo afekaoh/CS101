@@ -16,13 +16,13 @@ int main() {
 	
 	putInDictionary(dictionary, 1, 2);
 	showDictionary(dictionary);
-
-//	removeFromDictionary(dictionary, 1);
-//	showDictionary(dictionary);
-//
-//	removeFromDictionary(dictionary, 1);
-//	showDictionary(dictionary);
-//
+	
+	removeFromDictionary(dictionary, 1);
+	showDictionary(dictionary);
+	
+	removeFromDictionary(dictionary, 1);
+	showDictionary(dictionary);
+	
 	printf("43: %d\n", getFromDictionary(dictionary, 43));
 	showDictionary(dictionary);
 	
@@ -37,6 +37,8 @@ int main() {
 	
 	int value = getFromDictionary(dictionary, 43);
 	printf("43: %d\n", value);
+	value = getFromDictionary(dictionary, 12);
+	printf("12: %d\n", value);
 	showDictionary(dictionary);
 	
 	removeFromDictionary(dictionary, -12);

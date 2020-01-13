@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "data.h"
 #include <stdio.h>
+#include <assert.h>
 
 struct BinTree {
 	Data* data;
@@ -37,6 +38,11 @@ void destroyBinTree(BinTree* root) {
 	free(root);
 }
 
+static int isLeaf(BinTree* root) {
+	assert(root != NULL);
+	return root->left == NULL && root->right == NULL;
+}
+
 static BinTree* createLeaf(Data* data) {
 	BinTree* leaf = malloc(sizeof(BinTree));
 	if (leaf == NULL) {
@@ -49,62 +55,138 @@ static BinTree* createLeaf(Data* data) {
 	return leaf;
 }
 
-static int isLeaf(BinTree* root) {
-	return root->right == NULL && root->left == NULL ? 1 : 0;
-}
-
 int sizeOfBinTree(BinTree* root) {
 	if (root == NULL)
 		return 0;
-	if (isLeaf(root))
-		return 1;
-	return sizeOfBinTree(root->left) + sizeOfBinTree(root->right);
+	
+	return (root->data != NULL) + sizeOfBinTree(root->left) + sizeOfBinTree(root->right);
 }
 
-Result addToBinTree(BinTree* root, Data* d) {
+Result addToBinTree(BinTree* root, Data* newData) {
 	if (root == NULL)
 		return FAILURE;
-	if (root->data == NULL)
-		root->data = d;
 	
-	if (getIndex(root->data) == getIndex(d)) {
+	if (root->data == NULL) {
+		root->data = newData;
+		return SUCCESS;
+	}
+	if (getIndex(root->data) == getIndex(newData)) {
 		destroyData(root->data);
-		root->data = d;
+		root->data = newData;
 		return SUCCESS;
 	}
 	
-	if (getIndex(root->data) > getIndex(d)) {
+	if (getIndex(root->data) > getIndex(newData)) {
 		if (root->left == NULL) {
-			root->left = createLeaf(d);
+			root->left = createLeaf(newData);
 			return root->left == NULL ? MEM_ERROR : SUCCESS;
 		} else
-			return addToBinTree(root->left, d);
+			return addToBinTree(root->left, newData);
 	}
 	
-	if (getIndex(root->data) < getIndex(d)) {
+	if (getIndex(root->data) < getIndex(newData)) {
 		if (root->right == NULL) {
-			root->right = createLeaf(d);
+			root->right = createLeaf(newData);
 			return root->right == NULL ? MEM_ERROR : SUCCESS;
 		} else
-			return addToBinTree(root->right, d);
+			return addToBinTree(root->right, newData);
 	}
 	return FAILURE;
 }
 
 BinTree* findInBinTree(BinTree* root, int key) {
 	if (root != NULL) {
+		if (root->data == NULL)
+			return NULL;
 		if (getIndex(root->data) == key)
 			return root;
-		if (getIndex(root->data) < key)
-			return findInBinTree(root->left, key);
 		if (getIndex(root->data) > key)
+			return findInBinTree(root->left, key);
+		if (getIndex(root->data) < key)
 			return findInBinTree(root->right, key);
 	}
 	return NULL;
 }
 
-Result removeFromBinTree(BinTree* root, int key) {
-	return SUCCESS;
+static BinTree* findMax(BinTree* root) {
+	if (root == NULL)
+		return NULL;
+	BinTree* iterator = root;
+	while (iterator->right != NULL)
+		iterator = iterator->right;
+	return iterator;
+}
+
+static BinTree* findMin(BinTree* root) {
+	if (root == NULL)
+		return NULL;
+	BinTree* iterator = root;
+	while (iterator->left != NULL)
+		iterator = iterator->left;
+	return iterator;
+}
+
+static void switchData(BinTree* leaf1, BinTree* leaf2) {
+	Data* temp = leaf1->data;
+	leaf1->data = leaf2->data;
+	leaf2->data = temp;
+}
+
+static BinTree* findParent(BinTree* root, BinTree* leaf) {
+	if (root == NULL || isLeaf(root))
+		return NULL;
+	if (root->left == leaf || root->right == leaf)
+		return root;
+	if (getIndex(root->data) > getIndex(leaf->data))
+		return findParent(root->left, leaf);
+	if (getIndex(root->data) < getIndex(leaf->data))
+		return findParent(root->right, leaf);
+	return NULL;
+}
+
+Result removeFromBinTree(BinTree** head, BinTree* parent, int key) {
+	BinTree* root = *head;
+	if (root == NULL)
+		return FAILURE;
+	
+	if (getIndex(root->data) > key)
+		return removeFromBinTree(&(root->left), root, key);
+	
+	if (getIndex(root->data) < key)
+		return removeFromBinTree(&(root->right), root, key);
+	
+	if (getIndex(root->data) == key) {
+		if (parent == NULL) {
+			destroyBinTree(root);
+			*head = NULL;
+			return SUCCESS;
+		}
+		if (root->left == NULL) {
+			if (parent->right == root)
+				parent->right = root->right;
+			else
+				parent->left = root->right;
+			
+			root->right = NULL;
+			destroyBinTree(root);
+			return SUCCESS;
+		}
+		if (root->right == NULL) {
+			if (parent->right == root)
+				parent->right = root->left;
+			else
+				parent->left = root->left;
+			
+			root->left = NULL;
+			destroyBinTree(root);
+			return SUCCESS;
+		}
+		
+		BinTree* temp = findMax(root->left);
+		switchData(root, temp);
+		return removeFromBinTree(&temp, findParent(root, temp), key);
+	}
+	return FAILURE;
 }
 
 void print_BinTree_In_Order(BinTree* root) {
@@ -138,5 +220,7 @@ BinTree* createBinTreeFromArrays(int keys[], int values[], int size) {
 }
 
 Data* getData(BinTree* root) {
+	if (root == NULL)
+		return NULL;
 	return root->data;
 }

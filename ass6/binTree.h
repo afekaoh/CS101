@@ -16,7 +16,7 @@ Result addToBinTree(BinTree* head, Data*);
 
 BinTree* findInBinTree(BinTree* head, int key);
 
-Result removeFromBinTree(BinTree* head, int key);
+Result removeFromBinTree(BinTree** root, BinTree* parent, int key);
 
 void print_BinTree_In_Order(BinTree* root);
 
