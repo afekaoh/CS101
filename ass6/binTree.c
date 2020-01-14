@@ -52,14 +52,14 @@ static int isChildless(BinTree* root) {
 * \brief the function creates a leaf, allocates memory to him, initialize it's fields and returns it
 * \note this function is parallel to initBinTree but with data input
 **/
-static BinTree* createLeaf(Ptr data,BinTreeFunctions functions) {
+static BinTree* createLeaf(Ptr data, BinTreeFunctions functions) {
 	assert(data != NULL);
 	BinTree* leaf = malloc(sizeof(BinTree));
 	if (leaf == NULL) {
 		printf("memory error:%s:%s:%d\n", __FILE__, __func__, __LINE__);
 		return NULL;
 	}
-	leaf->functions=functions;
+	leaf->functions = functions;
 	leaf->data = data;
 	leaf->right = NULL;
 	leaf->left = NULL;
@@ -75,11 +75,11 @@ int sizeOfBinTree(BinTree* root) {
 }
 
 ///the function gets a pointer to BinTree pointer and a Data and add it to the tree or its subtree
-static Result addLeaf(BinTree** root, Ptr data,BinTreeFunctions functions) {
+static Result addLeaf(BinTree** root, Ptr data, BinTreeFunctions functions) {
 	assert(data != NULL);
 	if (*root == NULL) {
 		//there is open space here
-		*root = createLeaf(data,functions);
+		*root = createLeaf(data, functions);
 		return *root == NULL ? MEM_ERROR : SUCCESS;
 	} else
 		//add the data to it's own subtree
@@ -105,12 +105,12 @@ Result addToBinTree(BinTree* root, Ptr data) {
 	
 	int comper = root->functions.compare(root->data, data);
 	if (comper == 0) {
-		destroyData(root->data);
+		root->functions.destroy(root->data);
 		root->data = data;
 		return SUCCESS;
 	}
 	
-	return addLeaf(comper > 0 ? &root->left : &root->right, data,root->functions);
+	return addLeaf(comper > 0 ? &root->left : &root->right, data, root->functions);
 }
 
 /**
@@ -156,7 +156,7 @@ static BinTree* findParent(BinTree* root, BinTree* leaf) {
 		return root;
 	
 	//keep searching
-	return findParent(root->functions.compare(root->data,leaf->data) > 0 ? root->left : root->right, leaf);
+	return findParent(root->functions.compare(root->data, leaf->data) > 0 ? root->left : root->right, leaf);
 }
 
 /**
@@ -236,6 +236,6 @@ void print_BinTree_In_Order(BinTree* root) {
 		return;
 	
 	print_BinTree_In_Order(root->left);
-	printData(root->data);
+	root->functions.print(root->data);
 	print_BinTree_In_Order(root->right);
 }
