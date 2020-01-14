@@ -23,11 +23,11 @@ void destroyBinTree(BinTree* root);
 
 int sizeOfBinTree(BinTree* root);
 
-Result addToBinTree(BinTree* root, Data* data);
+Result addToBinTree(BinTree* root, Ptr data);
 
-Data* findInBinTree(BinTree* root, Data* data);
+Ptr findInBinTree(BinTree* root, Ptr data);
 
-Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Data* data);
+Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Ptr data);
 
 void print_BinTree_In_Order(BinTree* root);
 

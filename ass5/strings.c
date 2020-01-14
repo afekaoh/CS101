@@ -84,6 +84,6 @@ int isLegalString(char str[]) {
 	if (isLegal)
 		//the stack should be empty now for legal strings
 		isLegal = isStackEmpty(stack);
-	destroyStack(stack);
+	//destroyStack(stack);
 	return isLegal;
 }

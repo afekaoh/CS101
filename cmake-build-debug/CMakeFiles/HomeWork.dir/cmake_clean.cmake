@@ -3,9 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/HomeWork.dir/ass6/data.c.o"
   "CMakeFiles/HomeWork.dir/ass6/dictionary.c.o"
   "CMakeFiles/HomeWork.dir/ass6/main.c.o"
-  "HomeWork.exe"
+  "HomeWork"
   "HomeWork.pdb"
-  "libHomeWork.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
