@@ -14,10 +14,11 @@ struct BinTree {
 	Data* data;
 	BinTree* left;
 	BinTree* right;
+	BinTreeFunctions functions;
 };
 
-
-BinTree* initBinTree() {
+///initialize the tree and allocate memory to him
+BinTree* initBinTree(BinTreeFunctions functions) {
 	BinTree* root = malloc(sizeof(BinTree));
 	if (root == NULL) {
 		printf("memory error:%s:%s:%d\n", __FILE__, __func__, __LINE__);
@@ -26,9 +27,11 @@ BinTree* initBinTree() {
 	root->data = NULL;
 	root->left = NULL;
 	root->right = NULL;
+	root->functions = functions;
 	return root;
 }
 
+///freeing all the allocated memory
 void destroyBinTree(BinTree* root) {
 	if (root == NULL)
 		return;
@@ -38,12 +41,19 @@ void destroyBinTree(BinTree* root) {
 	free(root);
 }
 
-static int isLeaf(BinTree* root) {
+///\return if the tree have no children
+static int isChildless(BinTree* root) {
 	assert(root != NULL);
 	return root->left == NULL && root->right == NULL;
 }
 
+/**
+* \input Data* data - the data of the leaf
+* \brief the function creates a leaf, allocates memory to him, initialize it's fields and returns it
+* \note this function is parallel to initBinTree but with data input
+**/
 static BinTree* createLeaf(Data* data) {
+	assert(data != NULL);
 	BinTree* leaf = malloc(sizeof(BinTree));
 	if (leaf == NULL) {
 		printf("memory error:%s:%s:%d\n", __FILE__, __func__, __LINE__);
@@ -55,172 +65,177 @@ static BinTree* createLeaf(Data* data) {
 	return leaf;
 }
 
+///the function compute the size of the tree
 int sizeOfBinTree(BinTree* root) {
 	if (root == NULL)
 		return 0;
-	
+	//if the data is NULL then we dont count the leaf in the tree
 	return (root->data != NULL) + sizeOfBinTree(root->left) + sizeOfBinTree(root->right);
 }
 
-Result addToBinTree(BinTree* root, Data* newData) {
+///the function gets a pointer to BinTree pointer and a Data and add it to the tree or its subtree
+static Result addLeaf(BinTree** root, Data* data) {
+	assert(data != NULL);
+	if (*root == NULL) {
+		//there is open space here
+		*root = createLeaf(data);
+		return *root == NULL ? MEM_ERROR : SUCCESS;
+	} else
+		//add the data to it's own subtree
+		return addToBinTree(*root, data);
+}
+
+/**
+* \input root - the tree to add the data to
+* \input data - the data to add
+* \brief the function gets data and a tree, try to add the data to the tree and
+* 		return if succeeded, failed or got a memory error
+**/
+Result addToBinTree(BinTree* root, Data* data) {
+	assert(data != NULL);
+	
 	if (root == NULL)
 		return FAILURE;
 	
 	if (root->data == NULL) {
-		root->data = newData;
+		root->data = data;
 		return SUCCESS;
 	}
-	if (getIndex(root->data) == getIndex(newData)) {
+	
+	int comper = root->functions.compare(root->data, data);
+	if (comper == 0) {
 		destroyData(root->data);
-		root->data = newData;
+		root->data = data;
 		return SUCCESS;
 	}
 	
-	if (getIndex(root->data) > getIndex(newData)) {
-		if (root->left == NULL) {
-			root->left = createLeaf(newData);
-			return root->left == NULL ? MEM_ERROR : SUCCESS;
-		} else
-			return addToBinTree(root->left, newData);
-	}
+	return addLeaf(comper > 0 ? &root->left : &root->right, data);
+}
+
+/**
+* \input root - the tree we search in
+* \input Data* data - the data we search for
+* \brief the function return the data given that it finds or null if not
+**/
+Data* findInBinTree(BinTree* root, Data* data) {
+	if (root == NULL || root->data == NULL)
+		return NULL;
+	int comper = root->functions.compare(root->data, data);
+	if (comper == 0)
+		return root->data;
+	return findInBinTree(comper > 0 ? root->left : root->right, data);
 	
-	if (getIndex(root->data) < getIndex(newData)) {
-		if (root->right == NULL) {
-			root->right = createLeaf(newData);
-			return root->right == NULL ? MEM_ERROR : SUCCESS;
-		} else
-			return addToBinTree(root->right, newData);
-	}
-	return FAILURE;
 }
 
-BinTree* findInBinTree(BinTree* root, int key) {
-	if (root != NULL) {
-		if (root->data == NULL)
-			return NULL;
-		if (getIndex(root->data) == key)
-			return root;
-		if (getIndex(root->data) > key)
-			return findInBinTree(root->left, key);
-		if (getIndex(root->data) < key)
-			return findInBinTree(root->right, key);
-	}
-	return NULL;
-}
-
+///the function find the leaf with the maximum index
 static BinTree* findMax(BinTree* root) {
 	if (root == NULL)
 		return NULL;
 	BinTree* iterator = root;
 	while (iterator->right != NULL)
+		//the largest index in the tree is the most right leaf
 		iterator = iterator->right;
 	return iterator;
 }
 
-static BinTree* findMin(BinTree* root) {
-	if (root == NULL)
-		return NULL;
-	BinTree* iterator = root;
-	while (iterator->left != NULL)
-		iterator = iterator->left;
-	return iterator;
-}
-
+///switching the data between 2 leaves
 static void switchData(BinTree* leaf1, BinTree* leaf2) {
 	Data* temp = leaf1->data;
 	leaf1->data = leaf2->data;
 	leaf2->data = temp;
 }
 
+///the function find for a given tree his parent tree
 static BinTree* findParent(BinTree* root, BinTree* leaf) {
-	if (root == NULL || isLeaf(root))
+	if (root == NULL || isChildless(root))
+		//if we fot to a leaf
 		return NULL;
+	
 	if (root->left == leaf || root->right == leaf)
+		//if root points to the leaf
 		return root;
-	if (getIndex(root->data) > getIndex(leaf->data))
-		return findParent(root->left, leaf);
-	if (getIndex(root->data) < getIndex(leaf->data))
-		return findParent(root->right, leaf);
-	return NULL;
+	
+	//keep searching root->functions.compare(root->data,leaf->data)
+	return findParent(comperData(root->data, leaf->data) > 0 ? root->left : root->right, leaf);
 }
 
-Result removeFromBinTree(BinTree** head, BinTree* parent, int key) {
-	BinTree* root = *head;
+/**
+*\input BinTree* root - the tree that we want to remove the data from
+*\input Data* data - the data to be removed
+*\return if it succeeded to remove or not
+*\brief the function gets a tree, find the node before him in inOrder form,
+* 		replace them and remove the unwanted one
+*/
+static Result recursiveRemove(BinTree* root, Data* data) {
+	BinTree* temp = findMax(root->left);
+	BinTree* parent = findParent(root, temp);
+	switchData(root, temp);
+	return removeFromBinTree(&temp, parent, data);
+}
+
+/**
+* \input BinTree* parent - the tree that points to the toRemove
+* \input BinTree* toRemove  - the node we want to be remove
+* \input BinTree* child - the tree that toRemove points to
+* \return succession
+* \note the function assumes that toRemove have at most 1 child
+**/
+static Result removeLeaf(BinTree* parent, BinTree* toRemove, BinTree* child) {
+	// remove the toRemove from the tree
+	parent->left == toRemove ? (parent->left = child) : (parent->right = child);
+	// remove the child tree from the toRemove tree
+	toRemove->left == child ? (toRemove->left = NULL) : (toRemove->right = NULL);
+	
+	destroyBinTree(toRemove);
+	return SUCCESS;
+}
+
+/**
+* \input BinTree** rootPtr - a pointer to a root
+* \input parent - the parent of the root (if the root it the main root of the tree his parent is NULL)
+* \input Data* data - the data we want to remove
+* \return if it succeeded or failed (couldn't find) to remove the data
+*/
+Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Data* data) {
+	BinTree* root = *rootPtr;
 	if (root == NULL)
 		return FAILURE;
 	
-	if (getIndex(root->data) > key)
-		return removeFromBinTree(&(root->left), root, key);
-	
-	if (getIndex(root->data) < key)
-		return removeFromBinTree(&(root->right), root, key);
-	
-	if (getIndex(root->data) == key) {
-		if (parent == NULL) {
+	//finding the node to be removed
+	int comper = root->functions.compare(root->data, data);
+	if (comper > 0)
+		return removeFromBinTree(&root->left, root, data);
+	if (comper < 0)
+		return removeFromBinTree(&root->right, root, data);
+	if (parent == NULL) {
+		//if the node has no parent it's the root of the tree
+		if (isChildless(root)) {
+			//it's lonely tree
 			destroyBinTree(root);
-			*head = NULL;
+			*rootPtr = NULL;
 			return SUCCESS;
-		}
-		if (root->left == NULL) {
-			if (parent->right == root)
-				parent->right = root->right;
-			else
-				parent->left = root->right;
-			
-			root->right = NULL;
-			destroyBinTree(root);
-			return SUCCESS;
-		}
-		if (root->right == NULL) {
-			if (parent->right == root)
-				parent->right = root->left;
-			else
-				parent->left = root->left;
-			
-			root->left = NULL;
-			destroyBinTree(root);
-			return SUCCESS;
-		}
-		
-		BinTree* temp = findMax(root->left);
-		switchData(root, temp);
-		return removeFromBinTree(&temp, findParent(root, temp), key);
+		} else
+			return recursiveRemove(root, data);
 	}
-	return FAILURE;
+	
+	//case of at most 1 child
+	if (root->left == NULL)
+		return removeLeaf(parent, root, root->right);
+	if (root->right == NULL)
+		return removeLeaf(parent, root, root->left);
+	
+	//the tree has 2 children
+	return recursiveRemove(root, data);
 }
 
+///the function prints the tree in order of it's indices
 void print_BinTree_In_Order(BinTree* root) {
 	if (root == NULL)
 		return;
 	if (root->data == NULL)
 		return;
+	
 	print_BinTree_In_Order(root->left);
 	printData(root->data);
 	print_BinTree_In_Order(root->right);
-}
-
-BinTree* createBinTreeFromArrays(int keys[], int values[], int size) {
-	BinTree* root = initBinTree();
-	if (root == NULL)
-		return NULL;
-	for (int i = 0; i < size; i++) {
-		Data* data = initData();
-		if (data == NULL) {
-			destroyBinTree(root);
-			return NULL;
-		}
-		setData(data, keys[i], values[i]);
-		if (addToBinTree(root, data) == MEM_ERROR) {
-			destroyData(data);
-			destroyBinTree(root);
-			return NULL;
-		}
-	}
-	return root;
-}
-
-Data* getData(BinTree* root) {
-	if (root == NULL)
-		return NULL;
-	return root->data;
 }

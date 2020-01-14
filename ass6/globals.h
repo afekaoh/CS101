@@ -2,7 +2,7 @@
 #ifndef HOMEWORK_GLOBALS_H
 #define HOMEWORK_GLOBALS_H
 
-typedef enum {
+typedef enum Result {
 	FAILURE, SUCCESS, MEM_ERROR
 } Result;
 

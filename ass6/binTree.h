@@ -4,24 +4,31 @@
 #include "globals.h"
 #include "data.h"
 
+///implantation of a generic binary search tree with indexed data
 typedef struct BinTree BinTree;
+typedef void* Ptr;
 
-BinTree* initBinTree();
+typedef struct {
+	void (* destroy)(Ptr);
+	
+	int (* compare)(Ptr, Ptr);
+	
+	void (* print)(Ptr);
+} BinTreeFunctions;
 
-void destroyBinTree(BinTree* head);
 
-int sizeOfBinTree(BinTree* head);
+BinTree* initBinTree(BinTreeFunctions functions);
 
-Result addToBinTree(BinTree* head, Data*);
+void destroyBinTree(BinTree* root);
 
-BinTree* findInBinTree(BinTree* head, int key);
+int sizeOfBinTree(BinTree* root);
 
-Result removeFromBinTree(BinTree** root, BinTree* parent, int key);
+Result addToBinTree(BinTree* root, Data* data);
+
+Data* findInBinTree(BinTree* root, Data* data);
+
+Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Data* data);
 
 void print_BinTree_In_Order(BinTree* root);
-
-Data* getData(BinTree* head);
-
-BinTree* createBinTreeFromArrays(int keys[], int values[], int size);
 
 #endif //HOMEWORK_BINTREE_H
