@@ -150,33 +150,6 @@ ass6/binTree.c.s:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/binTree.c.s
 .PHONY : ass6/binTree.c.s
 
-ass6/data.o: ass6/data.c.o
-
-.PHONY : ass6/data.o
-
-# target to build an object file
-ass6/data.c.o:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/data.c.o
-.PHONY : ass6/data.c.o
-
-ass6/data.i: ass6/data.c.i
-
-.PHONY : ass6/data.i
-
-# target to preprocess a source file
-ass6/data.c.i:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/data.c.i
-.PHONY : ass6/data.c.i
-
-ass6/data.s: ass6/data.c.s
-
-.PHONY : ass6/data.s
-
-# target to generate assembly for a file
-ass6/data.c.s:
-	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/data.c.s
-.PHONY : ass6/data.c.s
-
 ass6/dictionary.o: ass6/dictionary.c.o
 
 .PHONY : ass6/dictionary.o
@@ -203,6 +176,33 @@ ass6/dictionary.s: ass6/dictionary.c.s
 ass6/dictionary.c.s:
 	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/dictionary.c.s
 .PHONY : ass6/dictionary.c.s
+
+ass6/entry.o: ass6/entry.c.o
+
+.PHONY : ass6/entry.o
+
+# target to build an object file
+ass6/entry.c.o:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/entry.c.o
+.PHONY : ass6/entry.c.o
+
+ass6/entry.i: ass6/entry.c.i
+
+.PHONY : ass6/entry.i
+
+# target to preprocess a source file
+ass6/entry.c.i:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/entry.c.i
+.PHONY : ass6/entry.c.i
+
+ass6/entry.s: ass6/entry.c.s
+
+.PHONY : ass6/entry.s
+
+# target to generate assembly for a file
+ass6/entry.c.s:
+	$(MAKE) -f CMakeFiles/HomeWork.dir/build.make CMakeFiles/HomeWork.dir/ass6/entry.c.s
+.PHONY : ass6/entry.c.s
 
 ass6/main.o: ass6/main.c.o
 
@@ -243,12 +243,12 @@ help:
 	@echo "... ass6/binTree.o"
 	@echo "... ass6/binTree.i"
 	@echo "... ass6/binTree.s"
-	@echo "... ass6/data.o"
-	@echo "... ass6/data.i"
-	@echo "... ass6/data.s"
 	@echo "... ass6/dictionary.o"
 	@echo "... ass6/dictionary.i"
 	@echo "... ass6/dictionary.s"
+	@echo "... ass6/entry.o"
+	@echo "... ass6/entry.i"
+	@echo "... ass6/entry.s"
 	@echo "... ass6/main.o"
 	@echo "... ass6/main.i"
 	@echo "... ass6/main.s"

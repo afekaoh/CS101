@@ -7,7 +7,7 @@ void showDictionary(Dictionary* dictionary) {
 	printf("\n");
 }
 
-int main() {
+void main() {
 	Dictionary* dictionary = initDictionary();
 	showDictionary(dictionary);
 	
@@ -28,8 +28,8 @@ int main() {
 	
 	destroyDictionary(dictionary);
 	
-	int keys[] = {7, -61, 43, -12, 14, 97, 0, 12, 14};
-	int values[] = {10, 2, -5, 7, -9, 10, 10, 10, 42};
+	int keys[] = {7, -61, 43, -12, 14, 97, 0, 12};
+	int values[] = {10, 2, -5, 7, -9, 10, 10, 10};
 	int size = sizeof(keys) / sizeof(int);
 	
 	dictionary = createDictionaryFromArrays(keys, values, size);
@@ -37,28 +37,11 @@ int main() {
 	
 	int value = getFromDictionary(dictionary, 43);
 	printf("43: %d\n", value);
-	value = getFromDictionary(dictionary, 12);
-	printf("12: %d\n", value);
 	showDictionary(dictionary);
 	
-	putInDictionary(dictionary, 33, 1);
-	showDictionary(dictionary);
-	
-	putInDictionary(dictionary, 33, 2);
-	showDictionary(dictionary);
-	
-	removeFromDictionary(dictionary, 7);
-	showDictionary(dictionary);
-	
+	removeFromDictionary(dictionary, -12);
 	removeFromDictionary(dictionary, 43);
 	showDictionary(dictionary);
 	
-	removeFromDictionary(dictionary, -61);
-	showDictionary(dictionary);
-	
-	removeFromDictionary(dictionary, 97);
-	showDictionary(dictionary);
-	
 	destroyDictionary(dictionary);
-	return 0;
 }

@@ -80,22 +80,22 @@
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/binTree.h">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/data.c">
-			<Option target="HomeWork"/>
-		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/data.h">
-			<Option target="HomeWork"/>
-		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/dictionary.c">
 			<Option target="HomeWork"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/dictionary.h">
 			<Option target="HomeWork"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/globals.h">
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/entry.c">
+			<Option target="HomeWork"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/entry.h">
 			<Option target="HomeWork"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/main.c">
+			<Option target="HomeWork"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/result.h">
 			<Option target="HomeWork"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/CMakeLists.txt">

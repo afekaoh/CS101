@@ -1,7 +1,7 @@
 #ifndef __DICTIONARY_H
 #define __DICTIONARY_H
 
-#include "globals.h"
+#include "result.h"
 
 typedef struct Dictionary Dictionary;
 

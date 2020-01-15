@@ -4,27 +4,34 @@
  *01
  *ass06
 *******************/
+#include <stdio.h>
+#include <stdlib.h>
 #include "dictionary.h"
 #include "binTree.h"
-#include "globals.h"
-#include <stdlib.h>
-#include "data.h"
-#include <stdio.h>
+#include "result.h"
+#include "entry.h"
+
 
 struct Dictionary {
-	BinTree* binTree;
+	BinTree* BinTree;
+};
+
+///the function for the BinTree
+static const BinTreeFunctions ENTRY_FUNCTIONS = {
+		(void (*)(Type)) destroyEntry,
+		(int (*)(Type, Type)) comperEntry,
+		(void (*)(Type)) printEntry
 };
 
 ///allocating memory and initialize the dictionary
 Dictionary* initDictionary() {
-	BinTreeFunctions functions = {(void*) destroyData, (void*) comperData, (void*) printData};
 	Dictionary* d = malloc(sizeof(Dictionary));
 	if (d == NULL) {
 		printf("memory error:%s:%s:%d\n", __FILE__, __func__, __LINE__);
 		return NULL;
 	}
-	d->binTree = initBinTree(functions);
-	if (d->binTree == NULL) {
+	d->BinTree = initBinTree(ENTRY_FUNCTIONS);
+	if (d->BinTree == NULL) {
 		free(d);
 		return NULL;
 	}
@@ -35,75 +42,76 @@ Dictionary* initDictionary() {
 void destroyDictionary(Dictionary* d) {
 	if (d == NULL)
 		return;
-	destroyBinTree(d->binTree);
+	destroyBinTree(d->BinTree);
 	free(d);
 }
 
-///returns how many element there is in the dictionary
+///returns how many entries there is in the dictionary
 int sizeOfDictionary(Dictionary* d) {
-	return sizeOfBinTree(d->binTree);
+	return sizeOfBinTree(d->BinTree);
 }
 
-///adds a new element to the dictionary
+///adds a new entry to the dictionary
 Result putInDictionary(Dictionary* d, int key, int value) {
-	Data* newData = initData(key, value);
-	if (newData == NULL)
+	Entry* entry = initEntry(key, value);
+	if (entry == NULL)
 		return MEM_ERROR;
-	return addToBinTree(d->binTree, newData);
+	return addToBinTree(d->BinTree, entry);
 }
 
 ///\return the value of a given key and 0 if couldn't find it
 int getFromDictionary(Dictionary* d, int key) {
-	Data* temp = initData(key, 0);
-	Data* data = findInBinTree(d->binTree, temp);
-	if (data == NULL) {
-		data = temp;
+	Entry* temp = initEntry(key, 0);
+	if (temp == NULL)
+		return FAILURE;
+	Entry* entry = findInBinTree(d->BinTree, temp);
+	if (entry == NULL) {
+		entry = temp;
 	}
-	int value = getValue(data);
-	destroyData(temp);
+	int value = getValue(entry);
+	destroyEntry(temp);
 	return value;
 }
 
-///remove an element from the dictionary
+///remove an entry from the dictionary
 Result removeFromDictionary(Dictionary* d, int key) {
-	Data* data = initData(key, 0);
-	if (data == NULL)
+	Entry* entry = initEntry(key, 0);
+	if (entry == NULL)
 		return MEM_ERROR;
-	Result result = removeFromBinTree(&d->binTree, NULL, data);
-	destroyData(data);
+	Result result = removeFromBinTree(&d->BinTree, NULL, entry);
+	destroyEntry(entry);
 	return result;
 }
 
 ///prints the dictionary in by the order of its keys
 void printDictionary(Dictionary* d) {
 	printf("{");
-	if (d->binTree != NULL) {
-		print_BinTree_In_Order(d->binTree);
+	if (d->BinTree != NULL) {
+		print_BinTree_In_Order(d->BinTree);
 	}
-	printf("}\n");
+	printf("}");
 }
 
-///creat a new dictionary from a given arrays of keys and values the function assumes valid input
+///creat a new dictionary from a given arrays of keys and values. the function assumes valid input
 Dictionary* createDictionaryFromArrays(int keys[], int values[], int size) {
-	BinTreeFunctions functions = {(void*) destroyData, (void*) comperData, (void*) printData};
 	Dictionary* d = malloc(sizeof(Dictionary));
 	if (d == NULL) {
 		printf("memory error:%s:%s:%d\n", __FILE__, __func__, __LINE__);
 		return NULL;
 	}
-	d->binTree = initBinTree(functions);
-	if (d->binTree == NULL) {
+	d->BinTree = initBinTree(ENTRY_FUNCTIONS);
+	if (d->BinTree == NULL) {
 		free(d);
 		return NULL;
 	}
 	for (int i = 0; i < size; i++) {
-		Data* data = initData(keys[i], values[i]);
-		if (data == NULL) {
-			destroyBinTree(d->binTree);
+		Entry* entry = initEntry(keys[i], values[i]);
+		if (entry == NULL) {
+			destroyBinTree(d->BinTree);
 			free(d);
 			return NULL;
 		}
-		addToBinTree(d->binTree, data);
+		addToBinTree(d->BinTree, entry);
 	}
 	return d;
 }

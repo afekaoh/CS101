@@ -3,19 +3,18 @@
 
 CMakeFiles/HomeWork.dir/ass6/binTree.c.o: ../ass6/binTree.c
 CMakeFiles/HomeWork.dir/ass6/binTree.c.o: ../ass6/binTree.h
-CMakeFiles/HomeWork.dir/ass6/binTree.c.o: ../ass6/data.h
-CMakeFiles/HomeWork.dir/ass6/binTree.c.o: ../ass6/globals.h
-
-CMakeFiles/HomeWork.dir/ass6/data.c.o: ../ass6/data.c
-CMakeFiles/HomeWork.dir/ass6/data.c.o: ../ass6/data.h
+CMakeFiles/HomeWork.dir/ass6/binTree.c.o: ../ass6/result.h
 
 CMakeFiles/HomeWork.dir/ass6/dictionary.c.o: ../ass6/binTree.h
-CMakeFiles/HomeWork.dir/ass6/dictionary.c.o: ../ass6/data.h
 CMakeFiles/HomeWork.dir/ass6/dictionary.c.o: ../ass6/dictionary.c
 CMakeFiles/HomeWork.dir/ass6/dictionary.c.o: ../ass6/dictionary.h
-CMakeFiles/HomeWork.dir/ass6/dictionary.c.o: ../ass6/globals.h
+CMakeFiles/HomeWork.dir/ass6/dictionary.c.o: ../ass6/entry.h
+CMakeFiles/HomeWork.dir/ass6/dictionary.c.o: ../ass6/result.h
+
+CMakeFiles/HomeWork.dir/ass6/entry.c.o: ../ass6/entry.c
+CMakeFiles/HomeWork.dir/ass6/entry.c.o: ../ass6/entry.h
 
 CMakeFiles/HomeWork.dir/ass6/main.c.o: ../ass6/dictionary.h
-CMakeFiles/HomeWork.dir/ass6/main.c.o: ../ass6/globals.h
 CMakeFiles/HomeWork.dir/ass6/main.c.o: ../ass6/main.c
+CMakeFiles/HomeWork.dir/ass6/main.c.o: ../ass6/result.h
 

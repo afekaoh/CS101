@@ -1,10 +1,10 @@
 #ifndef HOMEWORK_BINTREE_H
 #define HOMEWORK_BINTREE_H
 
-#include "globals.h"
-#include "data.h"
+#include "result.h"
 
-///implantation of a generic binary search tree with indexed data
+typedef void* Type;
+
 typedef struct BinTree BinTree;
 
 typedef struct {
