@@ -17,11 +17,7 @@ struct Dictionary {
 };
 
 ///the function for the BinTree
-static const BinTreeFunctions ENTRY_FUNCTIONS = {
-		(void (*)(Type)) destroyEntry,
-		(int (*)(Type, Type)) comperEntry,
-		(void (*)(Type)) printEntry
-};
+static const BinTreeFunctions ENTRY_FUNCTIONS = {destroyEntry, comperEntry, printEntry};
 
 ///allocating memory and initialize the dictionary
 Dictionary* initDictionary() {

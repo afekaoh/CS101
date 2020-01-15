@@ -14,7 +14,7 @@ struct Entry {
 };
 
 /// \brief the function initialize a new Entry struct
-Entry* initEntry(int key, int value) {
+void* initEntry(int key, int value) {
 	Entry* data = malloc(sizeof(Entry));
 	if (data == NULL) {
 		printf("memory error:%s:%s:%d\n", __FILE__, __func__, __LINE__);
@@ -26,7 +26,7 @@ Entry* initEntry(int key, int value) {
 }
 
 ///freeing the allocated memory
-void destroyEntry(Entry* entry) {
+void destroyEntry(void* entry) {
 	free(entry);
 }
 
@@ -36,16 +36,20 @@ void destroyEntry(Entry* entry) {
 * \return 1 if entry1 is bigger -1 if smaller and 0 if equal to entry2
 * \brief compering the keys of the element
 */
-int comperEntry(Entry* entry1, Entry* entry2) {
-	return entry1->key > entry2->key ? 1 : entry1->key == entry2->key ? 0 : -1;
+int comperEntry(void* entry1, void* entry2) {
+	Entry* e1 = (Entry*) entry1;
+	Entry* e2 = (Entry*) entry2;
+	return e1->key > e2->key ? 1 : e1->key == e2->key ? 0 : -1;
 }
 
 ///\return the value of the entry
-int getValue(Entry* entry) {
-	return entry->value;
+int getValue(void* entry) {
+	Entry* e = (Entry*) entry;
+	return e->value;
 }
 
 /// prints the entry
-void printEntry(Entry* entry) {
-	printf("[%d:%d]", entry->key, entry->value);
+void printEntry(void* entry) {
+	Entry* e = (Entry*) entry;
+	printf("[%d:%d]", e->key, e->value);
 }

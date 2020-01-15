@@ -4,14 +4,14 @@
 
 typedef struct Entry Entry;
 
-Entry* initEntry(int key, int value);
+void* initEntry(int key, int value);
 
-void destroyEntry(Entry*);
+void destroyEntry(void* entry);
 
-int getValue(Entry*);
+int getValue(void* entry);
 
-void printEntry(Entry*);
+void printEntry(void* entry);
 
-int comperEntry(Entry*, Entry*);
+int comperEntry(void* e1, void* e2);
 
 #endif //HOMEWORK_ENTRY_H

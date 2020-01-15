@@ -7,7 +7,7 @@ void showDictionary(Dictionary* dictionary) {
 	printf("\n");
 }
 
-void main() {
+int main() {
 	Dictionary* dictionary = initDictionary();
 	showDictionary(dictionary);
 	
@@ -44,4 +44,5 @@ void main() {
 	showDictionary(dictionary);
 	
 	destroyDictionary(dictionary);
+	return 0;
 }
