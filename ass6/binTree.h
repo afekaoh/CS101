@@ -6,14 +6,13 @@
 
 ///implantation of a generic binary search tree with indexed data
 typedef struct BinTree BinTree;
-typedef void* Ptr;
 
 typedef struct {
-	void (* destroy)(Ptr);
+	void (* destroy)(Type);
 	
-	int (* compare)(Ptr, Ptr);
+	int (* compare)(Type, Type);
 	
-	void (* print)(Ptr);
+	void (* print)(Type);
 } BinTreeFunctions;
 
 
@@ -23,11 +22,11 @@ void destroyBinTree(BinTree* root);
 
 int sizeOfBinTree(BinTree* root);
 
-Result addToBinTree(BinTree* root, Ptr data);
+Result addToBinTree(BinTree* root, Type data);
 
-Ptr findInBinTree(BinTree* root, Ptr data);
+Type findInBinTree(BinTree* root, Type data);
 
-Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Ptr data);
+Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Type data);
 
 void print_BinTree_In_Order(BinTree* root);
 

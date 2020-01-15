@@ -5,7 +5,6 @@
 
 typedef struct Dictionary Dictionary;
 
-
 Dictionary* initDictionary();
 
 void destroyDictionary(Dictionary* d);

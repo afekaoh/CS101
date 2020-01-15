@@ -41,8 +41,22 @@ int main() {
 	printf("12: %d\n", value);
 	showDictionary(dictionary);
 	
+	putInDictionary(dictionary, 33, 1);
+	showDictionary(dictionary);
+	
+	putInDictionary(dictionary, 33, 2);
+	showDictionary(dictionary);
+	
 	removeFromDictionary(dictionary, 7);
+	showDictionary(dictionary);
+	
 	removeFromDictionary(dictionary, 43);
+	showDictionary(dictionary);
+	
+	removeFromDictionary(dictionary, -61);
+	showDictionary(dictionary);
+	
+	removeFromDictionary(dictionary, 97);
 	showDictionary(dictionary);
 	
 	destroyDictionary(dictionary);

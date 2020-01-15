@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/adam-shap/CLionProjects/HomeWork/ass6/binTree.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/binTree.c.o"
-  "/home/adam-shap/CLionProjects/HomeWork/ass6/data.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/data.c.o"
-  "/home/adam-shap/CLionProjects/HomeWork/ass6/dictionary.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/dictionary.c.o"
-  "/home/adam-shap/CLionProjects/HomeWork/ass6/main.c" "/home/adam-shap/CLionProjects/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/main.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/binTree.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/binTree.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/data.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/data.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/dictionary.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/dictionary.c.o"
+  "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/ass6/main.c" "/cygdrive/c/Users/afeka/OneDrive - Bar-Ilan University/CS101/HomeWork/cmake-build-debug/CMakeFiles/HomeWork.dir/ass6/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
