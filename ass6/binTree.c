@@ -17,10 +17,7 @@ struct BinTree {
 };
 
 
-/**
-* \input BinTreeFunctions functions - set of the generic functions of the data
-* \brief the function create a pointer to binary tree allocates memory and sets its fields
-*/
+
 BinTree* initBinTree(BinTreeFunctions functions) {
 	BinTree* root = malloc(sizeof(BinTree));
 	if (root == NULL) {
@@ -34,7 +31,6 @@ BinTree* initBinTree(BinTreeFunctions functions) {
 	return root;
 }
 
-///freeing all the allocated memory
 void destroyBinTree(BinTree* root) {
 	if (root == NULL)
 		return;
@@ -50,7 +46,6 @@ static int isChildless(BinTree* root) {
 	return root->left == NULL && root->right == NULL;
 }
 
-///the function compute the size of the tree
 int sizeOfBinTree(BinTree* root) {
 	if (root == NULL)
 		return 0;
@@ -60,7 +55,6 @@ int sizeOfBinTree(BinTree* root) {
 
 ///the function gets a pointer to BinTree pointer and a Entry and add it to the tree or its subtree
 static Result addLeaf(BinTree** root, Type data, BinTreeFunctions functions) {
-	assert(data != NULL);
 	if (*root == NULL) {
 		//there is free space here
 		*root = initBinTree(functions);
@@ -70,15 +64,8 @@ static Result addLeaf(BinTree** root, Type data, BinTreeFunctions functions) {
 		return addToBinTree(*root, data);
 }
 
-/**
-* \input BinTree* root - the tree to add the data to
-* \input Type data - the data to add
-* \brief the function gets data and a tree, try to add the data to the tree and
-* 		return if succeeded, failed or got a memory error
-**/
+
 Result addToBinTree(BinTree* root, Type data) {
-	assert(data != NULL);
-	
 	if (root == NULL)
 		return FAILURE;
 	
@@ -98,11 +85,7 @@ Result addToBinTree(BinTree* root, Type data) {
 	return addLeaf(comper > 0 ? &root->left : &root->right, data, root->functions);
 }
 
-/**
-* \input BinTree* root - the tree we search in
-* \input Type data - the data we searching for
-* \brief the function return the data given that it finds or null if not
-**/
+
 Type findInBinTree(BinTree* root, Type data) {
 	if (root == NULL || root->data == NULL)
 		return NULL;
@@ -112,17 +95,18 @@ Type findInBinTree(BinTree* root, Type data) {
 	return findInBinTree(comper > 0 ? root->left : root->right, data);
 }
 
-///the function find the leaf with the maximum key
+///the function find the leaf with the maximum data sets by the compare function
 static BinTree* findMax(BinTree* root) {
 	if (root == NULL)
 		return NULL;
 	BinTree* iterator = root;
 	while (iterator->right != NULL)
-		//the largest key in the tree is the most right leaf
+		//the largest tree is the most right leaf
 		iterator = iterator->right;
 	return iterator;
 }
 
+///the function find the leaf with the minimum data sets by the compare function
 static BinTree* findMin(BinTree* root) {
 	if (root == NULL)
 		return NULL;
@@ -143,7 +127,7 @@ static void switchData(BinTree* leaf1, BinTree* leaf2) {
 ///the function find for a given tree his parent tree
 static BinTree* findParent(BinTree* root, BinTree* leaf) {
 	if (root == NULL || isChildless(root))
-		//if we fot to a leaf
+		//the root can't be a parent
 		return NULL;
 	
 	if (root->left == leaf || root->right == leaf)
@@ -163,7 +147,7 @@ static BinTree* findParent(BinTree* root, BinTree* leaf) {
 * \note the function assumes that toRemove have at most 1 child
 **/
 static Result removeLeaf(BinTree* parent, BinTree* toRemove, BinTree* child) {
-	assert(parent != NULL);
+	assert(parent != NULL && toRemove != NULL);
 	// remove the toRemove from the parent tree
 	parent->left == toRemove ? (parent->left = child) : (parent->right = child);
 	// remove the child tree from the toRemove tree
@@ -173,6 +157,7 @@ static Result removeLeaf(BinTree* parent, BinTree* toRemove, BinTree* child) {
 	return SUCCESS;
 }
 
+///the functions deals with the situation we need to remove the actual root of the tree
 static Result removeRoot(BinTree* root) {
 	if (isChildless(root)) {
 		//it's lonely tree
@@ -193,12 +178,6 @@ static Result removeRoot(BinTree* root) {
 	}
 }
 
-/**
-* \input BinTree** rootPtr - a pointer to a root
-* \input parent - the parent of the root (if the root it the main root of the tree his parent is NULL)
-* \input Type data - the data we want to remove
-* \return if it succeeded or failed (couldn't find) to remove the data
-*/
 Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Type data) {
 	BinTree* root = *rootPtr;
 	if (root == NULL || root->data == NULL)
@@ -230,7 +209,6 @@ Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Type data) {
 }
 
 
-///the function prints the tree in order of it's indices
 void print_BinTree_In_Order(BinTree* root) {
 	if (root == NULL)
 		return;
@@ -240,4 +218,28 @@ void print_BinTree_In_Order(BinTree* root) {
 	print_BinTree_In_Order(root->left);
 	root->functions.print(root->data);
 	print_BinTree_In_Order(root->right);
+}
+
+
+void print_BinTree_Pre_Order(BinTree* root) {
+	if (root == NULL)
+		return;
+	if (root->data == NULL)
+		return;
+	
+	root->functions.print(root->data);
+	print_BinTree_Pre_Order(root->left);
+	print_BinTree_Pre_Order(root->right);
+}
+
+void print_BinTree_Post_Order(BinTree* root) {
+	if (root == NULL)
+		return;
+	if (root->data == NULL)
+		return;
+	
+	print_BinTree_Post_Order(root->left);
+	print_BinTree_Post_Order(root->right);
+	root->functions.print(root->data);
+	
 }

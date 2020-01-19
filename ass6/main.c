@@ -20,7 +20,25 @@ int main() {
 	removeFromDictionary(dictionary, 1);
 	showDictionary(dictionary);
 	
+	putInDictionary(dictionary, 1, 10);
+	showDictionary(dictionary);
+	
+	putInDictionary(dictionary, 1, 2);
+	showDictionary(dictionary);
+	
+	putInDictionary(dictionary, 2, 8);
+	showDictionary(dictionary);
+	
+	putInDictionary(dictionary, 5, 42);
+	showDictionary(dictionary);
+	
 	removeFromDictionary(dictionary, 1);
+	showDictionary(dictionary);
+	
+	removeFromDictionary(dictionary, 7);
+	showDictionary(dictionary);
+	
+	removeFromDictionary(dictionary, 5);
 	showDictionary(dictionary);
 	
 	printf("43: %d\n", getFromDictionary(dictionary, 43));
@@ -40,7 +58,12 @@ int main() {
 	showDictionary(dictionary);
 	
 	removeFromDictionary(dictionary, -12);
+	showDictionary(dictionary);
+	
 	removeFromDictionary(dictionary, 43);
+	showDictionary(dictionary);
+	
+	removeFromDictionary(dictionary, 7);
 	showDictionary(dictionary);
 	
 	destroyDictionary(dictionary);
