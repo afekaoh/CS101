@@ -16,8 +16,6 @@ struct BinTree {
 	BinTreeFunctions functions;
 };
 
-
-
 BinTree* initBinTree(BinTreeFunctions functions) {
 	BinTree* root = malloc(sizeof(BinTree));
 	if (root == NULL) {
@@ -209,37 +207,36 @@ Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Type data) {
 }
 
 
-void print_BinTree_In_Order(BinTree* root) {
+void printBinTreeInOrder(BinTree* root) {
 	if (root == NULL)
 		return;
 	if (root->data == NULL)
 		return;
 	
-	print_BinTree_In_Order(root->left);
+	printBinTreeInOrder(root->left);
 	root->functions.print(root->data);
-	print_BinTree_In_Order(root->right);
+	printBinTreeInOrder(root->right);
 }
 
 
-void print_BinTree_Pre_Order(BinTree* root) {
+void printBinTreePreOrder(BinTree* root) {
 	if (root == NULL)
 		return;
 	if (root->data == NULL)
 		return;
 	
 	root->functions.print(root->data);
-	print_BinTree_Pre_Order(root->left);
-	print_BinTree_Pre_Order(root->right);
+	printBinTreePreOrder(root->left);
+	printBinTreePreOrder(root->right);
 }
 
-void print_BinTree_Post_Order(BinTree* root) {
+void printBinTreePostOrder(BinTree* root) {
 	if (root == NULL)
 		return;
 	if (root->data == NULL)
 		return;
 	
-	print_BinTree_Post_Order(root->left);
-	print_BinTree_Post_Order(root->right);
+	printBinTreePostOrder(root->left);
+	printBinTreePostOrder(root->right);
 	root->functions.print(root->data);
-	
 }

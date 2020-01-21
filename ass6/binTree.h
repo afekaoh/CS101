@@ -62,13 +62,13 @@ Type findInBinTree(BinTree* root, Type data);
 ******************************************************************************************************/
 Result removeFromBinTree(BinTree** rootPtr, BinTree* parent, Type data);
 
-///the function prints the tree in InOrder sets by the compare function
-void print_BinTree_In_Order(BinTree* root);
+///the function prints the given tree in InOrder sets by the compare function
+void printBinTreeInOrder(BinTree* root);
 
-///the function prints the tree in PreOrder sets by the compare function
-void print_BinTree_Pre_Order(BinTree* root);
+///the function prints the given tree in PreOrder sets by the compare function
+void printBinTreePreOrder(BinTree* root);
 
-///the function prints the tree in PostOrder sets by the compare function
-void print_BinTree_Post_Order(BinTree* root);
+///the function prints the given tree in PostOrder sets by the compare function
+void printBinTreePostOrder(BinTree* root);
 
 #endif //HOMEWORK_BINTREE_H

@@ -83,7 +83,7 @@ Result removeFromDictionary(Dictionary* d, int key) {
 void printDictionary(Dictionary* d) {
 	printf("{");
 	if (d->BinTree != NULL) {
-		print_BinTree_In_Order(d->BinTree);
+		printBinTreeInOrder(d->BinTree);
 	}
 	printf("}");
 }
